@@ -63,13 +63,26 @@ DESC4<-c("S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS
 
 
 #==============================================================================
-# ECOCADIZ-RECLUTAS as recruitment Index ----
+# ECOCADIZ-RECLUTAS as recruitment Index and natural mortality by age ----
 ESCs5<-c("S1.0_4FLEETS_SelECO_RecIndex",
          "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6")
 
 DESC5<-c("Recruits index",
          "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33",
          "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3 ")
+
+#==============================================================================
+# Fixing catchabilities exercise ----
+ESCs5<-c("S1.0_4FLEETS_q1PEL",
+         "S1.0_4FLEETS_q1ECO",
+         "S1.0_4FLEETS_q1BOCA",
+         "S1.0_4FLEETS_q1ECOREC")
+
+DESC5<-c("Recruits index",
+         "S1.0_4FLEETS + q=1 PELAGO",
+         "S1.0_4FLEETS + q=1 ECOCADIZ",
+         "S1.0_4FLEETS + q=1 BOCADEVA",
+         "S1.0_4FLEETS + q=1 ECOCADIZ-RECLUTAS")
 
 
 

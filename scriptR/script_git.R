@@ -141,3 +141,13 @@ system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, s
 # # (Opcional) Subir los cambios al repositorio remoto
 # system2("git", args = c("push"))
 
+
+# 
+# # Define las carpetas que deseas deshacer del área de staging
+# carpetas <- c("model")
+# 
+# # Construir el comando 'git reset' concatenando las carpetas
+# comando_git <- paste("git reset", paste(carpetas, collapse = " "))
+# 
+# # Ejecutar el comando en el sistema
+# system(comando_git)
