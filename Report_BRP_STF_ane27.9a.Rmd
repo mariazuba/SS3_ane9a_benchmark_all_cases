@@ -1,0 +1,375 @@
+---
+title: "Reference points and short-term forecast for WKBANSP 2024: Anchovy in ICES Subdivision 9a South (ane.27.9a Southern component)"
+author: |
+  María José Zúñiga\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
+  Margarita María Rincón\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
+  Fernando Ramos\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC}
+output:
+ pdf_document: 
+  keep_tex: true
+  extra_dependencies: ["float"]
+header-includes:
+      - \usepackage{booktabs}
+      - \usepackage{geometry}
+  #fig_width: 6
+    # word_document:
+    # fig_caption: yes
+    # reference_docx: "boot/data/sec_04_template.docx"
+toc: false
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+library(png)
+library(grid)
+library(gridExtra)
+library(tidyverse)
+```
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos="h",fig.align = 'center')
+
+```
+
+
+```{r load}
+ESC_model<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("output/brp/",ESC_model,"/brp.Rdata"))
+```
+
+```{r}
+
+ssb_lastyear<- paste0("$SSB_{",last_year,"}$")
+ln_ssb_lastyear<- paste0("$ln(SSB_{",last_year,"})$")
+
+latex_eq1 <- paste0("$\\sigma = \\sqrt{\\ln\\left(1 + \\left(\\frac{\\sigma_{SSB_{",last_year,"}}}{\\mu_{SSB_{",last_year,"}}}\\right)^2\\right)} = \\sqrt{\\ln\\left(1 + \\left(\\frac{", last_sd, "}{", last_value, "}\\right)^2\\right)} = ", round(sigma, 3), "$")
+latex_eq2 <- paste0("$B_{pa} = e^{(1.645\\sigma)}B_{lim}=",round(1.645*sigma,2),"B_{lim}=",round(1.645*sigma,2),"*",round(Blim,0),"$")
+bpa<-exp(1.645*sigma)*Blim
+
+```
+
+
+# Biological Reference points
+
+The methodology applied was the same decided in WKPELA 2018 (page 286 of WKPELA 2018 report (ICES, 2018)) following ICES guidelines for calculation of reference points for category 1 and 2 stocks and the report of the workshop to review the ICES advisory framework for short lived species ICES WKMSYREF5 2017 (ICES, 2017).
+
+According to the above ICES guidelines and the S-R plot characteristics (Figure \ref{fig:stock-recluta}), this stock component can be classified as a “stock type 5” (i.e. stocks showing no evidence of impaired recruitment or with no clear relation between stock and recruitment (no apparent $S-R$ signal)).
+
+```{r fig.cap="\\label{fig:stock-recluta} ane.27.9a Southern stock. Stock-recruit curve. Point colors indicate year, with warmer colors indicating earlier years and cooler colors in showing later years."}
+include_graphics(file.path("report/run/",ESC_model,"/fig_stock-recluta_0.png"))
+
+
+```
+
+According to this classification, $B_{lim}$ estimation is possible according to the standard method and it is assumed to be equal to $Bloss$ ($B_{lim}=B_{loss}$). The value of $B_{loss}$ for the 9a South anchovy corresponds to the estimated $SSB$ in `r min_year` (`r min_value` t),  hence $B_{lim}$ is set at  `r min_value` t. Note that age 1+ individuals ($B_1+$) are assumed as mature i.e. $B_1+$ class is equivalent to Stock Spawning Biomass (SSB). Figure \ref{fig:biological_reference} shows the biological reference point for  spawning biomass. 
+
+<!-- ICES recommends to calculate $B_{pa}$ as follows: $$B_{pa} = e^{(1.645\sigma)} B_{lim},$$ -->
+<!-- where  $\sigma$  is the estimated standard deviation of $ln(SSB)$ in the last year of the assessment, accounting for the uncertainty in $SSB$ for the terminal year. -->
+
+<!-- In that case assuming that `r ssb_lastyear`  and its corresponding standard deviation (sd) are the mean and the sd of a normal distribution, `r ln_ssb_lastyear`  is lognormally distributed with standard deviation as follows: -->
+
+<!-- \quad -->
+
+<!-- `r latex_eq1` -->
+
+<!-- \quad -->
+
+<!-- Then `r latex_eq2` . According to this, $B_{pa}$ is set at `r round(Bpa,0)` t. -->
+
+
+
+```{r fig.cap="\\label{fig:biological_reference} ane.27.9a Southern stock. Time series estimated by the model for spawning biomass (in tons) with Biological reference points"}
+include_graphics(file.path(paste0("output/brp/",ESC_model,"/fig_bpr2.png")))
+```
+
+
+
+\newpage
+# Short-term predictions
+
+SS3 includes a forecast module that enables projections for a specified number of years, linked to the model ending conditions, associated uncertainties, and a specified level of fishing intensity. This tool was used to perform the short-term projections. 
+
+The initial stock size was estimated from the abundance by ages (0-3) on January 1 of the final assessment year, and the spawning stock biomass (SSB) on April 1. Natural mortality and maturity rates remained constant, while selectivity and weight-at-age were averaged over the last three years. 
+
+The probability of SSB in 2025 falling below $B_{lim}$, $p(SSB_{2025} \leq B_{lim})$, was evaluated under different $F_{sq}$ multipliers, using the standard deviation of the model. The evaluated F multipliers ($FMult$) were 0, 1, 1.2, 1.6, and 2. Additionally, an iterative process identified the $FMult$ that would allow achieving a 2024 catch with probabilities of 5% and 50% that SSB in 2025 falls below $B_{lim}$ ($p(SSB_{2025} \leq B_{lim})$ = 0.05 and 0.5, respectively). These multipliers were adjusted according to the projected recruitment scenarios, providing management options based on different levels of fishing mortality.   Tables \ref{tb:stf2} y \ref{tb:stf4} presents the management options derived from the short-term forecasts, evaluated at different fishing mortality levels, corresponding to the catch scenarios described previously.
+
+The Figures \ref{fig:stf1} and \ref{fig:stf2}, shows  two recruitment projection scenarios were considered: the stock-recruitment relationship used in the model to forecast (Table \ref{tb:stf1}) and the geometric mean of the last three years recruitment (Table \ref{tb:stf3}). The *status quo* fishing mortality ($F_{sq}$ = 0.9) was calculated as the average of the last three years by fleet and season.
+
+
+```{r fig.cap="\\label{fig:stf1} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{Beverton-Holt (BH)} stock-recruitment relationship."}
+include_graphics(file.path(paste0("model/stf/SR/",ESC_model,"/fig_forecast.png")))
+```
+
+
+\newpage
+
+```{r fig.cap="\\label{fig:stf2} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{geometric mean} of the last three years recruitment."}
+include_graphics(file.path(paste0("model/stf/GeomRecl/",ESC_model,"/fig_forecast.png")))
+```
+
+```{r}
+library(kableExtra)
+load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+dfSTFSummary$FMult<-dfSTFSummary$Val
+dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
+dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
+dfSTFSummary<-dfSTFSummary %>% mutate(FMult=c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+#dfSTFSummary<-dfSTFSummary[-6,]
+# Crear la tabla sin intentar redondear la columna 'esc'
+table <- dfSTFSummary[, c("FMult", "F_2024", "Rec_2024")]
+
+# Redondear las columnas numéricas (excepto 'esc')
+table[, -1] <- round(table[, -1], 3)
+
+# Crear la tabla con kable
+kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, align = 'lcc',
+      caption = "\\label{tb:stf1}  The table presents apical fishing mortality (F apical 2024), recruitment (Rec) for 2024  estimated as the \\textbf{Beverton-Holt (BH)} stock-recruitment relationship.") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+```
+
+
+\newpage
+
+
+```{r}
+library(kableExtra)
+load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+dfSTFSummary$FMult<-dfSTFSummary$Val
+dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
+dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
+dfSTFSummary<-dfSTFSummary %>% mutate(FMult=c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+#dfSTFSummary<-dfSTFSummary[-7,]
+# Crear la tabla sin intentar redondear la columna 'esc'
+table <- dfSTFSummary[, c("FMult", "F_2024", "Rec_2024")]
+
+# Redondear las columnas numéricas (excepto 'esc')
+table[, -1] <- round(table[, -1], 3)
+
+# Crear la tabla con kable
+kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, align = 'lcc',
+      caption = "\\label{tb:stf3}  The table presents apical fishing mortality (F apical 2024), recruitment (Rec) for 2024  estimated as the \\textbf{geometric mean} of the last three years recruitment") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+```
+
+
+
+<!-- An alternative scenario considered $F_{lim}$ as the fishing mortality that generates a fraction of spawning biomass $B_{lim}/B_0$, based on the stock-recruitment relationship. -->
+```{r}
+library(kableExtra)
+load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+dfSTFSummary$FMult<-dfSTFSummary$Val
+dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
+dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
+dfSTFSummary<-dfSTFSummary %>% mutate(esc=c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+#dfSTFSummary<-dfSTFSummary[-6,]
+# Crear la tabla sin intentar redondear la columna 'esc'
+table <- dfSTFSummary[, c("esc", "Catch_2024","SSB_2024", "SSB_2025", "pBlim_2024", "pBlim_2025")]
+
+# Redondear las columnas numéricas (excepto 'esc')
+table[, -1] <- round(table[, -1], 3)
+names(table)<-c("esc", "Catch2024","SSB2024", "SSB2025", "p(SSB2024<Blim)", "p(SSB2025<Blim)")
+# Crear la tabla con kable
+kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, align = 'lccccc',
+      caption = "\\label{tb:stf2} Short-term management options evaluated for different F multipliers, under the recruitment projection scenario based on the  \\textbf{Beverton-Holt (BH)} stock-recruitment relationship. The table presents, projected catches 2024 in ton, spawning stock biomass (SSB) for 2024 and 2025 in ton, and the probability of SSB falling below $B_{lim}$ in 2024 and 2025.") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+```
+
+\newpage
+
+```{r}
+library(kableExtra)
+load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+dfSTFSummary$FMult<-dfSTFSummary$Val
+dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024/1000000
+dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025/1000000
+dfSTFSummary<-dfSTFSummary %>% mutate(esc=c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+#dfSTFSummary<-dfSTFSummary[-7,]
+# Crear la tabla sin intentar redondear la columna 'esc'
+table <- dfSTFSummary[, c("esc", "Catch_2024","SSB_2024", "SSB_2025", "pBlim_2024", "pBlim_2025")]
+
+# Redondear las columnas numéricas (excepto 'esc')
+table[, -1] <- round(table[, -1], 3)
+names(table)<-c("esc", "Catch2024","SSB2024", "SSB2025", "p(SSB2024<Blim)", "p(SSB2025<Blim)")
+# Crear la tabla con kable
+kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, align = 'lccccc',
+      caption = "\\label{tb:stf4} Short-term management options evaluated for different F multipliers, under the recruitment projection scenario based on the \\textbf{geometric mean} of the last three years recruitment. The table presents, projected catches 2024 in ton, spawning stock biomass (SSB) for 2024 and 2025 in ton, and the probability of SSB falling below $B_{lim}$ in 2024 and 2025.") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+```
+
+
+```{r eval=F}
+ESC_model<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+# Filtrar las filas donde Era es igual a "TIME"
+time_data <- subset(forecastModels$replist1$catage, Era == c("TIME","FORE"))
+
+# Extraer las columnas 0, 1, 2, y 3 del data frame
+catage_time <- time_data[, c("Yr", "Seas", "0", "1", "2", "3")]
+# Agrupar los datos por año (Yr) y sumar las columnas 0, 1, 2, y 3 para cada año
+catage_time_yearly <- aggregate(cbind(`0`, `1`, `2`, `3`) ~ Yr, data = catage_time, sum)
+
+# Calcular la suma de las columnas 0 a 3 para cada fila (por año)
+catage_time_yearly$sum_0_to_3 <- rowSums(catage_time_yearly[, c("0", "1", "2", "3")])
+
+# Calcular la proporción de cada edad respecto a la suma de las columnas 0-3
+catage_time_yearly$proportion_0 <- catage_time_yearly$`0` / catage_time_yearly$sum_0_to_3
+catage_time_yearly$proportion_1 <- catage_time_yearly$`1` / catage_time_yearly$sum_0_to_3
+catage_time_yearly$proportion_2 <- catage_time_yearly$`2` / catage_time_yearly$sum_0_to_3
+catage_time_yearly$proportion_3 <- catage_time_yearly$`3` / catage_time_yearly$sum_0_to_3
+
+
+result2 <- melt(catage_time_yearly[, c("Yr", "proportion_0", "proportion_1", "proportion_2", "proportion_3")], 
+                      id.vars = c("Yr"), 
+                      variable.name = "Age", 
+                      value.name = "Catch")
+
+ggplot(result2, aes(x = Yr, y = Catch, color = factor(Age))) +
+  geom_line() +
+  geom_point() +
+  labs(title = "",
+       x = "Year",
+       y = "Proportion of catch in number",
+       color = "Season") +
+  theme_minimal() +
+  theme(legend.position = "right") +
+  scale_color_discrete(name = "Ages") +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+
+```{r eval=F}
+ESC_model <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+Years <- seq(1989, 2025, 1)
+folder_fmult<-list.files(paste0("model/stf/SR/", ESC_model))
+FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
+
+summary <- list()
+
+for(i in 1:7) {
+  Fmult<-FMult_names[i]
+  # Leer el archivo
+  a <- read.table(paste0("model/stf/SR/", ESC_model, "/", FMult_names[i], "/ss_summary.sso"), 
+                  header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
+  
+  # Crear el dataframe con las columnas que necesitas
+  bt1 <- data.frame(Yr = Years, Btot = a[362:398, 2])
+  
+  # Agregar el dataframe a la lista summary
+  summary[[Fmult]] <- bt1
+
+}
+
+combined_summary <- bind_rows(summary, .id = "FMult")
+
+legend_labels <- c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%"))))
+
+
+ggplot2::ggplot(combined_summary, aes(x = Yr, y = as.numeric(Btot), color = FMult)) +
+  geom_point()+
+  geom_line() + 
+  # Agregar línea negra desde 1989 hasta 2023 para el primer escenario de SSB
+  geom_line(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+            aes(x = Yr, y = as.numeric(Btot)), color = "black", ) + 
+  geom_point(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+           aes(x = Yr, y = as.numeric(Btot)), color = "black") +
+  labs(title = "Total biomass", x = "Año", y = "")+ 
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5),legend.position = "right")+
+  theme(plot.title = element_text(size =8),
+        axis.title = element_text(size = 8),
+        axis.text = element_text(size = 6),
+        strip.text = element_text(size = 8),
+        #axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_text(size = 10, face = "bold"), 
+        legend.text = element_text(size = 8))+
+  theme(legend.title = element_blank()) +
+  # Usar una escala manual de colores y aplicar las etiquetas personalizadas de la leyenda
+  scale_color_manual(values = rainbow(length(unique(combined_summary$FMult))), 
+                     labels = legend_labels) 
+
+```
+
+
+
+```{r eval=F}
+ESC_model <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+Years <- seq(1989, 2025, 1)
+folder_fmult<-list.files(paste0("model/stf/GeomRecl/", ESC_model))
+FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
+summary <- list()
+
+for(i in 1:7) {
+  Fmult<-FMult_names[i]
+  # Leer el archivo
+  a <- read.table(paste0("model/stf/GeomRecl/", ESC_model, "/", FMult_names[i], "/ss_summary.sso"), 
+                  header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
+  
+  # Crear el dataframe con las columnas que necesitas
+  bt1 <- data.frame(Yr = Years, Btot = a[362:398, 2])
+  
+  # Agregar el dataframe a la lista summary
+  summary[[Fmult]] <- bt1
+
+}
+
+combined_summary <- bind_rows(summary, .id = "FMult")
+
+legend_labels <- c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[1:5],1)),
+                          c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[6:7],1),
+                                   c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%"))))
+
+
+ggplot2::ggplot(combined_summary, aes(x = Yr, y = as.numeric(Btot), color = FMult)) +
+  geom_point()+
+  geom_line() + 
+  # Agregar línea negra desde 1989 hasta 2023 para el primer escenario de SSB
+  geom_line(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+            aes(x = Yr, y = as.numeric(Btot)), color = "black", ) + 
+  geom_point(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+           aes(x = Yr, y = as.numeric(Btot)), color = "black") +
+  labs(title = "Total biomass", x = "Año", y = "")+ 
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5),legend.position = "right")+
+  theme(plot.title = element_text(size =8),
+        axis.title = element_text(size = 8),
+        axis.text = element_text(size = 6),
+        strip.text = element_text(size = 8),
+        #axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_text(size = 10, face = "bold"), 
+        legend.text = element_text(size = 8))+
+  theme(legend.title = element_blank()) +
+  # Usar una escala manual de colores y aplicar las etiquetas personalizadas de la leyenda
+  scale_color_manual(values = rainbow(length(unique(combined_summary$FMult))), 
+                     labels = legend_labels) 
+
+```
+
+

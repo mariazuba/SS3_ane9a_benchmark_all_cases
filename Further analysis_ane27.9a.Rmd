@@ -1,0 +1,145 @@
+---
+title: "Further analysis for WKBANSP 2024: Anchovy in ICES Subdivision 9a South (ane.27.9a Southern component)"
+author: |
+  María José Zúñiga\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
+  Margarita María Rincón\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
+  Fernando Ramos\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC}
+output:
+ pdf_document: 
+  keep_tex: true
+  extra_dependencies: ["float"]
+header-includes:
+      - \usepackage{booktabs}
+      - \usepackage{geometry}
+  #fig_width: 6
+    # word_document:
+    # fig_caption: yes
+    # reference_docx: "boot/data/sec_04_template.docx"
+toc: false
+bibliography: "boot/data/report_biblio.bib"
+csl: "boot/data/ices-journal-of-marine-science.csl"
+---
+
+```{r pkgs, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(icesAdvice)
+library(flextable)
+library(FLCore)
+library(officedown)
+library(officer)
+library(TAF)
+library(png)
+library(grid)
+library(gridExtra)
+library(tidyverse)
+```
+
+```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos="H",fig.align = 'center',out.width = "95%" )
+
+```
+
+
+```{r load}
+#ESC_model<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
+#load(paste0("output/brp/",ESC_model,"/brp.Rdata"))
+```
+
+
+In this analysis, alternative scenarios were evaluated to explore adjustments in initial conditions, recruitment standard deviation (sigmaR), selectivity of the *PELAGO* survey, and a prior for the catchability of the *PELAGO* survey, based on the latest scenario ("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix") reviewed at WKBANSP in September 2024, which are described as follows:
+
+- Preliminary reference case model  ("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"): The most recent benchmark scenario considered fleets by season and two selectivity blocks for the *ECOCADIZ* survey. The *ECOCADIZ-RECLUTAS* index was exclusively used to estimate biomass at age 0. Natural mortality for ages 1+ was fixed based on likelihood profiles for M at age 1 and M for ages 2-3. Based on this scenario, the following alternative scenarios were tested:
+
+- S1 ("S1.0_InitCond"): Initial conditions were adjusted assuming the average catch between 1989-1994 for each season.
+
+- S2 ("S1.0_InitCond_sigmaR"): The recruitment standard deviation (sigmaR) was adjusted after 5 iterations, starting from an initial value of 0.6 and converging to the recommended value of sigmaR = 0.33, as specified by the sigma_R_info object in SS3. 
+
+- S3 ("S1.0_InitCond_sigmaR_SelP"): Selectivity was fixed at 1 from age 1 onwards, assuming that PELAGO is a reliable indicator of adult biomass (as indicated by the consistency analysis in the working document, Zúñiga et al., 2024). 
+
+- S4 ("S1.0_InitCond_sigmaR_SelP_qpriorP"):  A normal prior with a standard deviation of 0.1 was applied to PELAGO catchability. 
+
+
+The performance of each scenario is evaluated using key diagnostic metrics [@Carvalho2021]. These include model convergence, ensuring successful optimization; Akaike Information Criterion (AIC) and total likelihood, which quantify the model's overall fit to the data; survey-specific likelihood, reflecting how well the model aligns with survey data; and age composition likelihood, which assesses the fit to observed age structure. Additionally, Root Mean Square Error (RMSE) is calculated for both indices and age composition data to quantify the accuracy of the model’s predictions. Retrospective patterns for spawning stock biomass (SSB) and fishing mortality (Rho_ssb and Rho_f) are also examined. 
+
+The Table  \ref{fig:diagnostic} show the results of the different scenarios show variations in model fit. In scenario S1, adjusting the initial conditions based on the average catches from 1989-1994 resulted in a loss of fit compared to the base scenario. In S2, adjusting the recruitment standard deviation (sigmaR) improved its value to 0.33, but the model encountered difficulties fitting the age composition data from the PELAGO survey. Scenario S3, where PELAGO selectivity was fixed at 1 from age 1+, improved AIC performance but accentuated the retrospective pattern for spawning  biomass (SSB). Finally, scenario S4, applying a normal prior for *PELAGO* catchability, showed the best overall fit (Table  \ref{fig:diagnostic}). 
+
+```{r fig.cap="\\label{fig:diagnostic} ane.27.9a Southern stock. Diagnostics by scenario"}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/tb_Diagstics.png")))
+```
+
+The catchability values estimated in scenario S4 were close to 1 for *PELAGO* (q=1.2), *ECOCADIZ* (q=1.5), and *ECOCADIZ-RECLUTAS* (q=0.6), with a reduction observed for *BOCADEVA* to 2.6. (Figures \ref{fig:catchability}).  
+
+
+```{r fig.cap="\\label{fig:catchability} ane.27.9a Southern stock. Comparison of the estimated catchability parameters for the different surveys indices "}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_catchability2.png")))
+```
+
+\newpage
+
+Figure \ref{fig:indices} compares observed versus expected values for abundance indices, showing that trends remain consistent across all evaluated scenarios, with minor differences in model fit.
+
+```{r fig.cap="\\label{fig:indices} ane.27.9a Southern stock. Comparison of the model fit to the data observed versus expected values of the indices from the surveys of the scenarios evaluated. The vertical lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption."}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_escIndices.png")))
+```
+
+\newpage
+
+Figure \ref{fig:timeseries} presents time series estimates for recruitment, spawning biomass, and fishing mortality. Scenario S4 shows the largest variation, with increases in recruitment and spawning biomass, and a reduction in fishing mortality compared to the other scenarios.
+
+
+```{r fig.cap="\\label{fig:timeseries} ane.27.9a Southern stock. Comparison of the time series estimated by the model for recruitment, spawning biomass, and fishing mortality, of the scenarios evaluated."}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_escVarP.png")))
+```
+
+\newpage
+
+Scenario S4 exhibited the smallest retrospective pattern in terms of Mohn's rho, both for spawning biomass (rho_ssb = 0.05) and fishing mortality (rho_f = -0.08), compared to the other scenarios evaluated  (Figure \ref{fig:retrospective}).
+
+
+```{r fig.cap="\\label{fig:retrospective} ane.27.9a Southern stock. Retrospective analysis of spawning stock biomass (SSB) and fishing mortality (F). The upper panel presents the results from the reference case, while the lower panel illustrates the outcomes from the updated case."}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_retrospective.png")))
+```
+
+\newpage
+
+The jitter analysis in the S4 scenario demonstrated model stability and precision, consistently converging to a global solution within a reasonable range of initial values for all input parameters across the 60 iterations (Figure \ref{fig:jitter}). 
+
+
+```{r fig.cap="\\label{fig:jitter} ane.27.9a Southern stock. The likelihood, SSB and F of the jitters that converged from 60. The figure illustrates the outcomes from the updated case S4."}
+include_graphics(file.path(paste0("Jittering results.png")))
+```
+
+\newpage
+
+Figure \ref{fig:sigmaR} shows the comparison of asymptotic standard errors for the estimated recruitment deviations, the recruitment deviations themselves, and the stock-recruitment curve between the reference and updated cases.  In Scenario 4, initial conditions were adjusted assuming the average catch between 1989 and 1994 for each season, using the sigmaR=0.33 recommended in SS3. Additionally, the recruitment deviations were adjusted. Main recruitment deviations were estimated starting from 1991, while early recruitment deviations were recorded from 1964. The estimated deviations around 2007 were negative, with values below -0.5 in 2009. In contrast, the estimated deviations since 2017 were positive, but from 2021 to 2024, they return to negative values. Both the reference case and Scenario S4 fixed a steepness (h) value of 0.8 for the Beverton-Holt curve. The average age-0 recruitment at un-fished equilibrium spawning biomass (R0) was 16.067 for the reference case and 16.167 for Scenario S4 (on a natural logarithmic scale).
+
+
+```{r fig.cap="\\label{fig:sigmaR} ane.27.9a Southern stock. Comparison  Asymptotic standard errors for the estimated recruitment deviations, Recruitment deviations with 95% intervals,  Stock-recruit curve with labels on first, last, and years with (log) deviations > 0.5. The left panel presents the results from the reference case, while the right panel illustrates the outcomes from the updated case."}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_sigmaR.png")))
+```
+
+\newpage
+
+Scenario S4 assumes a steepness value of 0.8. The likelihood profile (Figure \ref{fig:perfil}) shows a minimum around 0.6, with age composition data favoring values between 0.5 and 0.6, and abundance indices suggesting lower likelihood above 0.9. The fixed value of 0.8 is supported by studies from  @Hsu2024 and @Thorson2020, which are consistent with pelagic species. This value is biologically reasonable for small pelagic species due to their fast growth, early maturity, and short lifespan, allowing them to maintain high reproductive potential at low biomass levels. However, a sensitivity analysis is necessary to assess its impact on the outputs of the newly selected model.
+
+
+```{r fig.cap="\\label{fig:perfil} ane.27.9a Southern stock.Profiling of the steepness. The lines of different colour show the changes on likelihood of different components and in black the total likelihood. The figure illustrates the outcomes from the updated case S4."}
+include_graphics(file.path("Perfil_h.png"))
+```
+
+\newpage
+Figure \ref{fig:selectivity} compares fleet and survey selectivity between the reference and updated cases, highlighting changes in PELAGO survey selectivity.  
+
+```{r fig.cap="\\label{fig:selectivity} ane.27.9a Southern stock. Comparison selectivity by fleets and surveys. The upper panel presents the results from the reference case, while the lower panel illustrates the outcomes from the updated case S4."}
+include_graphics(file.path(paste0("report/run/comparison/Qprior","/fig_selectivity.png")))
+```
+
+
+
+The scenario S4 is recommended as the new base case. 
+
+
+
+
+# References
