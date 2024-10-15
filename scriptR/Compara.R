@@ -1,22 +1,76 @@
 ##############################################################################
-# Compara Escenarios
+# Sensitivity test ----
 ##############################################################################
 
 library(icesTAF)
 library(flextable)
 library(r4ss)
+boot<-"boot/initial/data/run/" 
+list1<-list.files(boot)
+list1
+#==============================================================================
+# Sensitivity test of different selectivity assumptions for the ECOCADIZ survey ----
+ESCs1<-c("S1.0_4FLEETS",
+        "S1.0_4FLEETS_SelECO",                   
+        "S1.0_4FLEETS_SelvarECO")
 
-#'*============================================================================*
-dir.create("report/run/comparison/Qprior", recursive = TRUE)
-path_mod<-"report/run/comparison/Qprior"
+DESC1<-c("logistic fixed for commercial fleet and all surveys",
+         "S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)",
+         "S1.0_4FLEETS + logistic selectivity ECOCADIZ: random-walk (2004-2014) and fixed (2015-2023)")
+#==============================================================================
+# Priors on catchabilities exercise ----
+ESCs2<-c("S4FLEETS_SelECO_Qprior",
+         "S4FLEETS_SelECO_QpriorPelEcoR",
+         "S4FLEETS_SelECO_QpriorEco.Boca",
+         "S4FLEETS_SelECO_QpriorBoca.EcoR",
+         "S4FLEETS_SelECO_QpriorEcoR")
 
-# Create a dataframe with the scenarios
-list.files("boot/initial/data/run/" )
+DESC2<-c("Qprior all surveys",
+         "Qprior PELAGO and ECOCADIZ-RECLUTAS",
+         "Qprior ECOCADIZ and BOCADEVA",
+         "Qprior BOCADEVA and ECOCADIZ-RECLUTAS",
+         "Qprior only ECOCADIZ-RECLUTAS")
 
-#'*============================================================================*
-folder<-"Qprior"
-dir.create(paste0("report/run/comparison/",folder), recursive = TRUE)
-path_mod<-paste0("report/run/comparison/",folder)
+#==============================================================================
+# Sensibility to selectivity and natural mortality assumptions ----
+ESCs3<-c("S4FLEETS_SelECO_Selfleet",
+         "S4FLEETS_SelECO_Mage",
+         "S4FLEETS_SelECO_MageSel",
+         "S4FLEETS_SelECO_MfixSel")
+
+DESC3<-c("Logistic fixed for all commercial fleet",
+         "S1.0_4FLEETS_SelECO + Parameterize age-based fishery selectivity where
+         age-0==0 (for Q1 and Q2 only, estimated for Q3-Q4)",
+         "Estimate M for age-2+",
+         "Combination of S4FLEETS_SelECO_Selfleet and S4FLEETS_SelECO_Mage: 
+         Fishery selectivity and natural mortality",
+         "Combination of S4FLEETS_SelECO_Selfleet and M fix = S4FLEETS_SelECO_Mage:
+         Fishery selectivity and natural mortality fixed"
+)
+
+#==============================================================================
+# Sensitivity to ECOCADIZ-RECLUTAS selectivity ----
+ESCs4<-c("S4FLEETS_SelECO_Selfleet_EcoR",
+         "S1.0_4FLEETS_SelECO_EcoR",
+         "S1.0_4FLEETS_SelECO_EcoR3")
+
+DESC4<-c("S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS 
+         selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
+         "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS 
+         selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
+         "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS 
+         selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated")
+
+
+#==============================================================================
+# ECOCADIZ-RECLUTAS as recruitment Index ----
+ESCs5<-c("S1.0_4FLEETS_SelECO_RecIndex",
+         "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6")
+
+DESC5<-c("Recruits index",
+         "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33",
+         "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3 ")
+
 
 
 ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
@@ -24,6 +78,10 @@ ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
         "S1.0_InitCond_sigmaR",
         "S1.0_InitCond_sigmaR_SelP",
         "S1.0_InitCond_sigmaR_SelP_qpriorP")
+
+
+
+
 
 scenarios <- data.frame(
   Scenario = ESCs,

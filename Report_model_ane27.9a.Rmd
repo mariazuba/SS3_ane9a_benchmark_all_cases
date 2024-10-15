@@ -290,7 +290,7 @@ increment_figure_counter()
 
 
 
-Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter are shown in the control file available in the TAF repository for this stock <!--(https://github.com/ices-taf/2024_ane.27.9a_south_benchmark)-->. The R packages r4ss version `r packageVersion("r4ss")`  [@Taylor2021] and ss3diags version `r packageVersion("ss3diags")` [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in `r R.version.string`.
+Variance estimates for all estimated parameters are calculated from the Hessian matrix. Minimisation of the likelihood is implemented in phases using standard ADMB process. The phases in which estimation will begin for each parameter are shown in the control file available in the TAF repository for this stock (https://github.com/ices-taf/2024_ane.27.9a_south_benchmark). The R packages r4ss version `r packageVersion("r4ss")`  [@Taylor2021] and ss3diags version `r packageVersion("ss3diags")` [@Carvalho2021] were used to process and view model outputs. All analyses were conduction in `r R.version.string`.
 
   
 

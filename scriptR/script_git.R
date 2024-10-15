@@ -18,8 +18,8 @@ commit_message <- paste0("Actualiza boot",fecha_hora)
 commit_message_quoted <- shQuote(commit_message)
 # Ejecutar el comando git commit
 system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
-# (Opcional) Subir los cambios al repositorio remoto
-system2("git", args = c("push"))
+# # (Opcional) Subir los cambios al repositorio remoto
+# system2("git", args = c("push"))
 
 
 #============================================================================
@@ -121,8 +121,8 @@ commit_message <- paste0("Actualizados report/run/", esc[i]," ",fecha_hora)
 commit_message_quoted <- shQuote(commit_message)
 # Ejecutar el comando git commit
 system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
-# (Opcional) Subir los cambios al repositorio remoto
-system2("git", args = c("push"))
+# # (Opcional) Subir los cambios al repositorio remoto
+# system2("git", args = c("push"))
 
 #============================================================================
 # files TAF
@@ -138,6 +138,6 @@ commit_message <- paste0("Actualizados data/run/", esc[i]," ",fecha_hora)
 commit_message_quoted <- shQuote(commit_message)
 # Ejecutar el comando git commit
 system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, stderr = TRUE)
-# (Opcional) Subir los cambios al repositorio remoto
-system2("git", args = c("push"))
+# # (Opcional) Subir los cambios al repositorio remoto
+# system2("git", args = c("push"))
 
