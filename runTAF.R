@@ -29,7 +29,7 @@ library(rmarkdown)
 boot<-"boot/initial/data/run/" 
 list1<-list.files(boot)
 list1
-esc<- "S1.0_InitCond_sigmaR_SelP_qpriorP"
+esc<- "S1.0_InitCond_sigmaR" #(S3)  
 write(esc, file = paste0(boot,"Esc.txt"))
 sourceTAF("bootstrap")
 sourceTAF("data")
@@ -46,16 +46,16 @@ sourceTAF("model_04_stf")
 
 # run reporte.Rmd 
 mkdir("Reports")
-esc<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
+esc<-"S1.0_InitCond_sigmaR"
   
 render("Report_model_ane27.9a.Rmd", 
          output_file = paste0("Report_rmd/Report_model_ane27.9a",esc,".pdf"))
 
-render("Report_BRP_STF_ane27.9a.Rmd", 
-       output_file = paste0("Report_rmd/Report_BRP_STF_ane27.9a",esc,".pdf"))
-
-render("Report_Further_analysis_ane27.9a.Rmd", 
-       output_file = paste0("Report_rmd/Report_Further_analysis_ane27.9a",esc,".pdf"))
+# render("Report_BRP_STF_ane27.9a.Rmd", 
+#        output_file = paste0("Report_rmd/Report_BRP_STF_ane27.9a",esc,".pdf"))
+# 
+# render("Report_Further_analysis_ane27.9a.Rmd", 
+#        output_file = paste0("Report_rmd/Report_Further_analysis_ane27.9a",esc,".pdf"))
 
 #sourceAll()
 
