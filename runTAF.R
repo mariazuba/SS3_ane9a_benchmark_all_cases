@@ -29,7 +29,7 @@ library(rmarkdown)
 boot<-"boot/initial/data/run/" 
 list1<-list.files(boot)
 list1
-esc<- "S1.0_InitCond_sigmaR" #(S3)  
+esc<- "S1.0_InitCond_sigmaR_qpriorP" #"S1.0_InitCond_sigmaR" #(S3)  
 write(esc, file = paste0(boot,"Esc.txt"))
 sourceTAF("bootstrap")
 sourceTAF("data")

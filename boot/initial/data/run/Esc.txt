@@ -1,1 +1,1 @@
-S1.0_InitCond_sigmaR_SelP_qpriorP
+S1.0_InitCond_sigmaR_qpriorP
