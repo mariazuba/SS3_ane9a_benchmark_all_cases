@@ -4,13 +4,7 @@
 ## After:
 
 # Script information ------------------------------------------------------
-# This script automates the preparation of plots and tables for a report based 
-# on the results of SS3 model runs. For each model scenario, the script loads 
-# input and output data, generates a series of plots including temporal data 
-# coverage, growth curves, catches, age compositions, residuals, and more. 
-# Additionally, the script creates summary tables using `flextable` for estimated 
-# parameters, time series, and other key diagnostics. The generated plots and 
-# tables are saved in the `report/run` directory corresponding to each scenario.
+
 
 rm(list=ls())
 run_esc<-"boot/data/run/" 
@@ -941,69 +935,3 @@ save(data, agg_Value2 ,agg_CV,file=paste0(path_rep,"/report.RData"))
  sel_4fleet<-rbind(selectivityQ1,selectivityQ2,selectivityQ3,selectivityQ4)
  
  
- 
- # colnames(selectivity)[1]<-"year"
-# 
-# sel<-reshape::melt(selectivity,id.vars='year')
-# sel_bar<-rowMeans(selectivity[,3:6])
-# 
-# startyr <- output$startyr
-# endyr <- output$endyr
-# aux <- output$derived_quants
-# idx <- match(paste("F_",startyr:(endyr-1),sep=""), aux[,1])
-# aux <- aux[idx, ]
-# 
-# F.dat <- data.frame(Year=startyr:(endyr-1),
-#                     Value=aux$Value,
-#                     CV=aux$StdDev/aux$Value,
-#                     Lower=aux$Value-2*aux$StdDev,
-#                     Upper=aux$Value+2*aux$StdDev,
-#                     param="f apic")
-# 
-# # Fbar.dat <- data.frame(Year=startyr:(endyr-1),
-# #                        Value=aux$Value*sel_bar[-length(sel_bar)],
-# #                        CV=aux$StdDev/aux$Value*sel_bar[-length(sel_bar)],
-# #                        Lower=(aux$Value*sel_bar[-length(sel_bar)])-2*aux$StdDev,
-# #                        Upper=(aux$Value*sel_bar[-length(sel_bar)])+2*aux$StdDev,
-# #                        param="f bar")
-# 
-# aux <- output$derived_quants
-# idx <- match(paste("Recr_",startyr:endyr,sep=""), aux[,1])
-# aux <- aux[idx, ] 
-# rec.dat <- data.frame(Year=startyr:endyr, 
-#                       Value=aux$Value,
-#                       CV=aux$StdDev/aux$Value,
-#                       Lower=aux$Value-2*aux$StdDev,
-#                       Upper=aux$Value+2*aux$StdDev,
-#                       param="rec")
-# 
-# aux <- subset(output$timeseries, Era=="TIME",c("Yr","Seas","Bio_smry"))
-# idx <- grep("SSB_\\d",output$derived_quants$Label)
-# aux$StdDev <- output$derived_quants[idx,"StdDev"]
-# cv <- data.frame(cv=output$derived_quants[idx,"StdDev"]/output$derived_quants[idx,"Value"])
-# cv$Yr <- output$startyr:output$endyr
-# aux <- merge(aux,cv,by="Yr")
-# bio.dat <- data.frame(Year=startyr:endyr, 
-#                       Value=aux$Bio_smry,
-#                       CV=aux$cv,
-#                       Lower=aux$Bio_smry-2*aux$StdDev,
-#                       Upper=aux$Bio_smry+2*aux$StdDev,
-#                       param="bio1plus"
-# )
-# 
-# 
-# ggplot(bio.dat, aes(x = Year,y=Value/1000000)) +
-#   geom_pointrange(aes(ymin = Lower/1000000, ymax = Upper/1000000),
-#                   position = position_dodge(width=.5) ) +
-#   scale_shape_manual(values = c(1, 16)) +
-#   scale_linetype_manual(values = c(2, 1)) +
-#   theme(text = element_text(size = 14),
-#         plot.background =	element_rect(colour = NA, fill = NA),
-#         axis.text.x=element_text(size=14),
-#         axis.text.y=element_text(size=14),
-#         panel.grid.minor.x = element_blank(),
-#         panel.grid.major.x = element_blank(),
-#         panel.grid.minor.y = element_blank(),
-#         legend.position = c(0.9,0.875)) +
-#   labs(x="Year", y="Biomass 1+, million tonnes",shape="Assessment", linetype="Assessment")
-# #ggsave("report/biomass.png",width=12,height = 8)

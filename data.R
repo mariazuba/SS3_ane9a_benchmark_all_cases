@@ -2,16 +2,14 @@
 
 # Read assessment data (after the bootstrap procedure) and write TAF data tables
 
-# Before running the script in folder ./bootstrap/initial/data we have: 
-#         forecast.ss 
-#         control.SS
-#         data.SS
-#         starter.ss
-#         wtatage.ss
+# Before running the script in folder ./boot/data we have: 
+run_esc<-"boot/data/run/" 
+esc<-readLines(paste0(run_esc,"Esc.txt"))
+list.files(paste0(run_esc,esc), full.names = F)
 #         and other files needed later
 # After running the script in folder ./data we have:
 #         inputData.RData with r4ss input object and TAF .csv data tables:
-
+list.files(paste0("data/run/",esc), full.names = F)
 # Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
 
 # Date: 2024/08/30

@@ -26,7 +26,6 @@ getwd()
 mkdir("output")
 mkdir("output/run")
 mkdir("output/retro")
-# mkdir("output/toFLR")
 # mkdir("output/BRP")
 # mkdir("output/STF")
 
@@ -37,14 +36,6 @@ source("output_01_run.R")
 # Outputs from retro ------------------------------------------------------
 
 source("output_02_retro.R")
-
-# Outputs: create FLR objects ---------------------------------------------
-
-#source("output_03_toFLR.R")
-
-# Outputs from BRP (EqSim) -----------------------------------
-
-# Run if needed (takes a long time!)
 
 # source("output_04_brp.R")
 

@@ -1,15 +1,12 @@
-
-
 # Script information ------------------------------------------------------
-# This script automates the process of running a retrospective analysis for SS3 
-# model scenarios. It first loads the necessary libraries and sets the working 
-# directory. For each model scenario, the script creates a corresponding directory
-# in model/retro, copies the input files from the `model/run` directory, 
-# and ensures the SS3 executable is available in the new directory. 
-# The script then runs the retrospective analysis over the specified number of 
-# years (0 to -5) in each scenario's directory. After the analysis is complete,
-# the working directory is restored to its original location.
 
+# run retrospective analysis anchovy 9a South (ICES WKBANSP)
+
+# Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
+
+# Date: 2024
+
+# Load packages -----------------------------------------------------------
 
 
 # run retrospective analysis 
@@ -34,7 +31,6 @@ retro_esc<-paste0(getwd(),"/model/retro/")
 
 list.files(run_esc)
 
-
 run.dir<-paste0(run_esc,esc)
 retro.dir <- paste0(retro_esc,esc)
 
@@ -42,17 +38,27 @@ retro.dir <- paste0(retro_esc,esc)
 system(paste("rm -r", shQuote(retro.dir)))
 
 mkdir(retro.dir)
+
+# Run retrospective analysis ----------------------------------------------
+
+# copy files to the retro directory --
+
 copy_SS_inputs(dir.old = run.dir, 
                dir.new =  retro.dir,
                copy_exe = FALSE,
                verbose = FALSE)
 
-cp("boot/software/ss3", retro.dir )
+# copy ss3 to the retro directory --
+cp("boot/software/ss3_linux", retro.dir )
+
+# do retros from the current year to -4 --
+# this creates and runs all the retros
+
 wd <- retro.dir 
 system(wd)
-system(paste0("chmod 755 ",wd,"/ss3"))
+system(paste0("chmod 755 ",wd,"/ss3_linux"))
 retro(dir = wd, oldsubdir = "", newsubdir = "", 
-      years = 0:-4,exe = "ss3")
+      years = 0:-4,exe = "ss3_linux")
 
 
 # End of script -----------------------------------------------------------

@@ -3,9 +3,9 @@
 # Title: Prepare tables and figures for the report
 
 # Before running the script in folder output we have: 
-#         - XXXX
+
 # After running the script in folder report we have: 
-#         - XXXX
+
 
 # Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
 

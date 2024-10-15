@@ -37,8 +37,6 @@ sourceTAF("model_01_run")
 sourceTAF("output_01_run")
 sourceTAF("report_01_run")
 
-
-
 sourceTAF("model_02_retro")
 sourceTAF("output_02_retro")
 sourceTAF("report_02_retro")
@@ -47,11 +45,17 @@ sourceTAF("model_03_brp")
 sourceTAF("model_04_stf")
 
 # run reporte.Rmd 
-mkdir("Report_rmd")
+mkdir("Reports")
 esc<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
-  render("Report_SS3_quarter_with_age_data_MR_prueba_mod_2.Rmd", 
-         output_file = paste0("Report_rmd/Report_",esc,".pdf"))
+  
+render("Report_model_ane27.9a.Rmd", 
+         output_file = paste0("Report_rmd/Report_model_ane27.9a",esc,".pdf"))
 
+render("Report_BRP_STF_ane27.9a.Rmd", 
+       output_file = paste0("Report_rmd/Report_BRP_STF_ane27.9a",esc,".pdf"))
+
+render("Report_Further_analysis_ane27.9a.Rmd", 
+       output_file = paste0("Report_rmd/Report_Further_analysis_ane27.9a",esc,".pdf"))
 
 #sourceAll()
 

@@ -3,19 +3,13 @@
 # Run stock assessment and retrospective 
 
 # Before running the script in folder data we have: 
-#         natmort.csv
-#         catage.csv
-#         catch.csv
-#         natage_idx_ibts.csv
-#         ntotal_idx_ibts.csv
-#         survey_DEPM.csv
-#         survey_CPUE.csv
-#         waca.csv
-#         west.csv
-#         fecundity.csv
-#         maturity.csv
+run_esc<-"boot/data/run/" 
+esc<-readLines(paste0(run_esc,"Esc.txt"))
+list.files(paste0("data/run/",esc), full.names = F)
+
 # After running the script in folder model we have: 
 #         folders with the assessment run and the retros
+list.files(paste0("model/run/",esc), full.names = F)
 
 # Authors: María José Zúñiga (maria.zuniga@ieo.csic.es) 
 
