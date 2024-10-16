@@ -151,3 +151,12 @@ system2("git", args = c("commit", "-m", commit_message_quoted), stdout = TRUE, s
 # 
 # # Ejecutar el comando en el sistema
 # system(comando_git)
+
+# # Eliminar el archivo gc.log
+# system("rm .git/gc.log")
+# 
+# # Ejecutar git gc para optimizar el repositorio
+# system("git gc")
+# 
+# # Ejecutar git prune para eliminar objetos inalcanzables
+# system("git prune")

@@ -8,37 +8,64 @@ library(r4ss)
 boot<-"boot/initial/data/run/" 
 list1<-list.files(boot)
 list1
+nesc<-length(list1[list1 != "Esc.txt"])
+mkdir("report/run/comparison")
 #==============================================================================
-# Sensitivity test of different selectivity assumptions for the ECOCADIZ survey ----
-ESCs1<-c("S1.0_4FLEETS",
-        "S1.0_4FLEETS_SelECO",                   
-        "S1.0_4FLEETS_SelvarECO")
+title0<- "Initial preliminar model"
 
-DESC1<-c("logistic fixed for commercial fleet and all surveys",
-         "S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)",
+ESCs0<-c("S0",
+         "S1.0_4FLEETS")
+
+DESC0<-c("One fleet for four season (1 fleet, 4 season)",
+         "One fleet by season (4 fleet, 4 season)")
+
+#"Empirical Weight-at-age variable years"
+# "logistic  for commercial fleet and PELAGO, ECOCADIZ, ECOCADIZ-RELUTAS"
+#==============================================================================
+title1<- "Fixed weight at age exercise"
+ESCs1<-c("S1.0_4FLEETS_WatageFix")
+
+DESC1<-c("Empirical Weight-at-age fixed years")
+#==============================================================================
+title2<- "Fixing catchabilities exercise"
+ESCs2<-c("S1.0_4FLEETS_q1PEL",
+         "S1.0_4FLEETS_q1ECO",
+         "S1.0_4FLEETS_q1BOCA",
+         "S1.0_4FLEETS_q1ECOREC")
+
+DESC2<-c("S1.0_4FLEETS + Catchability fixed q=1 PELAGO",
+         "S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ",
+         "S1.0_4FLEETS + Catchability fixed q=1 BOCADEVA",
+         "S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ-RECLUTAS")
+#==============================================================================
+title3<- "Sensitivity test of different selectivity assumptions for the ECOCADIZ survey"
+ESCs3<-c("S1.0_4FLEETS_SelECO",                   
+         "S1.0_4FLEETS_SelvarECO")
+
+DESC3<-c("S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)",
          "S1.0_4FLEETS + logistic selectivity ECOCADIZ: random-walk (2004-2014) and fixed (2015-2023)")
 #==============================================================================
-# Priors on catchabilities exercise ----
-ESCs2<-c("S4FLEETS_SelECO_Qprior",
+title4<-"Priors on catchabilities exercise"
+ESCs4<-c("S4FLEETS_SelECO_Qprior",
          "S4FLEETS_SelECO_QpriorPelEcoR",
          "S4FLEETS_SelECO_QpriorEco.Boca",
          "S4FLEETS_SelECO_QpriorBoca.EcoR",
          "S4FLEETS_SelECO_QpriorEcoR")
 
-DESC2<-c("Qprior all surveys",
+DESC4<-c("Qprior all surveys",
          "Qprior PELAGO and ECOCADIZ-RECLUTAS",
          "Qprior ECOCADIZ and BOCADEVA",
          "Qprior BOCADEVA and ECOCADIZ-RECLUTAS",
          "Qprior only ECOCADIZ-RECLUTAS")
 
 #==============================================================================
-# Sensibility to selectivity and natural mortality assumptions ----
-ESCs3<-c("S4FLEETS_SelECO_Selfleet",
+title5<-"Sensibility to selectivity and natural mortality assumptions "
+ESCs5<-c("S4FLEETS_SelECO_Selfleet",
          "S4FLEETS_SelECO_Mage",
          "S4FLEETS_SelECO_MageSel",
          "S4FLEETS_SelECO_MfixSel")
 
-DESC3<-c("Logistic fixed for all commercial fleet",
+DESC5<-c("Logistic fixed for all commercial fleet",
          "S1.0_4FLEETS_SelECO + Parameterize age-based fishery selectivity where
          age-0==0 (for Q1 and Q2 only, estimated for Q3-Q4)",
          "Estimate M for age-2+",
@@ -49,80 +76,151 @@ DESC3<-c("Logistic fixed for all commercial fleet",
 )
 
 #==============================================================================
-# Sensitivity to ECOCADIZ-RECLUTAS selectivity ----
-ESCs4<-c("S4FLEETS_SelECO_Selfleet_EcoR",
+title6<- "Sensitivity to ECOCADIZ-RECLUTAS selectivity" 
+ESCs6<-c("S4FLEETS_SelECO_Selfleet_EcoR",
          "S1.0_4FLEETS_SelECO_EcoR",
          "S1.0_4FLEETS_SelECO_EcoR3")
 
-DESC4<-c("S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS 
+DESC6<-c("S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS 
          selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
          "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS 
          selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
          "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS 
          selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated")
-
-
 #==============================================================================
-# ECOCADIZ-RECLUTAS as recruitment Index and natural mortality by age ----
-ESCs5<-c("S1.0_4FLEETS_SelECO_RecIndex",
-         "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6")
+title7<- "ECOCADIZ-RECLUTAS as recruitment Index and natural mortality by age "
+ESCs7<-c("S1.0_4FLEETS_SelECO_RecIndex",
+         "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6",
+         "S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6",
+         "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix")
 
-DESC5<-c("Recruits index",
+DESC7<-c("S1.0_4FLEETS_SelECO + ECOCADIZ-RECLUTAS as recruitment Index",
          "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33",
-         "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3 ")
+         "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3 ",
+         "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed  Mage-0=2.97,Mage-1=1.6,Mage-2=2.4,Mage-3=2.4")
 
 #==============================================================================
-# Fixing catchabilities exercise ----
-ESCs5<-c("S1.0_4FLEETS_q1PEL",
-         "S1.0_4FLEETS_q1ECO",
-         "S1.0_4FLEETS_q1BOCA",
-         "S1.0_4FLEETS_q1ECOREC")
-
-DESC5<-c("Recruits index",
-         "S1.0_4FLEETS + q=1 PELAGO",
-         "S1.0_4FLEETS + q=1 ECOCADIZ",
-         "S1.0_4FLEETS + q=1 BOCADEVA",
-         "S1.0_4FLEETS + q=1 ECOCADIZ-RECLUTAS")
-
-
-
-ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-        "S1.0_InitCond",                   
+title8<- "Further analysis"
+ESCs8<-c("S1.0_InitCond",                   
         "S1.0_InitCond_sigmaR",
         "S1.0_InitCond_sigmaR_SelP",
+        "S1.0_InitCond_sigmaR_qpriorP",
         "S1.0_InitCond_sigmaR_SelP_qpriorP")
 
+DESC8<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix + Initial equilibrium catch was 
+         assumed to be equal to the average catch from 1989-1994 for each fleet and season)",
+         "S1.0_InitCond + sigmaR=0.33, as specified by the sigma_R_info in SS3",
+         "S1.0_InitCond_sigmaR + Selectivity PELAGO was fixed at 1 from age 1 onwards",
+         "S1.0_InitCond_sigmaR + A normal prior with a standard deviation of 0.1 was applied to PELAGO catchability",
+         "S1.0_InitCond_sigmaR_SelP + S1.0_InitCond_sigmaR_qpriorP")
+
+
+#==============================================================================
+# Load necessary libraries
+library(flextable)
+
+Title = c("Initial preliminar model",
+          "Fixed weight at age exercise",
+          "Fixing catchabilities exercise",
+          "Sensitivity test of different selectivity assumptions for the ECOCADIZ survey",
+          "Priors on catchabilities exercise",
+          "Sensibility to selectivity and natural mortality assumptions",
+          "Sensitivity to ECOCADIZ-RECLUTAS selectivity",
+          "ECOCADIZ-RECLUTAS as recruitment Index and natural mortality by age",
+          "Further analysis")
 
 
 
-
-scenarios <- data.frame(
-  Scenario = ESCs,
-  Description =  c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-                   "S1.0_InitCond",                   
-                   "S1.0_InitCond_sigmaR",
-                   "S1.0_InitCond_sigmaR_SelP",
-                   "S1.0_InitCond_sigmaR_SelP_qpriorP")
+# Data for the table
+data <- data.frame(
+  Title = c(rep("Initial implementing model", 2),
+            "Fixed weight at age exercise",
+            rep("Fixing catchabilities exercise", 4),
+            rep("Sensitivity test of different selectivity\n assumptions for the ECOCADIZ survey", 2),
+            rep("Priors on catchabilities exercise", 5),
+            rep("Sensibility to selectivity and\n natural mortality assumptions", 4),
+            rep("Sensitivity to ECOCADIZ-RECLUTAS selectivity", 3),
+            rep("ECOCADIZ-RECLUTAS as recruitment Index\n and natural mortality by age", 4),
+            rep("Further analysis", 5)),
+  Scenario = c("S0", "S1.0_4FLEETS", "S1.0_4FLEETS_WatageFix",
+               "S1.0_4FLEETS_q1PEL", "S1.0_4FLEETS_q1ECO", "S1.0_4FLEETS_q1BOCA", "S1.0_4FLEETS_q1ECOREC",
+               "S1.0_4FLEETS_SelECO", "S1.0_4FLEETS_SelvarECO",
+               "S4FLEETS_SelECO_Qprior", "S4FLEETS_SelECO_QpriorPelEcoR", "S4FLEETS_SelECO_QpriorEco.Boca", 
+               "S4FLEETS_SelECO_QpriorBoca.EcoR", "S4FLEETS_SelECO_QpriorEcoR",
+               "S4FLEETS_SelECO_Selfleet", "S4FLEETS_SelECO_Mage", "S4FLEETS_SelECO_MageSel", "S4FLEETS_SelECO_MfixSel",
+               "S4FLEETS_SelECO_Selfleet_EcoR", "S1.0_4FLEETS_SelECO_EcoR", "S1.0_4FLEETS_SelECO_EcoR3",
+               "S1.0_4FLEETS_SelECO_RecIndex", "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6", 
+               "S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6", "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
+               "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", 
+               "S1.0_InitCond_sigmaR_qpriorP", "S1.0_InitCond_sigmaR_SelP_qpriorP"),
+  Description = c("One fleet for four season (1 fleet, 4 season)", 
+                  "One fleet per season (4 fleet, 4 season)", 
+                  "Empirical Weight-at-age fixed years",
+                  "S1.0_4FLEETS + Catchability fixed q=1 PELAGO",
+                  "S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ",
+                  "S1.0_4FLEETS + Catchability fixed q=1 BOCADEVA",
+                  "S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ-RECLUTAS",
+                  "S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)",
+                  "S1.0_4FLEETS + logistic selectivity ECOCADIZ: random-walk (2004-2014) and fixed (2015-2023)",
+                  "Qprior all surveys",
+                  "Qprior PELAGO and ECOCADIZ-RECLUTAS",
+                  "Qprior ECOCADIZ and BOCADEVA",
+                  "Qprior BOCADEVA and ECOCADIZ-RECLUTAS",
+                  "Qprior only ECOCADIZ-RECLUTAS",
+                  "Logistic for all commercial fleet",
+                  "S1.0_4FLEETS_SelECO + Parameterize age-based\nfishery selectivity where age-0==0 (for Q1 and Q2 only, estimated for Q3-Q4)",
+                  "Estimate M for age-2+",
+                  "Combination of S4FLEETS_SelECO_Selfleet and S4FLEETS_SelECO_Mage:\n Fishery selectivity and natural mortality",
+                  "S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
+                  "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
+                  "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated",
+                  "S1.0_4FLEETS_SelECO + ECOCADIZ-RECLUTAS as recruitment Index",
+                  "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed\n  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33",
+                  "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed\n  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3",
+                  "S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed\n  Mage-0=2.97,Mage-1=1.6,Mage-2=2.4,Mage-3=2.4",
+                  "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix + Initial equilibrium catch\n was assumed to be equal to the average catch from 1989-1994 for each fleet and season",
+                  "S1.0_InitCond + sigmaR=0.33, as specified by the sigma_R_info in SS3",
+                  "S1.0_InitCond_sigmaR + Selectivity PELAGO was fixed at 1 from age 1 onwards",
+                  "S1.0_InitCond_sigmaR + A normal prior with a standard deviation\n of 0.1 was applied to PELAGO catchability",
+                  "S1.0_InitCond_sigmaR_SelP + S1.0_InitCond_sigmaR_qpriorP")
 )
 
+# Group data to remove duplicates in the 'Title' column
+data_grouped <- data %>%
+  group_by(Title) %>%
+  mutate(Title = ifelse(row_number() == 1, Title, ""))
 
-ft0 <- flextable(scenarios)
-ft0 <- colformat_double(ft0, digits=1, na_str = "")
-ft0 <- colformat_num(ft0,big.mark = "", na_str = "")
-ft0 <- align(ft0,part = "header", align = "center") 
-ft0 <- fontsize(ft0, size = 8, part = "body")
-ft0 <- autofit(ft0)
-ft0 
-invisible(save_as_image(ft0, path = paste0(path_mod, "/tb_scenarios.png")))
+# Create the flextable
+ft <- flextable(data_grouped)
+# Aplicar negrita a las filas seleccionadas en la columna "Scenario"
+ft <- bold(ft, i = c(2, 8, 22,25,27), j = "Scenario", bold = TRUE)
+# Agregar líneas horizontales en algunas filas del cuerpo
+ft <- hline(ft, i = c(2,3, 7,9,14,18,21,25), border = fp_border(width = 1.5))
+# Agregar un pie de tabla para especificar los escenarios seleccionados en cada etapa
+ft <- add_footer_lines(ft, values = c("The scenarios highlighted in bold represent the options selected on each day of the benchmark."))
 
+# Ajustar el tamaño y alineación de la tabla
+ft <- autofit(ft) %>%
+  align(j = 1:2, align = "left")
+
+# Mostrar la flextable
+ft
+
+
+invisible(save_as_image(ft, path = paste0("report/run/comparison/tb_scenarios.png")))
 
 #'*--------------------------------------------------------------------------*
-ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-        "S1.0_InitCond",                   
-        "S1.0_InitCond_sigmaR",
-        "S1.0_InitCond_sigmaR_SelP",
-        "S1.0_InitCond_sigmaR_SelP_qpriorP")
-
+ESCs<-c("S0", "S1.0_4FLEETS", "S1.0_4FLEETS_WatageFix",
+        "S1.0_4FLEETS_q1PEL", "S1.0_4FLEETS_q1ECO", "S1.0_4FLEETS_q1BOCA", "S1.0_4FLEETS_q1ECOREC",
+        "S1.0_4FLEETS_SelECO", "S1.0_4FLEETS_SelvarECO",
+        "S4FLEETS_SelECO_Qprior", "S4FLEETS_SelECO_QpriorPelEcoR", "S4FLEETS_SelECO_QpriorEco.Boca", 
+        "S4FLEETS_SelECO_QpriorBoca.EcoR", "S4FLEETS_SelECO_QpriorEcoR",
+        "S4FLEETS_SelECO_Selfleet", "S4FLEETS_SelECO_Mage", "S4FLEETS_SelECO_MageSel", "S4FLEETS_SelECO_MfixSel",
+        "S4FLEETS_SelECO_Selfleet_EcoR", "S1.0_4FLEETS_SelECO_EcoR", "S1.0_4FLEETS_SelECO_EcoR3",
+        "S1.0_4FLEETS_SelECO_RecIndex", "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6", 
+        "S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6", "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
+        "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", 
+        "S1.0_InitCond_sigmaR_qpriorP", "S1.0_InitCond_sigmaR_SelP_qpriorP")
 esc<-ESCs
 replist<-list()
 diag<-list()
@@ -137,7 +235,7 @@ for(i in 1:length(esc)){
   
   
   diag[[Esc]]<-data.frame(ESC=Esc,
-                          convergency=output$maximum_gradient_component,
+                          Convergency=output$maximum_gradient_component,
                           AIC=as.numeric(2*dim(output$estimated_non_dev_parameters)[1]+2*output$likelihoods_used[1,1]),
                           Total_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
                           Survey_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Survey"],
@@ -160,6 +258,8 @@ for(i in 1:length(esc)){
 
 diagsSS<-plyr::ldply(diag,data.frame)
 diagsSS<-diagsSS %>% select(-ESC)
+colnames(diagsSS)[1] <- "Scenario"
+
 parmSS<-plyr::ldply(params_est,data.frame)
 Q_SS<-plyr::ldply(Calc_Q,data.frame)
 M_SS<-plyr::ldply(M,data.frame)
@@ -181,12 +281,16 @@ df_parmSS <- pivot_wider(parmSS, names_from = .id, values_from = Value)
 Qdata<-Q_SS %>% select(c(".id","Yr","Fleet_name","Vuln_bio","Obs","Exp","Calc_Q"))
 
 #results
-path_mod<-paste0("report/run/comparison/",folder)
-ft1 <- flextable(cbind(df1_diagsSS["Metric"], round(df1_diagsSS[,-which(names(df1_diagsSS) == "Metric")], 4)))
+path_mod<-"report/run/comparison/"
+#diagfinal<-cbind(df1_diagsSS["Metric"], round(df1_diagsSS[,-which(names(df1_diagsSS) == "Metric")], 4))
+ft1 <- flextable(diagsSS)
 ft1 <- colformat_double(ft1, digits=1, na_str = "")
 ft1 <- colformat_num(ft1,big.mark = "", na_str = "")
-ft1 <- align(ft1,part = "header", align = "center") 
-ft1 <- fontsize(ft1, size = 8, part = "header")
+#ft1 <- align(ft1,part = "header", align = "center") 
+ft1 <- fontsize(ft1, size = 11, part = "header")
+ft1 <- bold(ft1, i = c(2, 8, 22,25,27), j = 1:10, bold = TRUE)
+ft1 <- hline(ft1, i = c(2,3, 7,9,14,18,21,25), border = fp_border(width = 1.5))
+ft1 <- add_footer_lines(ft1, values = c("The scenarios highlighted in bold represent the options selected on each day of the benchmark."))
 ft1 <- autofit(ft1)
 invisible(save_as_image(ft1, path = paste0(path_mod,"/tb_Diagstics.png")))
 
@@ -207,7 +311,7 @@ Qdata$.id <- Qdata$.id <- factor(Qdata$.id,
 tail(Qdata,n=100)
 
 # Crear el gráfico
-base<-"S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"
+base<-"S1.0_InitCond_sigmaR"
 
 fig_q <- Qdata %>%
   ggplot(aes(x=Fleet_name, y=Calc_Q, colour=.id)) +
@@ -219,7 +323,7 @@ fig_q <- Qdata %>%
   guides(size = "none",  
          colour = guide_legend(override.aes = list(size = c(4, rep(2, length(levels(Qdata$.id))-1))))) +
   ylim(0, 5) 
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_catchability2.png")), fig_q,  width=8, height=5)
+ggsave(file.path(paste0("report/run/comparison/fig_catchability2.png")), fig_q,  width=8, height=5)
 
 
 
@@ -227,15 +331,15 @@ mod.sum <- SSsummarize(replist)
 
 SSplotComparisons(mod.sum, subplots=c(13,2,8,10),indexPlotEach = T,
                   legendlabels = esc,pwidth = 5,
-                  pheight = 3,png=TRUE,plotdir=paste0("report/run/comparison/",folder),legendloc='topleft')
+                  pheight = 3,png=TRUE,plotdir=paste0("report/run/comparison"),legendloc='topleft')
 
 # Comparison abundance index ----
-path_mod<-"report/run/comparison/Qprior"
+path_mod<-"report/run/comparison"
 # Cargar las imágenes
-img1 <- png::readPNG(file.path(path_mod,"compare13_indices_flt5.png"))
-img2 <- png::readPNG(file.path(path_mod,"compare13_indices_flt6.png"))
-img3 <- png::readPNG(file.path(path_mod,"compare13_indices_flt7.png"))
-img4 <- png::readPNG(file.path(path_mod,"compare13_indices_flt8.png"))
+img1 <- png::readPNG(file.path(path_mod,"compare13_indices_index1.png"))
+img2 <- png::readPNG(file.path(path_mod,"compare13_indices_index2.png"))
+img3 <- png::readPNG(file.path(path_mod,"compare13_indices_index3.png"))
+img4 <- png::readPNG(file.path(path_mod,"compare13_indices_index4.png"))
 
 # Convertir a grobs (graphic objects) para grid.arrange
 g1 <- rasterGrob(img1, interpolate=TRUE)
@@ -246,10 +350,10 @@ g4 <- rasterGrob(img4, interpolate=TRUE)
 # Organizar las imágenes en una cuadrícula
 fig222<-grid.arrange(g1, g2, g3, g4, ncol=1)
 
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_escIndices.png")), fig222,  width=5, height=7)
+ggsave(file.path(paste0("report/run/comparison/fig_escIndices.png")), fig222,  width=5, height=7)
 
 # Comparison SSB, Fapical, Recruitment ----
-path_mod<-"report/run/comparison/Qprior"
+path_mod<-"report/run/comparison"
 # Cargar las imágenes
 img1 <- png::readPNG(file.path(path_mod,"compare2_spawnbio_uncertainty.png"))
 img2 <- png::readPNG(file.path(path_mod,"compare8_Fvalue_uncertainty.png"))
@@ -260,118 +364,118 @@ g2 <- rasterGrob(img2, interpolate=TRUE)
 g3 <- rasterGrob(img3, interpolate=TRUE)
 # Organizar las imágenes en una cuadrícula
 fig223<-grid.arrange(g3, g1,g2, ncol=1)
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_escVarP.png")), fig223,  width=5, height=7)
+ggsave(file.path(paste0("report/run/comparison/fig_escVarP.png")), fig223,  width=5, height=7)
 
 
-
-ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-        "S1.0_InitCond",                   
-        "S1.0_InitCond_sigmaR",
-        "S1.0_InitCond_sigmaR_SelP",
-        "S1.0_InitCond_sigmaR_SelP_qpriorP")
-
-# Comparison selectivity ----
-path_mod<-"report/run/comparison/Qprior"
-
-title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
-title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
-
-# Cargar las imágenes
-img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_age_selectivity.png")))
-img2 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_age_selectivity.png")))
-# Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
-# Organizar las imágenes en una cuadrícula
-fig224<-grid.arrange(title1, g1, 
-                     title2, g2, 
-                     ncol=1, 
-                     heights=c(0.5, 8, 0.5, 8))
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_selectivity.png")), fig224,  width=5, height=7)
-
-# Comparison selectivity ----
-path_mod<-"report/run/comparison/Qprior"
-
-title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
-title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
-
-# Cargar las imágenes
-img1 <- png::readPNG(file.path(paste0("report/retro/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","Retro.png")))
-img2 <- png::readPNG(file.path(paste0("report/retro/S1.0_InitCond_sigmaR_SelP_qpriorP/","Retro.png")))
-# Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
-# Organizar las imágenes en una cuadrícula
-fig225<-grid.arrange(title1, g1, 
-                     title2, g2, 
-                     ncol=1, 
-                     heights=c(0.5, 8, 0.5, 8))
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_retrospective.png")), fig225,  width=5, height=7)
-
-
-# Comparison mean age ----
-path_mod<-"report/run/comparison/Qprior"
-
-title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
-title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
-
-# Cargar las imágenes
-list.files(file.path("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"))
-
-img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_meanage_fit_Ecocadiz.png")))
-img2 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_meanage_fit_Ecocadiz.png")))
-img3 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_meanage_fit_Pelago.png")))
-img4 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_meanage_fit_Pelago.png")))
-# Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
-g3 <- rasterGrob(img3, interpolate=TRUE)
-g4 <- rasterGrob(img4, interpolate=TRUE)
-# Organizar las imágenes en una cuadrícula
-fig226<-grid.arrange(
-  arrangeGrob(title1, title2, ncol=2),  # Primera fila con títulos
-  arrangeGrob(g1, g3, ncol=2),  # Segunda fila con imágenes de la primera columna
-  arrangeGrob(g2, g4, ncol=2),  # Tercera fila con imágenes de la segunda columna
-  nrow=3, heights=c(0.5, 4, 8)  # Ajuste de las alturas para títulos e imágenes
-)
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_meanage.png")), fig226,  width=5, height=7)
-
-
-
-# Comparison sigmaR ----
-path_mod<-"report/run/comparison/Qprior"
-
-title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
-title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
-
-# Cargar las imágenes
-list.files(file.path("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"))
-
-img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_recdevs2_varcheck.png")))
-img2 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_Recdevs.png")))
-img3 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_stock-recluta.png")))
-img4 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_recdevs2_varcheck.png")))
-img5 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_Recdevs.png")))
-img6 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_stock-recluta.png")))
-
-# Convertir a grobs (graphic objects) y ajustar tamaño a una dimensión común
-g1 <- rasterGrob(img1, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-g2 <- rasterGrob(img2, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-g3 <- rasterGrob(img3, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-g4 <- rasterGrob(img4, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-g5 <- rasterGrob(img5, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-g6 <- rasterGrob(img6, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
-
-# Organizar las imágenes en una cuadrícula con tamaños iguales
-fig227 <- grid.arrange(
-  arrangeGrob(title1, title2, ncol=2),  # Primera fila con títulos
-  arrangeGrob(g1, g4, ncol=2),  # Segunda fila con imágenes de la primera columna
-  arrangeGrob(g2, g5, ncol=2),  # Tercera fila con imágenes de la segunda columna
-  arrangeGrob(g3, g6, ncol=2),  # Tercera fila con imágenes de la segunda columna
-  nrow=4, heights=c(0.5, 4, 3,4)  # Ajuste de las alturas para títulos e imágenes
-)
-
-fig227
-ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_sigmaR.png")), fig227,  width=7, height=7)
-
-
+# 
+# ESCs<-c("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
+#         "S1.0_InitCond",                   
+#         "S1.0_InitCond_sigmaR",
+#         "S1.0_InitCond_sigmaR_SelP",
+#         "S1.0_InitCond_sigmaR_SelP_qpriorP")
+# 
+# # Comparison selectivity ----
+# path_mod<-"report/run/comparison/Qprior"
+# 
+# title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
+# title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
+# 
+# # Cargar las imágenes
+# img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_age_selectivity.png")))
+# img2 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_age_selectivity.png")))
+# # Convertir a grobs (graphic objects) para grid.arrange
+# g1 <- rasterGrob(img1, interpolate=TRUE)
+# g2 <- rasterGrob(img2, interpolate=TRUE)
+# # Organizar las imágenes en una cuadrícula
+# fig224<-grid.arrange(title1, g1, 
+#                      title2, g2, 
+#                      ncol=1, 
+#                      heights=c(0.5, 8, 0.5, 8))
+# ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_selectivity.png")), fig224,  width=5, height=7)
+# 
+# # Comparison selectivity ----
+# path_mod<-"report/run/comparison/Qprior"
+# 
+# title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
+# title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
+# 
+# # Cargar las imágenes
+# img1 <- png::readPNG(file.path(paste0("report/retro/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","Retro.png")))
+# img2 <- png::readPNG(file.path(paste0("report/retro/S1.0_InitCond_sigmaR_SelP_qpriorP/","Retro.png")))
+# # Convertir a grobs (graphic objects) para grid.arrange
+# g1 <- rasterGrob(img1, interpolate=TRUE)
+# g2 <- rasterGrob(img2, interpolate=TRUE)
+# # Organizar las imágenes en una cuadrícula
+# fig225<-grid.arrange(title1, g1, 
+#                      title2, g2, 
+#                      ncol=1, 
+#                      heights=c(0.5, 8, 0.5, 8))
+# ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_retrospective.png")), fig225,  width=5, height=7)
+# 
+# 
+# # Comparison mean age ----
+# path_mod<-"report/run/comparison/Qprior"
+# 
+# title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
+# title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
+# 
+# # Cargar las imágenes
+# list.files(file.path("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"))
+# 
+# img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_meanage_fit_Ecocadiz.png")))
+# img2 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_meanage_fit_Ecocadiz.png")))
+# img3 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_meanage_fit_Pelago.png")))
+# img4 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_meanage_fit_Pelago.png")))
+# # Convertir a grobs (graphic objects) para grid.arrange
+# g1 <- rasterGrob(img1, interpolate=TRUE)
+# g2 <- rasterGrob(img2, interpolate=TRUE)
+# g3 <- rasterGrob(img3, interpolate=TRUE)
+# g4 <- rasterGrob(img4, interpolate=TRUE)
+# # Organizar las imágenes en una cuadrícula
+# fig226<-grid.arrange(
+#   arrangeGrob(title1, title2, ncol=2),  # Primera fila con títulos
+#   arrangeGrob(g1, g3, ncol=2),  # Segunda fila con imágenes de la primera columna
+#   arrangeGrob(g2, g4, ncol=2),  # Tercera fila con imágenes de la segunda columna
+#   nrow=3, heights=c(0.5, 4, 8)  # Ajuste de las alturas para títulos e imágenes
+# )
+# ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_meanage.png")), fig226,  width=5, height=7)
+# 
+# 
+# 
+# # Comparison sigmaR ----
+# path_mod<-"report/run/comparison/Qprior"
+# 
+# title1 <- textGrob("S1.0_4FLEETS_SelECO_RecIndex_Mnewfix", gp=gpar(fontsize=8, fontface="bold"))
+# title2 <- textGrob("S1.0_InitCond_sigmaR_SelP_qpriorP", gp=gpar(fontsize=8, fontface="bold"))
+# 
+# # Cargar las imágenes
+# list.files(file.path("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix"))
+# 
+# img1 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_recdevs2_varcheck.png")))
+# img2 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_Recdevs.png")))
+# img3 <- png::readPNG(file.path(paste0("report/run/S1.0_4FLEETS_SelECO_RecIndex_Mnewfix/","fig_stock-recluta.png")))
+# img4 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_recdevs2_varcheck.png")))
+# img5 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_Recdevs.png")))
+# img6 <- png::readPNG(file.path(paste0("report/run/S1.0_InitCond_sigmaR_SelP_qpriorP/","fig_stock-recluta.png")))
+# 
+# # Convertir a grobs (graphic objects) y ajustar tamaño a una dimensión común
+# g1 <- rasterGrob(img1, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# g2 <- rasterGrob(img2, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# g3 <- rasterGrob(img3, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# g4 <- rasterGrob(img4, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# g5 <- rasterGrob(img5, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# g6 <- rasterGrob(img6, width = unit(1, "npc"), height = unit(1, "npc"), interpolate = TRUE)
+# 
+# # Organizar las imágenes en una cuadrícula con tamaños iguales
+# fig227 <- grid.arrange(
+#   arrangeGrob(title1, title2, ncol=2),  # Primera fila con títulos
+#   arrangeGrob(g1, g4, ncol=2),  # Segunda fila con imágenes de la primera columna
+#   arrangeGrob(g2, g5, ncol=2),  # Tercera fila con imágenes de la segunda columna
+#   arrangeGrob(g3, g6, ncol=2),  # Tercera fila con imágenes de la segunda columna
+#   nrow=4, heights=c(0.5, 4, 3,4)  # Ajuste de las alturas para títulos e imágenes
+# )
+# 
+# fig227
+# ggsave(file.path(paste0("report/run/comparison/",folder,"/fig_sigmaR.png")), fig227,  width=7, height=7)
+# 
+# 
