@@ -364,12 +364,12 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   #  SSplotSelex(output,subplots=11)
   #  dev.off()
   # }
-  
+  if (esc !="S1.0_4FLEETS") {
   png(file.path(paste0(path_rep,"/fig_age_selectivity.png")),width=4,height=4,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.8)
   SSplotSelex(output,subplots=2,mainTitle = FALSE)
   dev.off()
-  
+  }
   sel<-subset(output$ageselex[output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Fleet","Seas","0","1","2","3") ])
   sel<-sel %>% reshape::melt(id.vars=c('Yr','Fleet','Seas'))
   selfleet<-sel%>% filter(Fleet<=4)
@@ -398,29 +398,66 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   ggsave(file.path(paste0(path_rep,"/fig_Sel_commercial_fleet.png")),   fig_self,  width=5, height=5)
   
   
-  selsurvey<-sel%>% filter(Fleet==c(5,6,8))
-  fig_selS<-selsurvey %>% ggplot(aes(x=as.numeric(variable),y=value,group=Fleet)) +
-    geom_point() + geom_line()+
-    facet_wrap(.~Fleet,ncol=2,as.table = TRUE, strip.position = "top",
-               labeller = labeller(Fleet = c("5" = "PELAGO", 
-                                             "6" = "ECOCADIZ",
-                                             "8" = "ECOCADIZ-RECLUTAS")))+
-    labs(x="Year",y="Selectivity")+
-    scale_color_discrete(name  ="Age")+
+  selsurvey <- sel %>%
+    filter((Yr == 2023 & Fleet %in% c(5, 6, 8)) | (Yr == 2004 & Fleet == 6))
+  
+  
+  # Crear la nueva columna para diferenciar ECOCADIZ por años
+  selsurvey <- selsurvey %>%
+    mutate(FleetPanel = ifelse(Fleet == 6 & Yr == 2004, "ECOCADIZ 2004", 
+                               ifelse(Fleet == 6 & Yr == 2023, "ECOCADIZ 2023", Fleet)))
+  
+  # Filtrar los datos para excluir el panel de ECOCADIZ sin especificación de años
+  selsurvey <- selsurvey %>%
+    filter(FleetPanel != 6)  # Elimina los datos de "Fleet == 6" sin diferenciación
+  
+  # Graficar
+  fig_selS<- selsurvey %>% 
+    ggplot(aes(x=as.numeric(variable), y=value, group=Fleet)) +
+    geom_point() + geom_line() +
+    facet_wrap(.~FleetPanel, ncol=2, as.table = TRUE, strip.position = "top",
+               labeller = labeller(FleetPanel = c("5" = "PELAGO", 
+                                                  "ECOCADIZ 2004" = "ECOCADIZ 2004 - 2014",
+                                                  "ECOCADIZ 2023" = "ECOCADIZ 2015 - 2023",
+                                                  "8" = "ECOCADIZ-RECLUTAS"))) +
+    labs(x="Year", y="Selectivity") +
+    scale_color_discrete(name  = "Age") +
     theme(panel.background = element_rect(fill ="gray80")) +
     theme(panel.grid=element_line(color=NA)) +
-    ggtitle('Acoustic surveys')+
-    theme(plot.title = element_text(size =9),
+    ggtitle('Acoustic surveys') +
+    theme(plot.title = element_text(size = 9),
           axis.title = element_text(size = 6),
           axis.text = element_text(size = 6),
           strip.text = element_text(size = 6),
-          panel.background = element_rect(colour="gray",fill = "gray99"),
+          panel.background = element_rect(colour = "gray", fill = "gray99"),
           strip.background = element_rect(colour = "gray", fill = "gray99"),
           legend.title = element_text(size = 6, face = "bold"), 
           legend.text = element_text(size = 6)) + 
-    theme(legend.position = 'top') 
+    theme(legend.position = 'top')
   ggsave(file.path(paste0(path_rep,"/fig_Sel_surveys.png")),   fig_selS,  width=5, height=5)
+  # selsurvey %>% ggplot(aes(x=as.numeric(variable),y=value,group=Fleet)) +
+  #   geom_point() + geom_line()+
+  #   facet_wrap(.~Fleet,ncol=2,as.table = TRUE, strip.position = "top",
+  #              labeller = labeller(Fleet = c("5" = "PELAGO", 
+  #                                            "6" = "ECOCADIZ",
+  #                                            "8" = "ECOCADIZ-RECLUTAS")))+
+  #   labs(x="Year",y="Selectivity")+
+  #   scale_color_discrete(name  ="Age")+
+  #   theme(panel.background = element_rect(fill ="gray80")) +
+  #   theme(panel.grid=element_line(color=NA)) +
+  #   ggtitle('Acoustic surveys')+
+  #   theme(plot.title = element_text(size =9),
+  #         axis.title = element_text(size = 6),
+  #         axis.text = element_text(size = 6),
+  #         strip.text = element_text(size = 6),
+  #         panel.background = element_rect(colour="gray",fill = "gray99"),
+  #         strip.background = element_rect(colour = "gray", fill = "gray99"),
+  #         legend.title = element_text(size = 6, face = "bold"), 
+  #         legend.text = element_text(size = 6)) + 
+  #   theme(legend.position = 'top') 
+
   
+ 
   
    # sspar(mfrow = c(6, 3), plot.cex = 0.8)
   # SSplotPars(output)
@@ -485,13 +522,13 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   end_year <- 2023
   
   # Define a function to process data
-  process_data <- function(data, pattern, value_col, stddev_col = NULL) {
+  process_data <- function(datavb, pattern, value_col, stddev_col = NULL) {
     # Ensure the required column exists
-    if (!"Label" %in% colnames(data)) {
+    if (!"Label" %in% colnames(datavb)) {
       stop("The 'Label' column is missing in the data frame.")
     }
     
-    filtered_data <- data %>%
+    filtered_data <- datavb %>%
       filter(grepl(pattern, Label)) %>%
       mutate(year = as.numeric(sub(paste0(pattern, "_"), "", Label))) %>%
       filter(!is.na(year) & year >= start_year & year <= end_year) %>%
@@ -506,12 +543,12 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   }
   
   # Process 'summary' data
-  process_summary_data <- function(data, pattern, value_col) {
-    if (!"V1" %in% colnames(data)) {
+  process_summary_data <- function(datavb, pattern, value_col) {
+    if (!"V1" %in% colnames(datavb)) {
       stop("The 'V1' column is missing in the summary data frame.")
     }
     
-    filtered_data <- data %>%
+    filtered_data <- datavb %>%
       filter(grepl(pattern, V1)) %>%
       mutate(year = as.numeric(sub(paste0(pattern, "_"), "", V1))) %>%
       filter(!is.na(year) & year >= start_year & year <= end_year) %>%
@@ -535,8 +572,8 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   colnames(catch)<-c("year","Value","StdDev")
   catch$type<-"Catch"
   
-  data<-rbind(ssb,recr,ft,bt,catch)
-  data <- data %>%
+  datavb<-rbind(ssb,recr,ft,bt,catch)
+  datavb <- datavb %>%
     mutate(
       Value = as.numeric(Value),
       StdDev = as.numeric(StdDev)) %>%
@@ -552,12 +589,12 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
         TRUE ~ StdDev/ Value))
   
   # Calcular la media, el valor máximo y mínimo de 'Value' por 'type'
-  agg_Value <- aggregate(Value ~ type, data, function(x) c(mean = mean(x), max = max(x), min = min(x)))
+  agg_Value <- aggregate(Value ~ type, datavb, function(x) c(mean = mean(x), max = max(x), min = min(x)))
   
   agg_Value2 <- agg_Value %>%
     mutate(
-      year.max = sapply(type, function(t) data$year[data$type == t][which.max(data$Value[data$type == t])]),
-      year.min = sapply(type, function(t) data$year[data$type == t][which.min(data$Value[data$type == t])])
+      year.max = sapply(type, function(t) datavb$year[datavb$type == t][which.max(datavb$Value[datavb$type == t])]),
+      year.min = sapply(type, function(t) datavb$year[datavb$type == t][which.min(datavb$Value[datavb$type == t])])
     )
   
   # Convertir a un formato de data frame manejable
@@ -565,21 +602,21 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   
   
   
-  agg_CV <- aggregate(CV ~ type, data, function(x) c(mean = mean(x), max = max(x), min = min(x)))
+  agg_CV <- aggregate(CV ~ type, datavb, function(x) c(mean = mean(x), max = max(x), min = min(x)))
   # Convertir a un formato de data frame manejable
   agg_CV <- do.call(data.frame, agg_CV)
   
   # Renombrar las columnas correctamente
   names(agg_CV) <- c("type", "Value.mean", "Value.max", "Value.min")
-  agg_CV$year_max <- sapply(agg_CV$type, function(t) data$year[data$type == t][which.max(data$Value[data$type == t])])
-  agg_CV$year_min <- sapply(agg_CV$type, function(t) data$year[data$type == t][which.min(data$Value[data$type == t])])
+  agg_CV$year_max <- sapply(agg_CV$type, function(t) datavb$year[datavb$type == t][which.max(datavb$Value[datavb$type == t])])
+  agg_CV$year_min <- sapply(agg_CV$type, function(t) datavb$year[datavb$type == t][which.min(datavb$Value[datavb$type == t])])
   agg_CV[, c("Value.mean", "Value.max", "Value.min")] <- lapply(agg_CV[, c("Value.mean", "Value.max", "Value.min")], round, 2)
 
   
  
   
     
-fig1a<- ggplot(data, aes(x = year, y = Value)) +
+fig1a<- ggplot(datavb, aes(x = year, y = Value)) +
         geom_line() +
         geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2) +
         facet_wrap(.~type,scales = "free",ncol=2,strip.position = "top",
@@ -594,7 +631,11 @@ fig1a<- ggplot(data, aes(x = year, y = Value)) +
 ggsave(file.path(paste0(path_rep,"/fig_time_series.png")), fig1a,  width=8, height=7)
   
 # Tamaño de muestra
-namesfleet<-c("SEINE_Q1","SEINE_Q2","SEINE_Q3","SEINE_Q4","PELAGO","ECOCADIZ")#output$Age_Comp_Fit_Summary$Fleet
+if (esc %in% c("S1.0_4FLEETS", "S4FLEETS_SelECO_MfixSel")) {
+  namesfleet <- c("SEINE_Q1", "SEINE_Q2", "SEINE_Q3", "SEINE_Q4", "PELAGO", "ECOCADIZ", "ECOCADIZ_RECLUTAS")
+} else {
+  namesfleet <- c("SEINE_Q1", "SEINE_Q2", "SEINE_Q3", "SEINE_Q4", "PELAGO", "ECOCADIZ")
+}
 inputnm<-output$Age_Comp_Fit_Summary$mean_Nsamp_in
 francisnm<-output$Age_Comp_Fit_Summary$mean_Nsamp_adj
 
@@ -657,7 +698,7 @@ diags<-data.frame(convergency=convergency,
                   RMSE_age=jaba_age$RMSE.perc[5])
 
 
-timeseries<-  data %>% select(c(year,Value,CV,type)) %>% 
+timeseries<-  datavb %>% select(c(year,Value,CV,type)) %>% 
 pivot_wider(
   names_from = "type",  # Esta columna (index) se convertirá en nombres de columnas
   values_from = c("Value","CV")  # Estas columnas llenarán las nuevas columnas
@@ -925,7 +966,7 @@ save_as_image(ft13, path = paste0(path_rep,"/tb_dat_stru.png"))
 # save Rdata tables
 save(ft1,ft3,ft4,ft5,ft6,ft7,ft8,ft9,ft10, file=paste0(path_rep,"/tables_run.RData"))
 
-save(data, agg_Value2 ,agg_CV,file=paste0(path_rep,"/report.RData"))
+save(datavb, agg_Value2 ,agg_CV,file=paste0(path_rep,"/report.RData"))
 
  selectivityQ1<-subset(output$ageselex[output$ageselex$Fleet==1 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])
  selectivityQ2<-subset(output$ageselex[output$ageselex$Fleet==2 & output$ageselex$Factor=="Asel2" & output$ageselex$Yr %in% c(output$startyr:(output$endyr)),c("Yr","Seas","0","1","2","3") ])

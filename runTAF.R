@@ -29,10 +29,19 @@ library(rmarkdown)
 boot<-"boot/initial/data/run/" 
 list1<-list.files(boot)
 list1
-esc<- "S1.0_InitCond_sigmaR_qpriorP" #"S1.0_InitCond_sigmaR" #(S3)  
-write(esc, file = paste0(boot,"Esc.txt"))
+
+esc0<-"S0"
+esc1<-"S1.0_4FLEETS"
+esc2<-"S4FLEETS_SelECO_MfixSel"
+esc3<-"S1.0_InitCond_sigmaR"
+esc4<-"S1.0_InitCond_sigmaR_qpriorP"
+esc<- "S1.0_InitCond_sigmaR" #(S3)  
+
+
+write(esc2, file = paste0(boot,"Esc.txt"))
+
 sourceTAF("bootstrap")
-sourceTAF("data")
+sourceTAF("data_01_run")
 sourceTAF("model_01_run")
 sourceTAF("output_01_run")
 sourceTAF("report_01_run")
@@ -41,15 +50,18 @@ sourceTAF("model_02_retro")
 sourceTAF("output_02_retro")
 sourceTAF("report_02_retro")
 
+
+write(esc2, file = paste0("report/run/Esc.txt"))
+mkdir("WD_WKBANSP")
+render("Report_model_ane27.9a.Rmd", 
+       output_file = paste0("WD_WKBANSP/Report_model_ane27.9a_",esc2,".pdf"))
+
 sourceTAF("model_03_brp")
 sourceTAF("model_04_stf")
 
 # run reporte.Rmd 
-mkdir("Reports")
-esc<-"S1.0_InitCond_sigmaR"
-  
-render("Report_model_ane27.9a.Rmd", 
-         output_file = paste0("Report_rmd/Report_model_ane27.9a",esc,".pdf"))
+
+
 
 # render("Report_BRP_STF_ane27.9a.Rmd", 
 #        output_file = paste0("Report_rmd/Report_BRP_STF_ane27.9a",esc,".pdf"))

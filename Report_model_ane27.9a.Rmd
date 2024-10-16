@@ -45,7 +45,7 @@ options(scipen=999)
 
 
 ```{r load}
-run_esc<-"boot/data/run/" 
+run_esc<-"report/run/" 
 esc<-readLines(paste0(run_esc,"Esc.txt")) 
 
 
@@ -160,21 +160,18 @@ increment_figure_counter()
 
 
 
-
-  
-
 ## Abundance indices
 
 The abundance indices *PELAGO*, *ECOCADIZ*, *BOCADEVA*, and *ECOCADIZ-RECLUTAS* exhibit interannual variability over time (Figure `r run_reference("index9_standcpueall")`). *PELAGO*, with data from 1999 to 2023, shows fluctuations with a peak in 2016 at 65,345 tons, followed by a decline, but with a slight recovery in 2023 to 26,786 tons. *ECOCADIZ*, covering the period from 2004 to 2023, reaches its maximum in 2019 at 57,700 tons, followed by a significant decrease to 9,714 tons in 2023. *BOCADEVA*, with data from 2005 to 2023, shows a steady increase to its peak in 2020 at 81,466 tons, followed by a reduction to 15,138 tons in 2023. *ECOCADIZ-RECLUTAS*, recorded from 2014 to 2023, shows a sustained increase until 2019 at 48,398 tons, followed by a decrease to 8,300 tons in 2023. 
 
-```{r fig.cap="ane.27.9a Southern stock. Biomass estimates from \textit{PELAGO}, \textit{ECOCADIZ}, \textit{BOCADEVA}, and \textit{ECOCADIZ-RECLUTAS surveys}."}
+```{r fig.cap="ane.27.9a Southern stock. Biomass estimates from \\textit{PELAGO}, \\textit{ECOCADIZ}, \\textit{BOCADEVA}, and \\textit{ECOCADIZ-RECLUTAS surveys}."}
 include_graphics(file.path(path_mod,"/fig_indiceBiomass.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 As it can be observed also in the raw data  (Figure `r run_reference("tb_index")`), these patterns reflect a high variability in abundance over time with periods of increase followed by declines in the later years of each series.
 
-```{r fig.cap="ane.27.9a Southern stock. Acoustic biomass (ton) by surveys \textit{PELAGO}, \textit{ECOCADIZ}, \textit{BOCADEVA}, and \textit{ECOCADIZ-RECLUTAS}.   "}
+```{r fig.cap="ane.27.9a Southern stock. Acoustic biomass (ton) by surveys \\textit{PELAGO}, \\textit{ECOCADIZ}, \\textit{BOCADEVA}, and \\textit{ECOCADIZ-RECLUTAS}.   "}
 include_graphics(file.path(path_mod,"tb_index.png"))#, auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -188,7 +185,7 @@ In the  model, the age proportion of the commercial fleet (*SEINE*) by quarter f
 
 
 
-```{r fig.cap="ane.27.9a Southern stock. Age proportion in the commercial fleet catches (\textit{SEINE}) by quarter (1989 to 2023)."}
+```{r fig.cap="ane.27.9a Southern stock. Age proportion in the commercial fleet catches (\\textit{SEINE}) by quarter (1989 to 2023)."}
 include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSeine.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -201,7 +198,7 @@ increment_figure_counter()
 Figure `r run_reference("fig_agecomp_by_quartersSurveys")` shows the yearly age proportions from surveys *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS* that were used as input for the model. It can be observed that in the *PELAGO* survey, conducted in the second quarter (Q2), age 1 represents the highest proportion over time, with a presence of ages 2 and 3, and no records of age 0 individuals. The *ECOCADIZ* survey, primarily conducted in the third quarter (Q3), shows a predominance of age 1, with an increase in the proportion of age 0 from 2010 onwards; in 2004 and 2006, when the survey was conducted in the second quarter (Q2), no age 0 individuals were recorded by convention. The *ECOCADIZ-RECLUTAS* survey, conducted since 2014 in October (fourth quarter, Q4), shows a higher proportion of age 0, followed by age 1, with lower representation of ages 2 and 3.
 
 
-```{r fig.cap="ane.27.9a Southern stock. Age proportion in acoustic surveys estimates  (\textit{PELAGO}, \textit{ECOCADIZ}, and \textit{ECOCADIZ-RECLUTAS})."}
+```{r fig.cap="ane.27.9a Southern stock. Age proportion in acoustic surveys estimates  (\\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS})."}
 include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSurveys.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -246,9 +243,19 @@ It is not modelled explicitly.
 
 ### Recruitment
 
-Equilibrium recruitment ($R_0$)  was estimated in the base model, and steepness (h) was fixed at 0.8. The initial steepness estimate is based on values reported by @Hsu2024 , with a mean of 0.82 and a range of 0.59 to 0.93, and by @Wiff2018, who reported steepness values between 0.58 and 0.86 for pelagic species. Standard deviation of log number of recruits was set to 0.6. 
 
-The early recruitment deviations for the initial population were estimated for the period 1985-1988. A recruitment bias adjustment ramp [@Methot2011] was applied to this early period, and bias-adjusted recruitment was estimated for the main period. Recruitment deviations for the main period were estimated for 1991-2023.
+```{r}
+if(esc %in% c("S1.0_InitCond_sigmaR","S1.0_InitCond_sigmaR_qpriorP")){
+textsigmaR<-"The recruitment standard deviation (sigmaR) was adjusted after 5 iterations, starting from an initial value of 0.6 and converging to the recommended value of sigmaR = 0.33, as specified by the sigma_R_info object in SS3."
+}else{
+textsigmaR<-"Standard deviation of log number of recruits was set to 0.6."
+}
+
+```
+
+Equilibrium recruitment ($R_0$)  was estimated in the base model, and steepness (h) fixed at  0.8, supported by studies from  @Hsu2024 and @Thorson2020, which are consistent with pelagic species. This value is biologically reasonable for small pelagic species due to their fast growth, early maturity, and short lifespan, allowing them to maintain high reproductive potential at low biomass levels. `r textsigmaR` 
+
+The early recruitment deviations for the initial population were estimated from `r dat$ctl$last_early_yr_nobias_adj`. A recruitment bias adjustment ramp [@Methot2011] was applied to this early period, and bias-adjusted recruitment was estimated for the main period. Recruitment deviations for the main period were estimated for `r dat$ctl$MainRdevYrFirst` - `r dat$ctl$MainRdevYrLast`.
 
 
 ### Fishing mortality
@@ -256,13 +263,28 @@ The early recruitment deviations for the initial population were estimated for t
 Calculation of fishing mortality is performed by using the hybrid F method that does a Pope’s approximation to provide initial values for iterative adjustment of the Baranov continuous F values to closely approximate the observed catch. Total catch biomass by year is assumed to be accurate and precise and the F values are tuned to match this catch. 
 
 ### Catchability
+```{r}
+if(esc=="S1.0_InitCond_sigmaR_qpriorP"){
+textQ<-c(paste0("All surveys are assumed to provide relative indices of abundance, with catchability modeled using a simple linear $q$ model, except for the *PELAGO* survey, where a normal prior with a standard deviation of ", dat$ctl$Q_parms$PR_SD[1], " is applied to the catchability."))} else{
+  textQ<-c("All the surveys are assumed to be relative indices of abundance. The catchability is modelled with a simple $q$ linear model.")
+}
 
-All the surveys are assumed to be relative indices of abundance. The catchability is modelled with a simple $q$ linear model.
+```
+
+`r textQ`
 
 ### Selectivity
 
-The fishery and the surveys selectivity were defined as logistic functions fixed over time. Nevertheless, considering the difference in age patterns over the years in the *ECOCADIZ* survey it was decided to split it into two periods: 2004-2014 and 2015-2023. <!-- se usan bloques de selectividad--> 
-<!-- (**Figure xx**).  In *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys was set as a logistic function fixed over time (**Figure xx**). -->
+```{r}
+if(esc=="S1.0_4FLEETS"){
+textSel<-c("The fishery and the surveys selectivity were defined as logistic functions fixed over time, except for *BOCADEVA*, where selectivity was fixed at 1 from age 1 onwards, assuming it is a indicator of spawning biomass.")
+} else{
+textSel<-c(paste0("The fishery and the surveys selectivity were defined as logistic functions fixed over time, except for *BOCADEVA*, where selectivity was fixed at 1 from age 1 onwards, assuming it is a indicator of spawning biomass. Nevertheless, considering the difference in age patterns over the years in the *ECOCADIZ* survey it was decided to split it into two periods: ", dat$ctl$Block_Design[[1]][1],"-", dat$ctl$Block_Design[[1]][2] ," and ", dat$ctl$Block_Design[[1]][3],"-",dat$ctl$Block_Design[[1]][4], "."))
+}
+```
+
+`r textSel`
+<!-- The fishery and the surveys selectivity were defined as logistic functions fixed over time. Nevertheless, considering the difference in age patterns over the years in the *ECOCADIZ* survey it was decided to split it into two periods: 2004-2014 and 2015-2023.  -->
 
 ### Data weighting
 
@@ -270,12 +292,20 @@ Constant standard errors of 0.05 and 0.3 were assumed for quarterly catches and 
 <!-- Coeficient of variation (CV): A standar error of 0.05 was assumed for all quarters of catches and 0.3 for the *PELAGO*, *ECOCADIZ*, *ECOCADIZ-RECLUTAS* surveys, and spawning-stock biomass (SSB) from triennial DEPM *BOCADEVA* survey, reflecting the accurate sampled catches and the CV level of the surveys. A standard error of 0.3 is assumed for all years for the DEPM index based on the uncertainty of the SSB estimates. -->
 
 <!-- Sample size (nm):  -->
-The age compositions were adjusted assuming a multinomial error structure with variance described by the sample size, set at 100 for both, the commercial fleet and acoustic surveys. After that, these data was weighted using the Francis method TA1.8 [@Francis2011]. 
+The age compositions were adjusted assuming a multinomial error structure with variance described by the sample size, set at 100 for both, the commercial fleet and acoustic surveys. After that, these data was weighted using the Francis method TA1.8 [@Francis2011], which was adjusted after 5 iterations. 
 
 
 ### Initial population
+```{r}
+if (esc %in% c("S1.0_4FLEETS", "S4FLEETS_SelECO_MfixSel")) {
+  textInitCond<- "0 tonnes."}else{
+    catch_values<-round(dat$dat$catch$catch[1:4],0)
+catch_labels <- c("Q1", "Q2", "Q3", "Q4")
+textInitCond <- paste0(paste("catch", catch_labels, "=", catch_values, collapse = ", "), " tonnes, assuming the average catch between 1989-1994 for each season.")
+  }
+```
 
-It is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1988 and the equilibrium population age structure was assumed to be in an exploited state with an initial catch of 0 tonnes <!-- corresponding to the average catches first 5 years of data (1989-93.)  -->
+It is calculated by estimating an initial equilibrium population modified by age composition data in the first year of the assessment [@Methot2013]. The model starts in 1988 and the equilibrium population age structure was assumed to be in an exploited state with an initial catch of `r textInitCond` 
 
 
 <!-- A summary of the model key model assumptions and parameters for the Stock Synthesis is available in Figure `r run_reference("tb_dat_stru")`. -->
@@ -314,7 +344,7 @@ increment_figure_counter()
 The Figure `r run_reference("fig_indices_fit")` shows that the abundance indices from the acoustic surveys exhibit a high level of variability, as reflected by the width of the assumed confidence intervals, with a maximum coefficient of variation of 30%. The model follows the overall trend of the indices, though it encounters some difficulties in accurately fitting the extreme biomass values, both the highest and lowest. However, it adequately reproduces the general trend of variability in biomass levels presented by the survey estimates.
 
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the data (left panel) and observed versus expected values (right panel) of the indices from the surveys \textit{PELAGO}, \textit{ECOCADIZ}, \textit{BOCADEVA} and \textit{ECOCADIZ-RECLUTAS}. The lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. "}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the data (left panel) and observed versus expected values (right panel) of the indices from the surveys \\textit{PELAGO}, \\textit{ECOCADIZ}, \\textit{BOCADEVA} and \\textit{ECOCADIZ-RECLUTAS}. The lines indicate a 95% uncertainty interval around the index values based on the lognormal error model assumption. "}
 include_graphics(file.path(path_mod,"fig_indices_fit.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -359,7 +389,7 @@ increment_figure_counter()
 While mean age for the *PELAGO*, *ECOCADIZ* and *ECOCADIZ-RECLUTAS* surveys is presented in Figure `r run_reference("fig_meanage_fit_Pelago")`.
 
 
-```{r fig.width=5, fig.height=6, dpi=300, fig.cap= "Mean age for \textit{PELAGO}, \textit{ECOCADIZ}, and \textit{ECOCADIZ-RECLUTAS} with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data. The blue line corresponds to the estimated mean age."}
+```{r fig.width=5, fig.height=6, dpi=300, fig.cap= "Mean age for \\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS} with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data. The blue line corresponds to the estimated mean age."}
 
 # Cargar las imágenes
 img2 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Pelago.png"))
@@ -381,42 +411,42 @@ increment_figure_counter()
 The Figure `r run_reference("fig_age_fit_agg")` shows the estimated age compositions aggregated over time for the different age data sources: *SEINE*, *ECOCADIZ*, *PELAGO*, and *ECORECLUTAS*. Overall, a high proportion of young individuals (ages 0 and 1) is observed in both the commercial fleet catches and acoustic surveys, with a significant decline in the proportions of older age classes. The green lines represent the model fits, demonstrating an adequate fit, with the aggregated age compositions well reconstructed. 
 
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the aggregated age composition data from the \textit{SEINE} fishery, and the acoustic surveys \textit{PELAGO}, \textit{ECOCADIZ}, and \textit{ECOCADIZ-RECLUTAS}. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the aggregated age composition data from the \\textit{SEINE} fishery, and the acoustic surveys \\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS}. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_agg.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 Figure `r run_reference("fig_age_fit_Seine")` shows the estimated age composition for the commercial fleet in the first quarter.
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{SEINEQ1} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{SEINEQ1} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_SeineQ1.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 Figure `r run_reference("fig_age_fit_Seine")` shows the estimated age composition for the commercial fleet in the second quarter.
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{SEINEQ2} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{SEINEQ2} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_SeineQ2.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 Figure `r run_reference("fig_age_fit_Seine")` shows the estimated age composition for the commercial fleet in the third quarter.
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{SEINEQ3} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{SEINEQ3} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_SeineQ3.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 Figure `r run_reference("fig_age_fit_Seine")` shows the estimated age composition for the commercial fleet in the fourth quarter.
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{SEINEQ4} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{SEINEQ4} fishery, by year and quarter. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_SeineQ4.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 Although the aggregated fits show an overall adequate result, some years exhibit variability in the age composition of the commercial fleet (*SEINE*) catches. This pattern is also evident in the annual data fits for the *PELAGO* survey, especially in the later years of the series (2020-2023), where there is a tendency to overestimate age 1 and underestimate age 2 (Figure `r run_reference("fig_age_fit_Pelago")`). 
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{PELAGO} spring survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{PELAGO} spring survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_Pelago.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -425,14 +455,14 @@ increment_figure_counter()
 In the *ECOCADIZ* survey, there are difficulties in estimating ages 0 and 1, with a tendency to underestimate age 0 and overestimate age 1 from 2016 to 2023 (Figure`r run_reference("fig_age_fit_eco")`).
 
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{ECOCADIZ} summer survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{ECOCADIZ} summer survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_Ecocadiz.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 In *ECOCADIZ-RECLUTAS*, a generally good fit is observed without a clear pattern of overestimation or underestimation (Figure `r run_reference("fig_age_fit_ecorec")`). 
 
-```{r eval=F,fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \textit{ECOCADIZ-RECLUTAS} fall survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r eval=F,fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{ECOCADIZ-RECLUTAS} fall survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_EcocadizRecl.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -489,9 +519,13 @@ increment_figure_counter()
 ```
 
 
-The Figure `r run_reference("fig_runtest_residuals_age")` shows that the residuals from the fit of the age proportions are randomly distributed, with p-values greater than 0.05 in the case of the commercial fleet (*SEINE*: `r run_age[run_age$Index=="SEINE","runs.p"]`) and the acoustic surveys (*PELAGO*: `r run_age[run_age$Index=="PELAGO","runs.p"]`, *ECOCADIZ-RECLUTAS*: `r run_age[run_age$Index=="ECORECLUTAS","runs.p"]`). Some violations of the three-standard-deviation limit are observed for the commercial fleet (*SEINE*) during the fourth quarter of 1991, 1996, and 2012, as well as in the *PELAGO* survey in the last year of the series (2023). In the case of the *ECOCADIZ* survey, the residuals are not randomly distributed as indicated by a p-value of `r run_age[run_age$Index=="ECOCADIZ","runs.p"]`, with several violations of the three-standard-deviation limit observed, primarily from 2018 to 2023. The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_age[jaba_age$indices == "Combined", "RMSE.perc"]`%.
+The Figure `r run_reference("fig_runtest_residuals_age")` shows that the residuals from the fit of the age proportions are randomly distributed, with p-values greater than 0.05 in the case of the commercial fleet (*SEINE*: `r run_age[run_age$Index=="SEINE","runs.p"]`) and the acoustic surveys (*PELAGO*: `r run_age[run_age$Index=="PELAGO","runs.p"]`, *ECOCADIZ-RECLUTAS*: `r run_age[run_age$Index=="ECORECLUTAS","runs.p"]`). 
+The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_age[jaba_age$indices == "Combined", "RMSE.perc"]`%.
 
-```{r fig.cap="ane.27.9a Southern stock. a) Runs test results for fits to annual mean age estimates for the surveys (\textit{PELAGO}, \textit{ECOCADIZ}, \textit{ECOCADIZ-RECLUTAS}) and the fishery (\textit{SEINE}). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.  b) Joint residual plots for annual mean length estimates for surveys and fishery (bottom left panel).  Vertical lines with points show the residuals, and the solid black line show loess smoother through all residuals. Root-mean squared error (RMSE) is included in the upper right-hand corner of the panel."}
+<!-- Some violations of the three-standard-deviation limit are observed for the commercial fleet (*SEINE*) during the fourth quarter of 1991, 1996, and 2012, as well as in the *PELAGO* survey in the last year of the series (2023). In the case of the *ECOCADIZ* survey, the residuals are not randomly distributed as indicated by a p-value of `r run_age[run_age$Index=="ECOCADIZ","runs.p"]`, with several violations of the three-standard-deviation limit observed, primarily from 2018 to 2023.  -->
+
+
+```{r fig.cap="ane.27.9a Southern stock. a) Runs test results for fits to annual mean age estimates for the surveys (\\textit{PELAGO}, \\textit{ECOCADIZ}, \\textit{ECOCADIZ-RECLUTAS}) and the fishery (\\textit{SEINE}). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.  b) Joint residual plots for annual mean length estimates for surveys and fishery (bottom left panel).  Vertical lines with points show the residuals, and the solid black line show loess smoother through all residuals. Root-mean squared error (RMSE) is included in the upper right-hand corner of the panel."}
 include_graphics(file.path(path_mod,"fig_runtest_residuals_age.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -524,10 +558,10 @@ increment_figure_counter()
 ```{r include=FALSE}
 param<-output$estimated_non_dev_parameters %>%rownames_to_column(var = "Parameter")
 SR_LN_R0 <- param$Value[param$Parameter == "SR_LN(R0)"]
-
+sigmaRnew<-dat$ctl$SR_parms$INIT[[3]]
 ```
 
-Recruitment was modeled using a Beverton-Holt stock-recruitment relationship (Figure `r run_reference("fig_stock-recluta")` ). The assumed level of underlying recruitment deviation error was fxed ($\sigma_R$=0.6), equilibrium recruitment was estimated ($log(R_0)$)=`r round(SR_LN_R0,2)`) and steepness ($h$) was fixed at 0.8. 
+Recruitment was modeled using a Beverton-Holt stock-recruitment relationship (Figure `r run_reference("fig_stock-recluta")` ). The assumed level of underlying recruitment deviation error was fixed ($\sigma_R$=`r sigmaRnew`), equilibrium recruitment was estimated ($log(R_0)$)=`r round(SR_LN_R0,2)`) and steepness ($h$) was fixed at 0.8. 
 
 ```{r fig.cap="ane.27.9a Southern stock. Stock-recruit curve with labels on first, last, and years with (log) deviations > 0.5. Point colors indicate year, with warmer colors indicating earlier years and cooler colors in showing later years."}
 include_graphics(file.path(path_mod,"fig_stock-recluta.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -535,7 +569,7 @@ increment_figure_counter()
 
 ```
 
-Recruitment deviations for the early (1985-1988) and  main (1991-2023) periods in the model are presented in (Figure `r run_reference("fig_Recdevs")` ). 
+Recruitment deviations for the early  from `r dat$ctl$last_early_yr_nobias_adj` and  main for `r dat$ctl$MainRdevYrFirst` - `r dat$ctl$MainRdevYrLast` periods in the model are presented in (Figure `r run_reference("fig_Recdevs")` ). 
 
 ```{r fig.cap="ane.27.9a Southern stock. Recruitment deviations with 95% intervals for the base model (sigmaR = 0.3 )."}
 include_graphics(file.path(path_mod,"fig_Recdevs.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -581,7 +615,7 @@ increment_figure_counter()
 
 ## Catchability
 
-The catchability (q) is adjusted to maintain a consistent relationship between the observed biomass and the vulnerable biomass in acoustic surveys. As vulnerable biomass decreases throughout the year, catchability increases, indicating that efforts intensify when the vulnerable biomass is lower (Figure  `r run_reference("fig_catchability")` ).
+The catchability (q) is adjusted to maintain a consistent relationship between the observed biomass and the vulnerable biomass in acoustic surveys (Figure  `r run_reference("fig_catchability")` ).
 
 ```{r fig.cap="ane.27.9a Southern stock. Estimated catchability parameters for the different surveys indices."}
 include_graphics(file.path(path_mod,"fig_catchability.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -593,13 +627,13 @@ increment_figure_counter()
 
 ## Estimated time series
 
-The Figure  `r run_reference("fig_time_series")` shows that  total biomass fluctuates around a historical mean of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a minimum in `r agg_Value2[agg_Value2$type == "Bt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes and a maximum recorded in `r agg_Value2[agg_Value2$type == "Bt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes. In 2023, the biomass is estimated to be `r round(1 - (data[data$type == "Bt" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. The catch shows variability around the historical mean of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Catch", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "Catch", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes.  In 2023, the catch is estimated to be `r round( (data[data$type == "Catch" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
+The Figure  `r run_reference("fig_time_series")` shows that  total biomass fluctuates around a historical mean of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a minimum in `r agg_Value2[agg_Value2$type == "Bt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes and a maximum recorded in `r agg_Value2[agg_Value2$type == "Bt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Bt", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes. In 2023, the biomass is estimated to be `r round(1 - (datavb[datavb$type == "Bt" & datavb$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Bt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. The catch shows variability around the historical mean of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Catch", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "Catch", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Catch", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes.  In 2023, the catch is estimated to be `r round( (datavb[datavb$type == "Catch" & datavb$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Catch", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
 
-The fishing mortality ($F_t$) fluctuates around a historical mean of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE], 2)`, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Ft", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.max", drop = TRUE], 2)` and a minimum in `r agg_Value2[agg_Value2$type == "Ft", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.min", drop = TRUE], 2)`. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Ft", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Ft", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Ft", "Value.mean", drop = TRUE], 2)`.  The $F_{2023}$ is estimated to be `r round( (data[data$type == "Ft" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
+The fishing mortality ($F_t$) fluctuates around a historical mean of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE], 2)`, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Ft", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.max", drop = TRUE], 2)` and a minimum in `r agg_Value2[agg_Value2$type == "Ft", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Ft", "Value.min", drop = TRUE], 2)`. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Ft", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Ft", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Ft", "Value.mean", drop = TRUE], 2)`.  The $F_{2023}$ is estimated to be `r round( (datavb[datavb$type == "Ft" & datavb$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Ft", "Value.mean", drop = TRUE])-1, 2) * 100`% above the historical mean. 
 
-The recruitment ($R_t$) fluctuates around a historical mean of  `r round(agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE] / 1000000, 2)` millions recruits, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Rt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.max", drop = TRUE] / 1000000, 2)` millions recruits and a minimum in `r agg_Value2[agg_Value2$type == "Rt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.min", drop = TRUE] / 1000000, 2)` millions recruits. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Rt", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Rt", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Rt", "Value.mean", drop = TRUE], 2)`.  The $R_{2023}$ is estimated to be `r round(1- (data[data$type == "Rt" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
+The recruitment ($R_t$) fluctuates around a historical mean of  `r round(agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE] / 1000000, 2)` millions recruits, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "Rt", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.max", drop = TRUE] / 1000000, 2)` millions recruits and a minimum in `r agg_Value2[agg_Value2$type == "Rt", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "Rt", "Value.min", drop = TRUE] / 1000000, 2)` millions recruits. Confidence intervals range from `r round(agg_CV[agg_CV$type == "Rt", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "Rt", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "Rt", "Value.mean", drop = TRUE], 2)`.  The $R_{2023}$ is estimated to be `r round(1- (datavb[datavb$type == "Rt" & datavb$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "Rt", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
 
-Finally, the spawning biomass ($SSB_{t}$) varies around a historical mean of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "SSB", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "SSB", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes. Confidence intervals range from `r round(agg_CV[agg_CV$type == "SSB", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "SSB", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "SSB", "Value.mean", drop = TRUE], 2)`.The $SSB_{2023}$ is estimated to be `r round(1- (data[data$type == "SSB" & data$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
+Finally, the spawning biomass ($SSB_{t}$) varies around a historical mean of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE] / 1000, 2)` thousand tonnes, with a maximum value recorded in `r agg_Value2[agg_Value2$type == "SSB", "year.max"]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.max", drop = TRUE] / 1000, 2)` thousand tonnes and a minimum in `r agg_Value2[agg_Value2$type == "SSB", "year.min", drop = TRUE]` of `r round(agg_Value2[agg_Value2$type == "SSB", "Value.min", drop = TRUE] / 1000, 2)` thousand tonnes. Confidence intervals range from `r round(agg_CV[agg_CV$type == "SSB", "Value.max", drop = TRUE], 2)` to `r round(agg_CV[agg_CV$type == "SSB", "Value.min", drop = TRUE], 2)`, with an average of `r round(agg_CV[agg_CV$type == "SSB", "Value.mean", drop = TRUE], 2)`.The $SSB_{2023}$ is estimated to be `r round(1- (datavb[datavb$type == "SSB" & datavb$year == 2023, "Value", drop = TRUE] / agg_Value2[agg_Value2$type == "SSB", "Value.mean", drop = TRUE]), 2) * 100`% below the historical mean. 
 
 
 ```{r fig.cap="ane.27.9a Southern stock. Time series estimated by the model for annual catches (in tons), recruitment (millions of fish), total biomass and spawning biomass (in tons), and fishing mortality (year-1)."}
