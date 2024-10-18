@@ -206,7 +206,7 @@ ft <- autofit(ft) %>%
 # Mostrar la flextable
 ft
 
-
+write.csv(data_grouped, "report/run/comparison/Scenarios.csv", row.names = FALSE)
 invisible(save_as_image(ft, path = paste0("report/run/comparison/tb_scenarios.png")))
 
 #'*--------------------------------------------------------------------------*
@@ -265,7 +265,7 @@ Q_SS<-plyr::ldply(Calc_Q,data.frame)
 M_SS<-plyr::ldply(M,data.frame)
 
 ft1.1.1<-M_SS %>% flextable()
-invisible(save_as_image(ft1.1.1, path = paste0(path_mod,"/tb_M.png")))
+invisible(save_as_image(ft1.1.1, path = "report/run/comparison/tb_M.png"))
 
 
 df_diagsSS <-   pivot_longer(diagsSS, 
@@ -292,7 +292,10 @@ ft1 <- bold(ft1, i = c(2, 8, 22,25,27), j = 1:10, bold = TRUE)
 ft1 <- hline(ft1, i = c(2,3, 7,9,14,18,21,25), border = fp_border(width = 1.5))
 ft1 <- add_footer_lines(ft1, values = c("The scenarios highlighted in bold represent the options selected on each day of the benchmark."))
 ft1 <- autofit(ft1)
-invisible(save_as_image(ft1, path = paste0(path_mod,"/tb_Diagstics.png")))
+
+write.csv(diagsSS, "report/run/comparison/diagsSS.csv", row.names = FALSE)
+
+invisible(save_as_image(ft1, path = "report/run/comparison/tb_Diagstics.png"))
 
 ft2 <- flextable(cbind(df_parmSS["Parameter"], round(df_parmSS[,-which(names(df_parmSS) == "Parameter")], 3)))
 ft2 <- colformat_double(ft2, digits=1, na_str = "")
@@ -300,7 +303,7 @@ ft2 <- colformat_num(ft2,big.mark = "", na_str = "")
 ft2 <- align(ft2,part = "header", align = "center") 
 ft2 <- fontsize(ft2, size = 8, part = "header")
 ft2 <- autofit(ft2)
-invisible(save_as_image(ft2, path = paste0(path_mod,"/tb_Parameters.png")))
+invisible(save_as_image(ft2, path = "report/run/comparison/tb_Parameters.png"))
 
 Qdata$Fleet_name <- factor(Qdata$Fleet_name, 
                            levels = c("PELAGO", "ECOCADIZ", "BOCADEVA", "ECORECLUTAS"))
