@@ -1,0 +1,47 @@
+"Title","Scenario","Description"
+"Initial implementing model","S0","One fleet for four season (1 fleet, 4 season)"
+"","S1.0_4FLEETS","One fleet per season (4 fleet, 4 season)"
+"Fixed weight at age exercise","S1.0_4FLEETS_WatageFix","Empirical Weight-at-age fixed years"
+"Fixing catchabilities exercise","S1.0_4FLEETS_q1PEL","S1.0_4FLEETS + Catchability fixed q=1 PELAGO"
+"","S1.0_4FLEETS_q1ECO","S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ"
+"","S1.0_4FLEETS_q1BOCA","S1.0_4FLEETS + Catchability fixed q=1 BOCADEVA"
+"","S1.0_4FLEETS_q1ECOREC","S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ-RECLUTAS"
+"Sensitivity test of different selectivity
+ assumptions for the ECOCADIZ survey","S1.0_4FLEETS_SelECO","S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)"
+"","S1.0_4FLEETS_SelvarECO","S1.0_4FLEETS + logistic selectivity ECOCADIZ: random-walk (2004-2014) and fixed (2015-2023)"
+"Priors on catchabilities exercise","S4FLEETS_SelECO_Qprior","Qprior all surveys"
+"","S4FLEETS_SelECO_QpriorPelEcoR","Qprior PELAGO and ECOCADIZ-RECLUTAS"
+"","S4FLEETS_SelECO_QpriorEco.Boca","Qprior ECOCADIZ and BOCADEVA"
+"","S4FLEETS_SelECO_QpriorBoca.EcoR","Qprior BOCADEVA and ECOCADIZ-RECLUTAS"
+"","S4FLEETS_SelECO_QpriorEcoR","Qprior only ECOCADIZ-RECLUTAS"
+"Sensibility to selectivity and
+ natural mortality assumptions","S4FLEETS_SelECO_Selfleet","S1.0_4FLEETS_SelECO + Parameterize age-based fishery selectivity
+ where age-0==0 (for Q1 and Q2 only, 
+                  estimated for Q3-Q4) and age-2==1, and age-1 and age-3 are estimated."
+"","S4FLEETS_SelECO_Mage","S1.0_4FLEETS_SelECO + Estimate M for age-2+"
+"","S4FLEETS_SelECO_MageSel","Combination of S4FLEETS_SelECO_Selfleet and S4FLEETS_SelECO_Mage:
+ Fishery selectivity and natural mortality"
+"","S4FLEETS_SelECO_MfixSel","Combination of S4FLEETS_SelECO_Selfleet and Mfix=S4FLEETS_SelECO_Mage:
+ Fishery selectivity and natural mortality fixed."
+"Sensitivity to ECOCADIZ-RECLUTAS selectivity","S4FLEETS_SelECO_Selfleet_EcoR","S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS
+ selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated"
+"","S1.0_4FLEETS_SelECO_EcoR","S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS
+ selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated"
+"","S1.0_4FLEETS_SelECO_EcoR3","S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS
+ selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated"
+"ECOCADIZ-RECLUTAS as recruitment Index
+ and natural mortality by age","S1.0_4FLEETS_SelECO_RecIndex","S1.0_4FLEETS_SelECO + ECOCADIZ-RECLUTAS as recruitment Index"
+"","S1.0_4FLEETS_SelECO_RecIndex_M1_1.6","S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed
+  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33"
+"","S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6","S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed
+  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3"
+"","S1.0_4FLEETS_SelECO_RecIndex_Mnewfix","S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed
+  Mage-0=2.97,Mage-1=1.6,Mage-2=2.4,Mage-3=2.4"
+"Further analysis","S1.0_InitCond","S1.0_4FLEETS_SelECO_RecIndex_Mnewfix + Initial equilibrium catch
+ was assumed to be equal to the average catch from 1989-1994 for each fleet and season"
+"","S1.0_InitCond_sigmaR","S1.0_InitCond + sigmaR=0.33, as specified by the sigma_R_info in SS3"
+"","S1.0_InitCond_sigmaR_SelP","S1.0_InitCond_sigmaR + Selectivity PELAGO was fixed at 1 from age 1 onwards"
+"","S1.0_InitCond_sigmaR_SelP_qpriorP","S1.0_InitCond_sigmaR_SelP + A normal prior with a standard deviation
+ of 0.1 was applied to PELAGO catchability"
+"","S1.0_InitCond_sigmaR_qpriorP","S1.0_InitCond_sigmaR +  A normal prior with a standard deviation
+ of 0.1 was applied to PELAGO catchability"

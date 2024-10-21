@@ -1,0 +1,993 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='1132.29pt' height='835.89pt' viewBox='0 0 1132.29 835.89'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: none;'/>
+<defs>
+  <clipPath id='cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5'>
+    <rect x='0.00' y='0.00' width='1132.29' height='835.89' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NS4wMHwyNS42NQ=='>
+    <rect x='5.00' y='5.00' width='274.85' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NS4wMHwyNS42NQ==)'>
+<line x1='5.00' y1='5.00' x2='279.85' y2='5.00' style='stroke-width: 3.20; stroke: #666666;' />
+<line x1='5.00' y1='25.65' x2='279.85' y2='25.65' style='stroke-width: 3.20; stroke: #666666;' />
+<text x='21.96' y='19.33' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='23.58px' lengthAdjust='spacingAndGlyphs'>Title</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w1LjAwfDI1LjY1'>
+    <rect x='279.85' y='5.00' width='295.88' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w1LjAwfDI1LjY1)'>
+<line x1='279.85' y1='5.00' x2='575.73' y2='5.00' style='stroke-width: 3.20; stroke: #666666;' />
+<line x1='279.85' y1='25.65' x2='575.73' y2='25.65' style='stroke-width: 3.20; stroke: #666666;' />
+<text x='308.76' y='19.33' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='47.82px' lengthAdjust='spacingAndGlyphs'>Scenario</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NS4wMHwyNS42NQ=='>
+    <rect x='575.73' y='5.00' width='551.56' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NS4wMHwyNS42NQ==)'>
+<line x1='575.73' y1='5.00' x2='1127.29' y2='5.00' style='stroke-width: 3.20; stroke: #666666;' />
+<line x1='575.73' y1='25.65' x2='1127.29' y2='25.65' style='stroke-width: 3.20; stroke: #666666;' />
+<text x='612.06' y='19.33' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='62.66px' lengthAdjust='spacingAndGlyphs'>Description</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MjUuNjV8NDYuMjk='>
+    <rect x='5.00' y='25.65' width='274.85' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MjUuNjV8NDYuMjk=)'>
+<text x='84.02' y='39.98' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='148.07px' lengthAdjust='spacingAndGlyphs'>Initial implementing model</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyNS42NXw0Ni4yOQ=='>
+    <rect x='279.85' y='25.65' width='295.88' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyNS42NXw0Ni4yOQ==)'>
+<text x='291.85' y='39.98' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='13.98px' lengthAdjust='spacingAndGlyphs'>S0</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MjUuNjV8NDYuMjk='>
+    <rect x='575.73' y='25.65' width='551.56' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MjUuNjV8NDYuMjk=)'>
+<text x='701.01' y='39.98' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='240.60px' lengthAdjust='spacingAndGlyphs'>One fleet for four season (1 fleet, 4 season)</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NDYuMjl8NjcuMDU='>
+    <rect x='5.00' y='46.29' width='274.85' height='20.76' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NDYuMjl8NjcuMDU=)'>
+<line x1='5.00' y1='67.05' x2='279.85' y2='67.05' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w0Ni4yOXw2Ny4wNQ=='>
+    <rect x='279.85' y='46.29' width='295.88' height='20.76' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w0Ni4yOXw2Ny4wNQ==)'>
+<line x1='279.85' y1='67.05' x2='575.73' y2='67.05' style='stroke-width: 3.20;' />
+<text x='327.62' y='60.68' text-anchor='middle' style='font-size: 11.00px; font-weight: bold; font-family: "DejaVu Sans";' textLength='85.54px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NDYuMjl8NjcuMDU='>
+    <rect x='575.73' y='46.29' width='551.56' height='20.76' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NDYuMjl8NjcuMDU=)'>
+<line x1='575.73' y1='67.05' x2='1127.29' y2='67.05' style='stroke-width: 3.20;' />
+<text x='689.79' y='60.68' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='218.15px' lengthAdjust='spacingAndGlyphs'>One fleet per season (4 fleet, 4 season)</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NjcuMDV8ODguMDA='>
+    <rect x='5.00' y='67.05' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NjcuMDV8ODguMDA=)'>
+<line x1='5.00' y1='88.00' x2='279.85' y2='88.00' style='stroke-width: 3.20;' />
+<text x='89.22' y='81.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='156.54px' lengthAdjust='spacingAndGlyphs'>Fixed weight at age exercise</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w2Ny4wNXw4OC4wMA=='>
+    <rect x='279.85' y='67.05' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w2Ny4wNXw4OC4wMA==)'>
+<line x1='279.85' y1='88.00' x2='575.73' y2='88.00' style='stroke-width: 3.20;' />
+<text x='355.28' y='81.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='139.35px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_WatageFix</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NjcuMDV8ODguMDA='>
+    <rect x='575.73' y='67.05' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NjcuMDV8ODguMDA=)'>
+<line x1='575.73' y1='88.00' x2='1127.29' y2='88.00' style='stroke-width: 3.20;' />
+<text x='679.50' y='81.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='196.56px' lengthAdjust='spacingAndGlyphs'>Empirical Weight-at-age fixed years</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8ODguMDB8MTA4Ljk1'>
+    <rect x='5.00' y='88.00' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8ODguMDB8MTA4Ljk1)'>
+<text x='89.47' y='102.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='157.40px' lengthAdjust='spacingAndGlyphs'>Fixing catchabilities exercise</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w4OC4wMHwxMDguOTU='>
+    <rect x='279.85' y='88.00' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w4OC4wMHwxMDguOTU=)'>
+<text x='342.97' y='102.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='116.22px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_q1PEL</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8ODguMDB8MTA4Ljk1'>
+    <rect x='575.73' y='88.00' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8ODguMDB8MTA4Ljk1)'>
+<text x='712.73' y='102.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='263.75px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + Catchability fixed q=1 PELAGO</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MTA4Ljk1fDEyOS45MA=='>
+    <rect x='5.00' y='108.95' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MTA4Ljk1fDEyOS45MA==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wxMDguOTV8MTI5Ljkw'>
+    <rect x='279.85' y='108.95' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wxMDguOTV8MTI5Ljkw)'>
+<text x='344.76' y='123.44' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='119.81px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_q1ECO</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MTA4Ljk1fDEyOS45MA=='>
+    <rect x='575.73' y='108.95' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MTA4Ljk1fDEyOS45MA==)'>
+<text x='719.40' y='123.44' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='277.03px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MTI5LjkwfDE1MC44Ng=='>
+    <rect x='5.00' y='129.90' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MTI5LjkwfDE1MC44Ng==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wxMjkuOTB8MTUwLjg2'>
+    <rect x='279.85' y='129.90' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wxMjkuOTB8MTUwLjg2)'>
+<text x='348.82' y='144.39' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='127.74px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_q1BOCA</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MTI5LjkwfDE1MC44Ng=='>
+    <rect x='575.73' y='129.90' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MTI5LjkwfDE1MC44Ng==)'>
+<text x='721.47' y='144.39' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='280.26px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + Catchability fixed q=1 BOCADEVA</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MTUwLjg2fDE3MS44MQ=='>
+    <rect x='5.00' y='150.86' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MTUwLjg2fDE3MS44MQ==)'>
+<line x1='5.00' y1='171.81' x2='279.85' y2='171.81' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wxNTAuODZ8MTcxLjgx'>
+    <rect x='279.85' y='150.86' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wxNTAuODZ8MTcxLjgx)'>
+<line x1='279.85' y1='171.81' x2='575.73' y2='171.81' style='stroke-width: 3.20;' />
+<text x='355.89' y='165.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='142.08px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_q1ECOREC</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MTUwLjg2fDE3MS44MQ=='>
+    <rect x='575.73' y='150.86' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MTUwLjg2fDE3MS44MQ==)'>
+<line x1='575.73' y1='171.81' x2='1127.29' y2='171.81' style='stroke-width: 3.20;' />
+<text x='750.22' y='165.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='337.08px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + Catchability fixed q=1 ECOCADIZ-RECLUTAS</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MTcxLjgxfDIwMy4xMA=='>
+    <rect x='5.00' y='171.81' width='274.85' height='31.29' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MTcxLjgxfDIwMy4xMA==)'>
+<text x='113.12' y='186.14' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='206.03px' lengthAdjust='spacingAndGlyphs'>Sensitivity test of different selectivity</text>
+<text x='117.55' y='196.79' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='215.11px' lengthAdjust='spacingAndGlyphs'> assumptions for the ECOCADIZ survey</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wxNzEuODF8MjAzLjEw'>
+    <rect x='279.85' y='171.81' width='295.88' height='31.29' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wxNzEuODF8MjAzLjEw)'>
+<text x='352.42' y='191.46' text-anchor='middle' style='font-size: 11.00px; font-weight: bold; font-family: "DejaVu Sans";' textLength='135.14px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MTcxLjgxfDIwMy4xMA=='>
+    <rect x='575.73' y='171.81' width='551.56' height='31.29' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MTcxLjgxfDIwMy4xMA==)'>
+<text x='809.59' y='191.46' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='457.80px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + logistic selectivity ECOCADIZ: two blocks (2004-2014, 2015-2023)</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MjAzLjEwfDIyNC4wNQ=='>
+    <rect x='5.00' y='203.10' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MjAzLjEwfDIyNC4wNQ==)'>
+<line x1='5.00' y1='224.05' x2='279.85' y2='224.05' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyMDMuMTB8MjI0LjA1'>
+    <rect x='279.85' y='203.10' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyMDMuMTB8MjI0LjA1)'>
+<line x1='279.85' y1='224.05' x2='575.73' y2='224.05' style='stroke-width: 3.20;' />
+<text x='355.05' y='217.58' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='140.41px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelvarECO</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MjAzLjEwfDIyNC4wNQ=='>
+    <rect x='575.73' y='203.10' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MjAzLjEwfDIyNC4wNQ==)'>
+<line x1='575.73' y1='224.05' x2='1127.29' y2='224.05' style='stroke-width: 3.20;' />
+<text x='846.25' y='217.58' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='530.76px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS + logistic selectivity ECOCADIZ: random-walk (2004-2014) and fixed (2015-2023)</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MjI0LjA1fDI0NS4wMA=='>
+    <rect x='5.00' y='224.05' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MjI0LjA1fDI0NS4wMA==)'>
+<text x='97.22' y='238.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='173.49px' lengthAdjust='spacingAndGlyphs'>Priors on catchabilities exercise</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyMjQuMDV8MjQ1LjAw'>
+    <rect x='279.85' y='224.05' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyMjQuMDV8MjQ1LjAw)'>
+<text x='354.66' y='238.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='139.62px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_Qprior</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MjI0LjA1fDI0NS4wMA=='>
+    <rect x='575.73' y='224.05' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MjI0LjA1fDI0NS4wMA==)'>
+<text x='629.26' y='238.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='97.08px' lengthAdjust='spacingAndGlyphs'>Qprior all surveys</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MjQ1LjAwfDI2NS45NQ=='>
+    <rect x='5.00' y='245.00' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MjQ1LjAwfDI2NS45NQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyNDUuMDB8MjY1Ljk1'>
+    <rect x='279.85' y='245.00' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyNDUuMDB8MjY1Ljk1)'>
+<text x='376.57' y='259.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='183.07px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_QpriorPelEcoR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MjQ1LjAwfDI2NS45NQ=='>
+    <rect x='575.73' y='245.00' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MjQ1LjAwfDI2NS45NQ==)'>
+<text x='695.47' y='259.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='227.95px' lengthAdjust='spacingAndGlyphs'>Qprior PELAGO and ECOCADIZ-RECLUTAS</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MjY1Ljk1fDI4Ni45MQ=='>
+    <rect x='5.00' y='265.95' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MjY1Ljk1fDI4Ni45MQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyNjUuOTV8Mjg2Ljkx'>
+    <rect x='279.85' y='265.95' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyNjUuOTV8Mjg2Ljkx)'>
+<text x='379.80' y='280.44' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='189.72px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_QpriorEco.Boca</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MjY1Ljk1fDI4Ni45MQ=='>
+    <rect x='575.73' y='265.95' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MjY1Ljk1fDI4Ni45MQ==)'>
+<text x='673.37' y='280.44' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='184.41px' lengthAdjust='spacingAndGlyphs'>Qprior ECOCADIZ and BOCADEVA</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8Mjg2LjkxfDMwNy44Ng=='>
+    <rect x='5.00' y='286.91' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8Mjg2LjkxfDMwNy44Ng==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wyODYuOTF8MzA3Ljg2'>
+    <rect x='279.85' y='286.91' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wyODYuOTF8MzA3Ljg2)'>
+<text x='383.62' y='301.39' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='197.56px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_QpriorBoca.EcoR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8Mjg2LjkxfDMwNy44Ng=='>
+    <rect x='575.73' y='286.91' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8Mjg2LjkxfDMwNy44Ng==)'>
+<text x='704.20' y='301.39' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='244.46px' lengthAdjust='spacingAndGlyphs'>Qprior BOCADEVA and ECOCADIZ-RECLUTAS</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MzA3Ljg2fDMyOC44MQ=='>
+    <rect x='5.00' y='307.86' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MzA3Ljg2fDMyOC44MQ==)'>
+<line x1='5.00' y1='328.81' x2='279.85' y2='328.81' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wzMDcuODZ8MzI4Ljgx'>
+    <rect x='279.85' y='307.86' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wzMDcuODZ8MzI4Ljgx)'>
+<line x1='279.85' y1='328.81' x2='575.73' y2='328.81' style='stroke-width: 3.20;' />
+<text x='368.34' y='322.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='167.00px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_QpriorEcoR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MzA3Ljg2fDMyOC44MQ=='>
+    <rect x='575.73' y='307.86' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MzA3Ljg2fDMyOC44MQ==)'>
+<line x1='575.73' y1='328.81' x2='1127.29' y2='328.81' style='stroke-width: 3.20;' />
+<text x='672.79' y='322.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='182.56px' lengthAdjust='spacingAndGlyphs'>Qprior only ECOCADIZ-RECLUTAS</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MzI4LjgxfDM3MS4wNQ=='>
+    <rect x='5.00' y='328.81' width='274.85' height='42.24' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MzI4LjgxfDM3MS4wNQ==)'>
+<text x='87.42' y='348.62' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='154.87px' lengthAdjust='spacingAndGlyphs'>Sensibility to selectivity and</text>
+<text x='94.72' y='359.26' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='169.44px' lengthAdjust='spacingAndGlyphs'> natural mortality assumptions</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wzMjguODF8MzcxLjA1'>
+    <rect x='279.85' y='328.81' width='295.88' height='42.24' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wzMjguODF8MzcxLjA1)'>
+<text x='358.21' y='353.94' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='146.74px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_Selfleet</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MzI4LjgxfDM3MS4wNQ=='>
+    <rect x='575.73' y='328.81' width='551.56' height='42.24' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MzI4LjgxfDM3MS4wNQ==)'>
+<text x='767.67' y='343.29' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='373.41px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO + Parameterize age-based fishery selectivity</text>
+<text x='689.27' y='354.09' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='216.86px' lengthAdjust='spacingAndGlyphs'> where age-0==0 (for Q1 and Q2 only, </text>
+<text x='815.88' y='364.74' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='470.53px' lengthAdjust='spacingAndGlyphs'>                  estimated for Q3-Q4) and age-2==1, and age-1 and age-3 are estimated.</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MzcxLjA1fDM5Mi4wMA=='>
+    <rect x='5.00' y='371.05' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MzcxLjA1fDM5Mi4wMA==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wzNzEuMDV8MzkyLjAw'>
+    <rect x='279.85' y='371.05' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wzNzEuMDV8MzkyLjAw)'>
+<text x='352.41' y='385.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='135.12px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_Mage</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MzcxLjA1fDM5Mi4wMA=='>
+    <rect x='575.73' y='371.05' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MzcxLjA1fDM5Mi4wMA==)'>
+<text x='712.33' y='385.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='263.22px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO + Estimate M for age-2+</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8MzkyLjAwfDQyMy42MA=='>
+    <rect x='5.00' y='392.00' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8MzkyLjAwfDQyMy42MA==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3wzOTIuMDB8NDIzLjYw'>
+    <rect x='279.85' y='392.00' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3wzOTIuMDB8NDIzLjYw)'>
+<text x='360.82' y='411.81' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='151.93px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_MageSel</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8MzkyLjAwfDQyMy42MA=='>
+    <rect x='575.73' y='392.00' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8MzkyLjAwfDQyMy42MA==)'>
+<text x='781.12' y='406.49' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='400.82px' lengthAdjust='spacingAndGlyphs'>Combination of S4FLEETS_SelECO_Selfleet and S4FLEETS_SelECO_Mage:</text>
+<text x='692.46' y='417.29' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='222.69px' lengthAdjust='spacingAndGlyphs'> Fishery selectivity and natural mortality</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NDIzLjYwfDQ1NS4yMA=='>
+    <rect x='5.00' y='423.60' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NDIzLjYwfDQ1NS4yMA==)'>
+<line x1='5.00' y1='455.20' x2='279.85' y2='455.20' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w0MjMuNjB8NDU1LjIw'>
+    <rect x='279.85' y='423.60' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w0MjMuNjB8NDU1LjIw)'>
+<line x1='279.85' y1='455.20' x2='575.73' y2='455.20' style='stroke-width: 3.20;' />
+<text x='357.29' y='443.41' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='144.89px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_MfixSel</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NDIzLjYwfDQ1NS4yMA=='>
+    <rect x='575.73' y='423.60' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NDIzLjYwfDQ1NS4yMA==)'>
+<line x1='575.73' y1='455.20' x2='1127.29' y2='455.20' style='stroke-width: 3.20;' />
+<text x='797.19' y='438.09' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='432.96px' lengthAdjust='spacingAndGlyphs'>Combination of S4FLEETS_SelECO_Selfleet and Mfix=S4FLEETS_SelECO_Mage:</text>
+<text x='709.55' y='448.88' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='256.54px' lengthAdjust='spacingAndGlyphs'> Fishery selectivity and natural mortality fixed.</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NDU1LjIwfDQ4Ni43OQ=='>
+    <rect x='5.00' y='455.20' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NDU1LjIwfDQ4Ni43OQ==)'>
+<text x='137.16' y='475.01' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='252.76px' lengthAdjust='spacingAndGlyphs'>Sensitivity to ECOCADIZ-RECLUTAS selectivity</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w0NTUuMjB8NDg2Ljc5'>
+    <rect x='279.85' y='455.20' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w0NTUuMjB8NDg2Ljc5)'>
+<text x='374.65' y='475.01' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='179.61px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_Selfleet_EcoR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NDU1LjIwfDQ4Ni43OQ=='>
+    <rect x='575.73' y='455.20' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NDU1LjIwfDQ4Ni43OQ==)'>
+<text x='791.65' y='469.68' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='419.77px' lengthAdjust='spacingAndGlyphs'>S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS</text>
+<text x='786.67' y='480.48' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='411.42px' lengthAdjust='spacingAndGlyphs'> selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NDg2Ljc5fDUxOC4zOQ=='>
+    <rect x='5.00' y='486.79' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NDg2Ljc5fDUxOC4zOQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w0ODYuNzl8NTE4LjM5'>
+    <rect x='279.85' y='486.79' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w0ODYuNzl8NTE4LjM5)'>
+<text x='362.60' y='506.60' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='155.51px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_EcoR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NDg2Ljc5fDUxOC4zOQ=='>
+    <rect x='575.73' y='486.79' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NDg2Ljc5fDUxOC4zOQ==)'>
+<text x='779.60' y='501.28' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='395.68px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS</text>
+<text x='786.67' y='512.08' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='411.42px' lengthAdjust='spacingAndGlyphs'> selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NTE4LjM5fDU0OS45OQ=='>
+    <rect x='5.00' y='518.39' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NTE4LjM5fDU0OS45OQ==)'>
+<line x1='5.00' y1='549.99' x2='279.85' y2='549.99' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w1MTguMzl8NTQ5Ljk5'>
+    <rect x='279.85' y='518.39' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w1MTguMzl8NTQ5Ljk5)'>
+<line x1='279.85' y1='549.99' x2='575.73' y2='549.99' style='stroke-width: 3.20;' />
+<text x='366.10' y='538.20' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='162.51px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_EcoR3</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NTE4LjM5fDU0OS45OQ=='>
+    <rect x='575.73' y='518.39' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NTE4LjM5fDU0OS45OQ==)'>
+<line x1='575.73' y1='549.99' x2='1127.29' y2='549.99' style='stroke-width: 3.20;' />
+<text x='779.60' y='532.88' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='395.68px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS</text>
+<text x='786.67' y='543.68' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='411.42px' lengthAdjust='spacingAndGlyphs'> selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NTQ5Ljk5fDU3OS4xNQ=='>
+    <rect x='5.00' y='549.99' width='274.85' height='29.16' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NTQ5Ljk5fDU3OS4xNQ==)'>
+<text x='128.90' y='563.26' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='235.78px' lengthAdjust='spacingAndGlyphs'>ECOCADIZ-RECLUTAS as recruitment Index</text>
+<text x='90.72' y='572.84' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='161.45px' lengthAdjust='spacingAndGlyphs'> and natural mortality by age</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w1NDkuOTl8NTc5LjE1'>
+    <rect x='279.85' y='549.99' width='295.88' height='29.16' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w1NDkuOTl8NTc5LjE1)'>
+<text x='383.57' y='568.58' text-anchor='middle' style='font-size: 11.00px; font-weight: bold; font-family: "DejaVu Sans";' textLength='197.46px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NTQ5Ljk5fDU3OS4xNQ=='>
+    <rect x='575.73' y='549.99' width='551.56' height='29.16' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NTQ5Ljk5fDU3OS4xNQ==)'>
+<text x='769.05' y='568.58' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='374.63px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO + ECOCADIZ-RECLUTAS as recruitment Index</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NTc5LjE1fDYxMC41NQ=='>
+    <rect x='5.00' y='579.15' width='274.85' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NTc5LjE1fDYxMC41NQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w1NzkuMTV8NjEwLjU1'>
+    <rect x='279.85' y='579.15' width='295.88' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w1NzkuMTV8NjEwLjU1)'>
+<text x='396.88' y='598.86' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='223.37px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex_M1_1.6</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NTc5LjE1fDYxMC41NQ=='>
+    <rect x='575.73' y='579.15' width='551.56' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NTc5LjE1fDYxMC41NQ==)'>
+<text x='761.21' y='593.63' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='359.97px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed</text>
+<text x='735.29' y='604.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='309.12px' lengthAdjust='spacingAndGlyphs'>  Mage-0=2.97,Mage-1=1.6,Mage-2=1.33,Mage-3=1.33</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NjEwLjU1fDY0Mi4xNQ=='>
+    <rect x='5.00' y='610.55' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NjEwLjU1fDY0Mi4xNQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w2MTAuNTV8NjQyLjE1'>
+    <rect x='279.85' y='610.55' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w2MTAuNTV8NjQyLjE1)'>
+<text x='422.53' y='630.36' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='274.67px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NjEwLjU1fDY0Mi4xNQ=='>
+    <rect x='575.73' y='610.55' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NjEwLjU1fDY0Mi4xNQ==)'>
+<text x='761.21' y='625.04' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='359.97px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed</text>
+<text x='718.66' y='635.84' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='275.86px' lengthAdjust='spacingAndGlyphs'>  Mage-0=2.97,Mage-1=1.6, estimated Mage-2=3</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NjQyLjE1fDY3My41NQ=='>
+    <rect x='5.00' y='642.15' width='274.85' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NjQyLjE1fDY3My41NQ==)'>
+<line x1='5.00' y1='673.55' x2='279.85' y2='673.55' style='stroke-width: 3.20;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w2NDIuMTV8NjczLjU1'>
+    <rect x='279.85' y='642.15' width='295.88' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w2NDIuMTV8NjczLjU1)'>
+<line x1='279.85' y1='673.55' x2='575.73' y2='673.55' style='stroke-width: 3.20;' />
+<text x='412.35' y='661.86' text-anchor='middle' style='font-size: 11.00px; font-weight: bold; font-family: "DejaVu Sans";' textLength='255.03px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex_Mnewfix</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NjQyLjE1fDY3My41NQ=='>
+    <rect x='575.73' y='642.15' width='551.56' height='31.40' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NjQyLjE1fDY3My41NQ==)'>
+<line x1='575.73' y1='673.55' x2='1127.29' y2='673.55' style='stroke-width: 3.20;' />
+<text x='761.21' y='656.63' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='359.97px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex + Natural mortality by age fixed</text>
+<text x='728.29' y='667.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='295.13px' lengthAdjust='spacingAndGlyphs'>  Mage-0=2.97,Mage-1=1.6,Mage-2=2.4,Mage-3=2.4</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NjczLjU1fDcwNS4xNQ=='>
+    <rect x='5.00' y='673.55' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NjczLjU1fDcwNS4xNQ==)'>
+<text x='54.21' y='693.36' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='87.83px' lengthAdjust='spacingAndGlyphs'>Further analysis</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w2NzMuNTV8NzA1LjE1'>
+    <rect x='279.85' y='673.55' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w2NzMuNTV8NzA1LjE1)'>
+<text x='322.82' y='693.36' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='75.94px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NjczLjU1fDcwNS4xNQ=='>
+    <rect x='575.73' y='673.55' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NjczLjU1fDcwNS4xNQ==)'>
+<text x='768.80' y='688.04' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='375.49px' lengthAdjust='spacingAndGlyphs'>S1.0_4FLEETS_SelECO_RecIndex_Mnewfix + Initial equilibrium catch</text>
+<text x='829.83' y='698.84' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='498.00px' lengthAdjust='spacingAndGlyphs'> was assumed to be equal to the average catch from 1989-1994 for each fleet and season</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NzA1LjE1fDcyNi4xMA=='>
+    <rect x='5.00' y='705.15' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NzA1LjE1fDcyNi4xMA==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w3MDUuMTV8NzI2LjEw'>
+    <rect x='279.85' y='705.15' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w3MDUuMTV8NzI2LjEw)'>
+<text x='352.98' y='719.64' text-anchor='middle' style='font-size: 11.00px; font-weight: bold; font-family: "DejaVu Sans";' textLength='136.26px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NzA1LjE1fDcyNi4xMA=='>
+    <rect x='575.73' y='705.15' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NzA1LjE1fDcyNi4xMA==)'>
+<text x='776.46' y='719.64' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='391.53px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond + sigmaR=0.33, as specified by the sigma_R_info in SS3</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NzI2LjEwfDc0Ny4wNQ=='>
+    <rect x='5.00' y='726.10' width='274.85' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NzI2LjEwfDc0Ny4wNQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w3MjYuMTB8NzQ3LjA1'>
+    <rect x='279.85' y='726.10' width='295.88' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w3MjYuMTB8NzQ3LjA1)'>
+<text x='360.47' y='740.59' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='151.26px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR_SelP</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NzI2LjEwfDc0Ny4wNQ=='>
+    <rect x='575.73' y='726.10' width='551.56' height='20.95' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NzI2LjEwfDc0Ny4wNQ==)'>
+<text x='799.97' y='740.59' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='437.83px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR + Selectivity PELAGO was fixed at 1 from age 1 onwards</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8NzQ3LjA1fDc3OC42NQ=='>
+    <rect x='5.00' y='747.05' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8NzQ3LjA1fDc3OC42NQ==)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w3NDcuMDV8Nzc4LjY1'>
+    <rect x='279.85' y='747.05' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w3NDcuMDV8Nzc4LjY1)'>
+<text x='382.94' y='766.86' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='196.19px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR_SelP_qpriorP</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8NzQ3LjA1fDc3OC42NQ=='>
+    <rect x='575.73' y='747.05' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8NzQ3LjA1fDc3OC42NQ==)'>
+<text x='776.08' y='761.54' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='390.36px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR_SelP + A normal prior with a standard deviation</text>
+<text x='697.68' y='772.34' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='234.01px' lengthAdjust='spacingAndGlyphs'> of 0.1 was applied to PELAGO catchability</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwyNzkuODV8Nzc4LjY1fDgxMC4yNQ=='>
+    <rect x='5.00' y='778.65' width='274.85' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwyNzkuODV8Nzc4LjY1fDgxMC4yNQ==)'>
+<line x1='5.00' y1='810.25' x2='279.85' y2='810.25' style='stroke-width: 3.20; stroke: #666666;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpMjc5Ljg1fDU3NS43M3w3NzguNjV8ODEwLjI1'>
+    <rect x='279.85' y='778.65' width='295.88' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjc5Ljg1fDU3NS43M3w3NzguNjV8ODEwLjI1)'>
+<line x1='279.85' y1='810.25' x2='575.73' y2='810.25' style='stroke-width: 3.20; stroke: #666666;' />
+<text x='368.47' y='798.46' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='167.25px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR_qpriorP</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNTc1LjczfDExMjcuMjl8Nzc4LjY1fDgxMC4yNQ=='>
+    <rect x='575.73' y='778.65' width='551.56' height='31.60' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTc1LjczfDExMjcuMjl8Nzc4LjY1fDgxMC4yNQ==)'>
+<line x1='575.73' y1='810.25' x2='1127.29' y2='810.25' style='stroke-width: 3.20; stroke: #666666;' />
+<text x='763.35' y='793.14' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='364.91px' lengthAdjust='spacingAndGlyphs'>S1.0_InitCond_sigmaR +  A normal prior with a standard deviation</text>
+<text x='697.68' y='803.93' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='234.01px' lengthAdjust='spacingAndGlyphs'> of 0.1 was applied to PELAGO catchability</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+<defs>
+  <clipPath id='cpNS4wMHwxMTI3LjI5fDgxMC4yNXw4MzAuODk='>
+    <rect x='5.00' y='810.25' width='1122.29' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS4wMHwxMTI3LjI5fDgxMC4yNXw4MzAuODk=)'>
+<text x='275.32' y='824.58' text-anchor='middle' style='font-size: 11.00px; font-family: "DejaVu Sans";' textLength='530.22px' lengthAdjust='spacingAndGlyphs'>The scenarios highlighted in bold represent the options selected on each day of the benchmark.</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMTMyLjI5fDAuMDB8ODM1Ljg5)'>
+</g>
+</svg>
