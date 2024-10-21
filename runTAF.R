@@ -30,15 +30,16 @@ boot<-"boot/initial/data/run/"
 list1<-list.files(boot)
 list1
 
-esc0<-"S0"
-esc1<-"S1.0_4FLEETS"
-esc2<-"S4FLEETS_SelECO_MfixSel"
-esc3<-"S1.0_InitCond_sigmaR"
-esc4<-"S1.0_InitCond_sigmaR_qpriorP"
-esc<- "S1.0_InitCond_sigmaR" #(S3)  
+# esc0<-"S0"
+# esc1<-"S1.0_4FLEETS"
+# esc2<-"S4FLEETS_SelECO_MfixSel"
+# esc3<-"S1.0_InitCond_sigmaR"
+#esc<-"S1.0_InitCond_sigmaR_qpriorP"
+esc<- "S1.0_InitCond_sigmaR" #"S1.0_InitCond_sigmaR_2021"   
 
 
-write(esc2, file = paste0(boot,"Esc.txt"))
+write(esc, file = paste0(boot,"Esc.txt"))
+write(esc, file = paste0("report/run/Esc.txt"))
 
 sourceTAF("bootstrap")
 sourceTAF("data_01_run")
@@ -51,10 +52,10 @@ sourceTAF("output_02_retro")
 sourceTAF("report_02_retro")
 
 
-write(esc2, file = paste0("report/run/Esc.txt"))
+
 mkdir("WD_WKBANSP")
-render("Report_model_ane27.9a.Rmd", 
-       output_file = paste0("WD_WKBANSP/Report_model_ane27.9a_",esc2,".pdf"))
+render("Report_model_ane27.9a.Rmd",
+       output_file = paste0("WD_WKBANSP/Report_model_ane27.9a_",esc,".pdf"))
 
 sourceTAF("model_03_brp")
 sourceTAF("model_04_stf")

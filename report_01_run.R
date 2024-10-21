@@ -374,27 +374,32 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   sel<-sel %>% reshape::melt(id.vars=c('Yr','Fleet','Seas'))
   selfleet<-sel%>% filter(Fleet<=4)
   
-  fig_self<-selfleet %>% ggplot(aes(x=as.numeric(variable),y=value,group=Fleet)) +
-    geom_point() + geom_line()+
-    facet_wrap(.~Fleet,ncol=2,as.table = TRUE, strip.position = "top",
+  fig_self <- selfleet %>%
+    ggplot(aes(x = as.numeric(variable), y = value, group = Fleet)) +
+    geom_point() + 
+    geom_line() +
+    facet_wrap(.~Fleet, ncol = 2, as.table = TRUE, strip.position = "top",
                labeller = labeller(Fleet = c("1" = "SEINE_Q1", 
-                                            "2" = "SEINE_Q2",
-                                            "3" = "SEINE_Q3", 
-                                            "4" = "SEINE_Q4")))+
-    labs(x="Year",y="Selectivity")+
-    scale_color_discrete(name  ="Age")+
-    theme(panel.background = element_rect(fill ="gray80")) +
-    theme(panel.grid=element_line(color=NA)) +
-    ggtitle('Commercial fleet')+
-    theme(plot.title = element_text(size =9),
+                                             "2" = "SEINE_Q2",
+                                             "3" = "SEINE_Q3", 
+                                             "4" = "SEINE_Q4"))) +
+    labs(x = "Ages", y = "Selectivity") +
+    scale_x_continuous(breaks = c(1, 2, 3, 4, 5),  # Adjust breaks as needed
+                       labels = c("0", "1", "2", "3", "4")) +  # Custom labels
+    scale_color_discrete(name = "Age") +
+    theme(panel.background = element_rect(fill = "gray80")) +
+    theme(panel.grid = element_line(color = NA)) +
+    ggtitle('Commercial fleet') +
+    theme(plot.title = element_text(size = 9),
           axis.title = element_text(size = 6),
           axis.text = element_text(size = 6),
           strip.text = element_text(size = 6),
-          panel.background = element_rect(colour="gray",fill = "gray99"),
+          panel.background = element_rect(colour = "gray", fill = "gray99"),
           strip.background = element_rect(colour = "gray", fill = "gray99"),
           legend.title = element_text(size = 6, face = "bold"), 
           legend.text = element_text(size = 6)) + 
-    theme(legend.position = 'top') 
+    theme(legend.position = 'top')
+  
   ggsave(file.path(paste0(path_rep,"/fig_Sel_commercial_fleet.png")),   fig_self,  width=5, height=5)
   
   
@@ -420,8 +425,10 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
                                                   "ECOCADIZ 2004" = "ECOCADIZ 2004 - 2014",
                                                   "ECOCADIZ 2023" = "ECOCADIZ 2015 - 2023",
                                                   "8" = "ECOCADIZ-RECLUTAS"))) +
-    labs(x="Year", y="Selectivity") +
-    scale_color_discrete(name  = "Age") +
+    labs(x = "Ages", y = "Selectivity") +
+    scale_x_continuous(breaks = c(1, 2, 3, 4, 5),  # Adjust breaks as needed
+                       labels = c("0", "1", "2", "3", "4")) +  # Custom labels
+    scale_color_discrete(name = "Age") +
     theme(panel.background = element_rect(fill ="gray80")) +
     theme(panel.grid=element_line(color=NA)) +
     ggtitle('Acoustic surveys') +
@@ -468,7 +475,7 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,legendloc ="bottomright")
   dev.off()
 
-  png(file.path(paste0(path_rep,"/fig_stock-recluta_0.png")),width=3,height=3,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_stock-recluta_0.png")),width=3.5,height=3.5,res=300,units='in')
   sspar(mfrow = c(1, 1), plot.cex = 0.6)
   SSplotSpawnrecruit(output,subplots =2,pwidth = 4,pheight = 4,
                      legendloc ="bottomright",bias_adjusted = F,legend = F,
@@ -714,7 +721,7 @@ timeseries_final <- timeseries_filtered[, c("year", "Value_SSB", "CV_SSB",
                                             "Value_Rt", "CV_Rt",
                                             "Value_Ft", "CV_Ft",
                                             "Value_Bt", "Value_Catch")]
-
+write.csv(timeseries_final, paste0(path_rep,"/timeseries.csv"), row.names = FALSE)
 
 #'*=================================================================*
 # Flextables ----

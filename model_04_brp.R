@@ -46,10 +46,7 @@ path_brp_output<-paste0(brp_output,esc)
 mkdir(path_brp_model)
 mkdir(path_brp_output)
 
-
-
 load(paste0(run_data,"/inputData.RData")) 
-
 
 file.copy(file.path(run_model, "starter.ss"), file.path(path_brp_model, "starter.ss"))
 file.copy(paste(run_model, "control.SS", sep="/"), paste(path_brp_model, "control.SS", sep="/"))
@@ -57,11 +54,12 @@ file.copy(paste(run_model, "data.SS", sep="/"), paste(path_brp_model, "data.SS",
 file.copy(paste(run_model, "ss3_linux", sep="/"), paste(path_brp_model, "ss3_linux", sep="/"))
 file.copy(paste(run_model, "wtatage.ss", sep="/"), paste(path_brp_model, "wtatage.ss", sep="/"))
 file.copy(paste(run_model, "forecast.ss", sep="/"), paste(path_brp_model, "forecast.ss", sep="/"))
+
 # run model
-wd <- path_brp_model
-system(wd)
-system(paste0("chmod 755 ",wd,"/ss3_linux")) 
-r4ss::run(dir=wd, exe="ss3_linux", skipfinished=FALSE, show_in_console =T)
+# wd <- path_brp_model
+# system(wd)
+# system(paste0("chmod 755 ",wd,"/ss3_linux")) 
+# r4ss::run(dir=wd, exe="ss3_linux", skipfinished=FALSE, show_in_console =T)
 
 #read forecast
 fore <- r4ss::SS_readforecast(file = file.path(path_brp_model, "forecast.ss"),verbose = FALSE)
@@ -133,44 +131,78 @@ last_year<-end_year
 last_value<-ssb$Value[ssb$year==last_year]
 last_sd<-ssb$StdDev[ssb$year==last_year]
 sigma<-sqrt(log(1+(last_sd/last_value)^2)) # sigma  is the estimated standard deviation of ln(SSB) in the last year of the assessment, accounting for the uncertainty in SSB for the terminal year. 
-
+sigma_spf<-0.3
+sigma_other<-0.2
 #'*=============================================================================*
 # Reference Points ----
 #'*=============================================================================*
-Blim <- min_value
-Bpa <-exp(1.645*sigma)*Blim
-
-# Reference values for forecast Flim
+#'# Reference values for forecast Flim
+h<-0.8
+Rvirgin<-replist$derived_quants["Recr_Virgin","Value"] 
 Bvirgin<-replist$derived_quants["SSB_Virgin","Value"] 
 SSBunfished<-replist$derived_quants["SSB_unfished","Value"] 
-ratioBtarget<-Blim/Bvirgin
-ratioBtarget2<-Blim/SSBunfished
+
+
+
+# calcular Blim
+Bloss<- min_value
+Blim <- Bloss
+Blim_B0<-0.2*SSBunfished
+Bpa       <-Bloss*exp(-1.645*sigma)
+Bpa_spf   <-Bloss*exp(-1.645*sigma_spf)
+Bpa_other <-Bloss*exp(-1.645*sigma_other)
+
+Blim_Bpa<-Bpa
+Blim_spf<-Bpa_spf
+Blim_other<-Bpa_other
+
+
+#---------------------------------------
+#Cálculos Andres para evaluar si Blim está bien estimado
+# 0.4B0 es muy alto para Blim, se propone alternativa, considerar Blim=Bpa
+ratioBlim<-Blim/Bvirgin #no lo uso
+ratio0.2B0<-0.2
+ratioBloss_B0<-Blim/SSBunfished
+ratioBpa_B0<-Bpa/SSBunfished
+ratioBpa_B0_spf<-Bpa_spf/SSBunfished
+ratioBpa_B0_other<-Bpa_other/SSBunfished
+#---------------------------------------
 SSB_Btgt<-replist$derived_quants["SSB_Btgt","Value"] #SSB_Btgt=Blim
 SPR_Btgt<-replist$derived_quants["SPR_Btgt","Value"] 
-Flim0 <- replist$derived_quants["annF_Btgt","Value"] #annF_Btgt=Flim
-Flim0
+Flim <- replist$derived_quants["annF_Btgt","Value"] #annF_Btgt=Flim
+Flim
 
+
+PBRs<-data.frame(Basis=c("Without SigmaSSB","Without SigmaSSB","Default SigmaSSB SPF","Default SigmaSSB other Fishes", "SigmaSSB in assessment"),
+                 SigmaSSB=round(c(NA,NA,sigma_spf,sigma_other,sigma),2),
+                 "exp(-1.645*SigmaB"=round(c(NA,NA,exp(-1.645*sigma_spf),exp(-1.645*sigma_other),exp(-1.645*sigma)),2),
+                 Basis_Bloss=c("0.2*B0","Blim=Bloss",rep("Bloss=Bpa",3)),
+                 Fraction_B0=round(c(ratio0.2B0,ratioBloss_B0,ratioBpa_B0_spf,ratioBpa_B0_other,ratioBpa_B0),2),
+                 Blim=round(c(Blim_B0,Blim,Bpa_spf,Bpa_other,Bpa),0))
+
+write.csv(PBRs, paste0(path_brp_output,"/Scenarios.csv"), row.names = FALSE)
 
 #'*##########################################################################*
 #' Hacer ciclo for
-fore$Btarget <-ratioBtarget2
-
-r4ss::SS_writeforecast(fore, dir = path_brp_model, 
-                       file = "forecast.ss", 
-                       overwrite = TRUE, verbose = FALSE)
-# run model
-wd <- path_brp_model
-system(wd)
-system(paste0("chmod 755 ",wd,"/ss3_linux")) 
-r4ss::run(dir=wd, exe="ss3_linux", skipfinished=FALSE, show_in_console =T)
-replist2 <- r4ss::SS_output(dir = path_brp_model)
-
-Blim/replist2$derived_quants["SSB_Btgt","Value"] #SSB_Btgt=Blim
-Flim<-replist2$derived_quants["annF_Btgt","Value"] #annF_Btgt=Flim
-Flim
+# fore$Btarget <-ratioBloss_B0
+# 
+# r4ss::SS_writeforecast(fore, dir = path_brp_model, 
+#                        file = "forecast.ss", 
+#                        overwrite = TRUE, verbose = FALSE)
+# # run model
+# wd <- path_brp_model
+# system(wd)
+# system(paste0("chmod 755 ",wd,"/ss3_linux")) 
+# r4ss::run(dir=wd, exe="ss3_linux", skipfinished=FALSE, show_in_console =T)
+# replist2 <- r4ss::SS_output(dir = path_brp_model)
+# 
+# Blim/replist2$derived_quants["SSB_Btgt","Value"] #SSB_Btgt=Blim
+# Flim<-replist2$derived_quants["annF_Btgt","Value"] #annF_Btgt=Flim
+# Flim
 #'*##########################################################################*
-#'
-save(min_value,min_sd,min_year,
+B0<-round(SSBunfished,0)
+ratioBloss_B0<-round(ratioBloss_B0,2)
+save(ratioBloss_B0, B0,PBRs,min_value,min_sd,min_year,
      last_year,last_value,last_sd,
      sigma,Blim,Bpa, 
      ssb,ft,Flim,
@@ -201,7 +233,13 @@ hline_data <- data.frame(
   Line = c("Blim", "Bpa")
 )
 
-figbpr<-ggplot(data, aes(x = year, y = Value)) +
+hline_data2 <- data.frame(
+  yintercept = c(Blim_B0, Blim, Bpa_spf, Bpa_other, Bpa),
+  type = rep("SSB", 5),
+  Line = c("Blim=0.2*B0", "Blim=Bloss", "Bloss=Bpa_spf", "Bloss=Bpa_other", "Bloss=Bpa")
+)
+
+figbpr2 <- ggplot(data, aes(x = year, y = Value)) +
   geom_line() +
   geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2) +
   facet_wrap(.~type, scales = "free", ncol = 1, strip.position = "top",
@@ -210,11 +248,59 @@ figbpr<-ggplot(data, aes(x = year, y = Value)) +
   labs(x = "", y = "", title = "") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5), legend.position = "top") +
-  geom_hline(data = hline_data, aes(yintercept = yintercept, color = Line, linetype = Line), size = 1) +
-  scale_color_manual(name = "Biological Reference points", values = c("Blim" = "red")) +
-  scale_linetype_manual(name = "Biological Reference points", values = c("Blim" = "dashed")) +
   
-  theme(legend.position = "top", legend.title = element_text(hjust = 0.5))+
+  # Adding horizontal lines for biological reference points
+  geom_hline(data = hline_data2, aes(yintercept = yintercept, color = Line, linetype = Line), size = 1) +
+  
+  # Combined scale_color_manual and scale_linetype_manual for all lines
+  scale_color_manual(name = "Biological Reference points", 
+                     values = c("Blim=0.2*B0" = "red", 
+                                "Blim=Bloss" = "blue",
+                                "Bloss=Bpa_spf" = "green", 
+                                "Bloss=Bpa_other" = "orange", 
+                                "Bloss=Bpa" = "purple")) +
+  scale_linetype_manual(name = "Biological Reference points", 
+                        values = c("Blim=0.2*B0" = "dashed", 
+                                   "Blim=Bloss" = "dashed", 
+                                   "Bloss=Bpa_spf" = "solid", 
+                                   "Bloss=Bpa_other" = "solid", 
+                                   "Bloss=Bpa" = "solid")) +
+  
+  # Adjusting the legend and theme
+  theme(legend.position = "right", 
+        legend.title = element_text(hjust = 0.5)) +
+  theme(plot.margin = unit(c(0, 0.1, 0, 0), "cm"))
+ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")), figbpr2,  width=6, height=4)
+
+# Plot report
+hline_data <- data.frame(
+  yintercept = c(Blim, Bpa),
+  type = c("SSB", "SSB"),
+  Line = c("Blim", "Bpa")
+)
+
+figbpr <- ggplot(data, aes(x = year, y = Value)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2) +
+  facet_wrap(.~type, scales = "free", ncol = 1, strip.position = "top",
+             labeller = labeller(type = c("SSB" = "SSB", 
+                                          "Ft" = "F apical"))) +
+  labs(x = "", y = "", title = "") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "top") +
+  
+  # Adding horizontal lines for biological reference points
+  geom_hline(data = hline_data, aes(yintercept = yintercept, color = Line, linetype = Line), size = 1) +
+  
+  # Combined scale_color_manual and scale_linetype_manual for all lines
+  scale_color_manual(name = "Biological Reference points", 
+                     values = c("Blim" = "red")) +
+  scale_linetype_manual(name = "Biological Reference points", 
+                        values = c("Blim" = "dashed")) +
+  
+  # Adjusting the legend and theme
+  theme(legend.position = "top", 
+        legend.title = element_text(hjust = 0.5)) +
   theme(plot.margin = unit(c(0, 0.1, 0, 0), "cm"))
 ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr2.png")), figbpr,  width=6, height=4)
 

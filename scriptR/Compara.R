@@ -151,8 +151,8 @@ data <- data.frame(
                "S4FLEETS_SelECO_Selfleet_EcoR", "S1.0_4FLEETS_SelECO_EcoR", "S1.0_4FLEETS_SelECO_EcoR3",
                "S1.0_4FLEETS_SelECO_RecIndex", "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6", 
                "S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6", "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-               "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", 
-               "S1.0_InitCond_sigmaR_qpriorP", "S1.0_InitCond_sigmaR_SelP_qpriorP"),
+               "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", "S1.0_InitCond_sigmaR_SelP_qpriorP",
+               "S1.0_InitCond_sigmaR_qpriorP"),
   Description = c("One fleet for four season (1 fleet, 4 season)", 
                   "One fleet per season (4 fleet, 4 season)", 
                   "Empirical Weight-at-age fixed years",
@@ -167,10 +167,11 @@ data <- data.frame(
                   "Qprior ECOCADIZ and BOCADEVA",
                   "Qprior BOCADEVA and ECOCADIZ-RECLUTAS",
                   "Qprior only ECOCADIZ-RECLUTAS",
-                  "Logistic for all commercial fleet",
-                  "S1.0_4FLEETS_SelECO + Parameterize age-based\nfishery selectivity where age-0==0 (for Q1 and Q2 only, estimated for Q3-Q4)",
-                  "Estimate M for age-2+",
+                  "S1.0_4FLEETS_SelECO + Parameterize age-based fishery selectivity\n where age-0==0 (for Q1 and Q2 only, 
+                  estimated for Q3-Q4) and age-2==1, and age-1 and age-3 are estimated.",
+                  "S1.0_4FLEETS_SelECO + Estimate M for age-2+",
                   "Combination of S4FLEETS_SelECO_Selfleet and S4FLEETS_SelECO_Mage:\n Fishery selectivity and natural mortality",
+                  "Combination of S4FLEETS_SelECO_Selfleet and Mfix=S4FLEETS_SelECO_Mage:\n Fishery selectivity and natural mortality fixed.",
                   "S4FLEETS_SelECO_Selfleet + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
                   "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-0==1 and ages-1, ages-2 and ages-3 are estimated",
                   "S1.0_4FLEETS_SelECO + Parameterize age_based ECOCADIZ-RECLUTAS\n selectivity where age-3==0 and ages-0, ages-1 and ages-2 are estimated",
@@ -181,8 +182,8 @@ data <- data.frame(
                   "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix + Initial equilibrium catch\n was assumed to be equal to the average catch from 1989-1994 for each fleet and season",
                   "S1.0_InitCond + sigmaR=0.33, as specified by the sigma_R_info in SS3",
                   "S1.0_InitCond_sigmaR + Selectivity PELAGO was fixed at 1 from age 1 onwards",
-                  "S1.0_InitCond_sigmaR + A normal prior with a standard deviation\n of 0.1 was applied to PELAGO catchability",
-                  "S1.0_InitCond_sigmaR_SelP + S1.0_InitCond_sigmaR_qpriorP")
+                  "S1.0_InitCond_sigmaR_SelP + A normal prior with a standard deviation\n of 0.1 was applied to PELAGO catchability",
+                  "S1.0_InitCond_sigmaR +  A normal prior with a standard deviation\n of 0.1 was applied to PELAGO catchability")
 )
 
 # Group data to remove duplicates in the 'Title' column
@@ -208,7 +209,7 @@ ft
 
 write.csv(data_grouped, "report/run/comparison/Scenarios.csv", row.names = FALSE)
 invisible(save_as_image(ft, path = paste0("report/run/comparison/tb_scenarios.png")))
-
+invisible(save_as_image(ft, path = paste0("report/run/comparison/tb_scenarios.svg")))
 #'*--------------------------------------------------------------------------*
 ESCs<-c("S0", "S1.0_4FLEETS", "S1.0_4FLEETS_WatageFix",
         "S1.0_4FLEETS_q1PEL", "S1.0_4FLEETS_q1ECO", "S1.0_4FLEETS_q1BOCA", "S1.0_4FLEETS_q1ECOREC",
@@ -219,8 +220,8 @@ ESCs<-c("S0", "S1.0_4FLEETS", "S1.0_4FLEETS_WatageFix",
         "S4FLEETS_SelECO_Selfleet_EcoR", "S1.0_4FLEETS_SelECO_EcoR", "S1.0_4FLEETS_SelECO_EcoR3",
         "S1.0_4FLEETS_SelECO_RecIndex", "S1.0_4FLEETS_SelECO_RecIndex_M1_1.6", 
         "S1.0_4FLEETS_SelECO_RecIndex_Mest2_3_M1_1.6", "S1.0_4FLEETS_SelECO_RecIndex_Mnewfix",
-        "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", 
-        "S1.0_InitCond_sigmaR_qpriorP", "S1.0_InitCond_sigmaR_SelP_qpriorP")
+        "S1.0_InitCond", "S1.0_InitCond_sigmaR", "S1.0_InitCond_sigmaR_SelP", "S1.0_InitCond_sigmaR_SelP_qpriorP",
+        "S1.0_InitCond_sigmaR_qpriorP")
 esc<-ESCs
 replist<-list()
 diag<-list()
@@ -269,12 +270,12 @@ invisible(save_as_image(ft1.1.1, path = "report/run/comparison/tb_M.png"))
 
 
 df_diagsSS <-   pivot_longer(diagsSS, 
-                             cols = c(convergency, AIC,Total_like, Survey_like, Age_like, RMSE_index, RMSE_age,Rho_ssb,
+                             cols = c(Convergency, AIC,Total_like, Survey_like, Age_like, RMSE_index, RMSE_age,Rho_ssb,
                                       Rho_f),
                              names_to = "Metric", 
                              values_to = "Value")
 
-df1_diagsSS <- pivot_wider(df_diagsSS, names_from = .id, values_from = Value)
+df1_diagsSS <- pivot_wider(df_diagsSS, names_from = Scenario, values_from = Value)
 
 df_parmSS <- pivot_wider(parmSS, names_from = .id, values_from = Value)
 
