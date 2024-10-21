@@ -44,8 +44,9 @@ opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos="h",fig.align =
 
 
 ```{r load}
-ESC_model<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
-load(paste0("output/brp/",ESC_model,"/brp.Rdata"))
+run_esc<-"boot/initial/data/run/" 
+esc<-readLines(paste0(run_esc,"Esc.txt")) 
+load(paste0("output/brp/",esc,"/brp.Rdata"))
 ```
 
 ```{r}
@@ -53,7 +54,7 @@ load(paste0("output/brp/",ESC_model,"/brp.Rdata"))
 ssb_lastyear<- paste0("$SSB_{",last_year,"}$")
 ln_ssb_lastyear<- paste0("$ln(SSB_{",last_year,"})$")
 
-latex_eq1 <- paste0("$\\sigma = \\sqrt{\\ln\\left(1 + \\left(\\frac{\\sigma_{SSB_{",last_year,"}}}{\\mu_{SSB_{",last_year,"}}}\\right)^2\\right)} = \\sqrt{\\ln\\left(1 + \\left(\\frac{", last_sd, "}{", last_value, "}\\right)^2\\right)} = ", round(sigma, 3), "$")
+latex_eq1 <- paste0("$\\sigma_{assessment} = \\sqrt{\\ln\\left(1 + \\left(\\frac{\\sigma_{SSB_{",last_year,"}}}{\\mu_{SSB_{",last_year,"}}}\\right)^2\\right)} = \\sqrt{\\ln\\left(1 + \\left(\\frac{", last_sd, "}{", last_value, "}\\right)^2\\right)} = ", round(sigma, 3), "$")
 latex_eq2 <- paste0("$B_{pa} = e^{(1.645\\sigma)}B_{lim}=",round(1.645*sigma,2),"B_{lim}=",round(1.645*sigma,2),"*",round(Blim,0),"$")
 bpa<-exp(1.645*sigma)*Blim
 
@@ -64,63 +65,63 @@ bpa<-exp(1.645*sigma)*Blim
 
 The methodology applied was the same decided in WKPELA 2018 (page 286 of WKPELA 2018 report (ICES, 2018)) following ICES guidelines for calculation of reference points for category 1 and 2 stocks and the report of the workshop to review the ICES advisory framework for short lived species ICES WKMSYREF5 2017 (ICES, 2017).
 
-According to the above ICES guidelines and the S-R plot characteristics (Figure \ref{fig:stock-recluta}), this stock component can be classified as a “stock type 5” (i.e. stocks showing no evidence of impaired recruitment or with no clear relation between stock and recruitment (no apparent $S-R$ signal)).
+According to the above ICES guidelines and the $S-R$ plot characteristics (Figure \ref{fig:stock-recluta}), this stock component can be classified as a “stock type 5” (i.e. stocks showing no evidence of impaired recruitment or with no clear relation between stock and recruitment (no apparent $S-R$ signal)).
 
 ```{r fig.cap="\\label{fig:stock-recluta} ane.27.9a Southern stock. Stock-recruit curve. Point colors indicate year, with warmer colors indicating earlier years and cooler colors in showing later years."}
-include_graphics(file.path("report/run/",ESC_model,"/fig_stock-recluta_0.png"))
-
+include_graphics(file.path("report/run/",esc,"/fig_stock-recluta_0.png"))
 
 ```
 
-According to this classification, $B_{lim}$ estimation is possible according to the standard method and it is assumed to be equal to $Bloss$ ($B_{lim}=B_{loss}$). The value of $B_{loss}$ for the 9a South anchovy corresponds to the estimated $SSB$ in `r min_year` (`r min_value` t),  hence $B_{lim}$ is set at  `r min_value` t. Note that age 1+ individuals ($B_1+$) are assumed as mature i.e. $B_1+$ class is equivalent to Stock Spawning Biomass (SSB). Figure \ref{fig:biological_reference} shows the biological reference point for  spawning biomass. 
+According to this classification, $B_{lim}$ estimation is possible according to the standard method and it is assumed to be equal to $Bloss$ ($B_{lim}=B_{loss}$). The value of $B_{loss}$ for the 9a South anchovy corresponds to the estimated $SSB$ in `r min_year` (`r min_value` t),  hence $B_{lim}$ is set at  `r min_value` t. This value of $B_{loss}$ represents `r ratioBloss_B0`% of the unfished biomass ($B_0$ = `r B0` t). In accordance with ICES guidelines, it is recommended to adjust $B_{loss}$ in such cases, assuming $B_{loss} = B_{pa}$. Following ICES guidelines, $B_{pa}$ is calculated as:
 
-<!-- ICES recommends to calculate $B_{pa}$ as follows: $$B_{pa} = e^{(1.645\sigma)} B_{lim},$$ -->
-<!-- where  $\sigma$  is the estimated standard deviation of $ln(SSB)$ in the last year of the assessment, accounting for the uncertainty in $SSB$ for the terminal year. -->
+$$B_{pa} = e^{(-1.645\sigma)} B_{lim},$$
+where $\sigma_{assessment}$ is the estimated standard deviation of $ln(SSB)$ in the last year of the assessment, accounting for uncertainty in $SSB$ for the terminal year. According to this, $\sigma_{assessment}$ is calculated as: 
 
-<!-- In that case assuming that `r ssb_lastyear`  and its corresponding standard deviation (sd) are the mean and the sd of a normal distribution, `r ln_ssb_lastyear`  is lognormally distributed with standard deviation as follows: -->
+\quad
 
-<!-- \quad -->
+`r latex_eq1`
 
-<!-- `r latex_eq1` -->
+\quad
 
-<!-- \quad -->
-
-<!-- Then `r latex_eq2` . According to this, $B_{pa}$ is set at `r round(Bpa,0)` t. -->
+If this value is unknown, a default of $\sigma = 0.20$ can be used, while the suggested value for small pelagic species is $\sigma = 0.30$. Using 0.2 provides an intermediate solution between the estimated value from assessment and the recommended value for small pelagic species, ensuring that $B_{lim}$ is calculated in accordance with the stock's biological characteristics and ICES guidelines.
 
 
+
+
+Then `r latex_eq2` . According to this, $B_{pa}$ is set at `r round(Bpa,0)` t.
 
 ```{r fig.cap="\\label{fig:biological_reference} ane.27.9a Southern stock. Time series estimated by the model for spawning biomass (in tons) with Biological reference points"}
-include_graphics(file.path(paste0("output/brp/",ESC_model,"/fig_bpr2.png")))
+include_graphics(file.path(paste0("output/brp/",esc,"/fig_bpr2.png")))
 ```
 
 
-
 \newpage
+
 # Short-term predictions
 
-SS3 includes a forecast module that enables projections for a specified number of years, linked to the model ending conditions, associated uncertainties, and a specified level of fishing intensity. This tool was used to perform the short-term projections. 
+SS3 includes a forecast module that enables projections for a specified number of years, linked to the model ending conditions, associated uncertainties, and a specified level of fishing intensity. This tool was used to perform the short-term projections.
 
-The initial stock size was estimated from the abundance by ages (0-3) on January 1 of the final assessment year, and the spawning stock biomass (SSB) on April 1. Natural mortality and maturity rates remained constant, while selectivity and weight-at-age were averaged over the last three years. 
+The initial stock size was estimated from the abundance by ages (0-3) on January 1 of the final assessment year, and the spawning stock biomass (SSB) on April 1. Natural mortality and maturity rates remained constant, while selectivity and weight-at-age were averaged over the last three years.
 
-The probability of SSB in 2025 falling below $B_{lim}$, $p(SSB_{2025} \leq B_{lim})$, was evaluated under different $F_{sq}$ multipliers, using the standard deviation of the model. The evaluated F multipliers ($FMult$) were 0, 1, 1.2, 1.6, and 2. Additionally, an iterative process identified the $FMult$ that would allow achieving a 2024 catch with probabilities of 5% and 50% that SSB in 2025 falls below $B_{lim}$ ($p(SSB_{2025} \leq B_{lim})$ = 0.05 and 0.5, respectively). These multipliers were adjusted according to the projected recruitment scenarios, providing management options based on different levels of fishing mortality.   Tables \ref{tb:stf2} y \ref{tb:stf4} presents the management options derived from the short-term forecasts, evaluated at different fishing mortality levels, corresponding to the catch scenarios described previously.
+<!-- The probability of SSB in 2025 falling below $B_{lim}$, $p(SSB_{2025} \leq B_{lim})$, was evaluated under different $F_{sq}$ multipliers, using the standard deviation of the model. The evaluated F multipliers ($FMult$) were 0, 1, 1.2, 1.6, and 2. Additionally, an iterative process identified the $FMult$ that would allow achieving a 2024 catch with probabilities of 5% and 50% that SSB in 2025 falls below $B_{lim}$ ($p(SSB_{2025} \leq B_{lim})$ = 0.05 and 0.5, respectively). These multipliers were adjusted according to the projected recruitment scenarios, providing management options based on different levels of fishing mortality.   Tables \ref{tb:stf2} y \ref{tb:stf4} presents the management options derived from the short-term forecasts, evaluated at different fishing mortality levels, corresponding to the catch scenarios described previously. -->
 
-The Figures \ref{fig:stf1} and \ref{fig:stf2}, shows  two recruitment projection scenarios were considered: the stock-recruitment relationship used in the model to forecast (Table \ref{tb:stf1}) and the geometric mean of the last three years recruitment (Table \ref{tb:stf3}). The *status quo* fishing mortality ($F_{sq}$ = 0.9) was calculated as the average of the last three years by fleet and season.
+<!-- The Figures \ref{fig:stf1} and \ref{fig:stf2}, shows  two recruitment projection scenarios were considered: the stock-recruitment relationship used in the model to forecast (Table \ref{tb:stf1}) and the geometric mean of the last three years recruitment (Table \ref{tb:stf3}). The *status quo* fishing mortality ($F_{sq}$ = 0.9) was calculated as the average of the last three years by fleet and season. -->
 
 
-```{r fig.cap="\\label{fig:stf1} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{Beverton-Holt (BH)} stock-recruitment relationship."}
-include_graphics(file.path(paste0("model/stf/SR/",ESC_model,"/fig_forecast.png")))
+```{r fig.cap="\\label{fig:stf1} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{Beverton-Holt (BH)} stock-recruitment relationship.", eval=FALSE}
+include_graphics(file.path(paste0("model/stf/SR/",esc,"/fig_forecast.png")))
 ```
 
 
 \newpage
 
-```{r fig.cap="\\label{fig:stf2} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{geometric mean} of the last three years recruitment."}
-include_graphics(file.path(paste0("model/stf/GeomRecl/",ESC_model,"/fig_forecast.png")))
+```{r fig.cap="\\label{fig:stf2} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{geometric mean} of the last three years recruitment.",eval=FALSE}
+include_graphics(file.path(paste0("model/stf/GeomRecl/",esc,"/fig_forecast.png")))
 ```
 
-```{r}
+```{r eval=FALSE}
 library(kableExtra)
-load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+load(paste0("model/stf/SR/",esc,"/STFSummary.Rdata"))
 dfSTFSummary$FMult<-dfSTFSummary$Val
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
@@ -145,9 +146,9 @@ kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, al
 \newpage
 
 
-```{r}
+```{r eval=F}
 library(kableExtra)
-load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
 dfSTFSummary$FMult<-dfSTFSummary$Val
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
@@ -171,9 +172,9 @@ kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, al
 
 
 <!-- An alternative scenario considered $F_{lim}$ as the fishing mortality that generates a fraction of spawning biomass $B_{lim}/B_0$, based on the stock-recruitment relationship. -->
-```{r}
+```{r eval=FALSE}
 library(kableExtra)
-load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+load(paste0("model/stf/SR/",esc,"/STFSummary.Rdata"))
 dfSTFSummary$FMult<-dfSTFSummary$Val
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
@@ -196,9 +197,9 @@ kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, al
 
 \newpage
 
-```{r}
+```{r eval=F}
 library(kableExtra)
-load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
 dfSTFSummary$FMult<-dfSTFSummary$Val
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024/1000000
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025/1000000
@@ -221,8 +222,8 @@ kable(table, format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2, al
 
 
 ```{r eval=F}
-ESC_model<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
-load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+esc<-"S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
 # Filtrar las filas donde Era es igual a "TIME"
 time_data <- subset(forecastModels$replist1$catage, Era == c("TIME","FORE"))
 
@@ -262,10 +263,10 @@ ggplot(result2, aes(x = Yr, y = Catch, color = factor(Age))) +
 
 
 ```{r eval=F}
-ESC_model <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
-load(paste0("model/stf/SR/",ESC_model,"/STFSummary.Rdata"))
+esc <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
+load(paste0("model/stf/SR/",esc,"/STFSummary.Rdata"))
 Years <- seq(1989, 2025, 1)
-folder_fmult<-list.files(paste0("model/stf/SR/", ESC_model))
+folder_fmult<-list.files(paste0("model/stf/SR/", esc))
 FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
 
 summary <- list()
@@ -273,7 +274,7 @@ summary <- list()
 for(i in 1:7) {
   Fmult<-FMult_names[i]
   # Leer el archivo
-  a <- read.table(paste0("model/stf/SR/", ESC_model, "/", FMult_names[i], "/ss_summary.sso"), 
+  a <- read.table(paste0("model/stf/SR/", esc, "/", FMult_names[i], "/ss_summary.sso"), 
                   header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
   
   # Crear el dataframe con las columnas que necesitas
@@ -319,17 +320,16 @@ ggplot2::ggplot(combined_summary, aes(x = Yr, y = as.numeric(Btot), color = FMul
 
 
 ```{r eval=F}
-ESC_model <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
-load(paste0("model/stf/GeomRecl/",ESC_model,"/STFSummary.Rdata"))
+load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
 Years <- seq(1989, 2025, 1)
-folder_fmult<-list.files(paste0("model/stf/GeomRecl/", ESC_model))
+folder_fmult<-list.files(paste0("model/stf/GeomRecl/", esc))
 FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
 summary <- list()
 
 for(i in 1:7) {
   Fmult<-FMult_names[i]
   # Leer el archivo
-  a <- read.table(paste0("model/stf/GeomRecl/", ESC_model, "/", FMult_names[i], "/ss_summary.sso"), 
+  a <- read.table(paste0("model/stf/GeomRecl/", esc, "/", FMult_names[i], "/ss_summary.sso"), 
                   header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
   
   # Crear el dataframe con las columnas que necesitas
