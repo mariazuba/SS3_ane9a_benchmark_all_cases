@@ -1,0 +1,6 @@
+"Basis","SigmaSSB","exp..1.645.SigmaB","Basis_Bloss","Fraction_B0","Blim"
+"Without SigmaSSB",NA,NA,"0.2*B0",0.2,3373
+"Without SigmaSSB",NA,NA,"Blim=Bloss",0.39,6552
+"Default SigmaSSB SPF",0.3,0.61,"Bloss=Bpa",0.24,4000
+"Default SigmaSSB other Fishes",0.2,0.72,"Bloss=Bpa",0.28,4715
+"SigmaSSB in assessment",0.1,0.85,"Bloss=Bpa",0.33,5542
