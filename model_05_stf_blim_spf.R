@@ -26,38 +26,29 @@ report<-"report/run/"
 brp<-"output/brp/"
 output_stf<-"output/stf/"
 
-################################################################################
-#esc_R<-"GeomRecl_Blim_Bloss" # use geomean / virgin rec
-#rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%,  p(SSB2024<Blim)=5%, p(SSB2024<Blim)=50%
-#vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2, 1*2.4025,1*3.74375,1*0,1*3.8) # "GeomRecl" # use geomean / virgin rec ["S1.0_InitCond_sigmaR"]
-
-#esc_R<-"GeomRecl_Blim_spf" # use geomean / virgin rec
-# #rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%, p(SSB2024<Blim)=50%,  p(SSB2024<Blim)=5%
-# #solo encuentro el valor para p(SSB2024<Blim)=5%
-#vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2, 1*9.36,1*12.30000,1*4.75,1*12.7500) # "GeomRecl" # use geomean / virgin rec ["S1.0_InitCond_sigmaR"]
+#'*############################################################################*
+#'*SR GEOMETRIC RECRUITMENT*
+#'*############################################################################*
+#'*GeomRecl_Blim_Bloss*
+# esc_R<-"GeomRecl_Blim_Bloss" 
+#'*----------------------------------------------------------------------------*
+#'*GeomRecl_Blim_spf*
+# esc_R<-"GeomRecl_Blim_spf" 
+#'*----------------------------------------------------------------------------*
 #'*GeomRecl_Blim_other*
- esc_R<-"GeomRecl_Blim_other"
- load(paste0("output/brp/",esc,"/brp.Rdata")) 
- Blim_new<-PBRs$Blim[4]
-# # #rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%, p(SSB2024<Blim)=50%, p(SSB2024<Blim)=5%
-#vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2,1*4.09,1*5.9375,1*3.8, 1*0) 
-################################################################################
-#'*SR BH*
-#'*SR_Blim_Blim_spf*
-#esc_R<-"SR_Blim_Blim_spf" 
-#rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%, p(SSB2024<Blim)=50%, p(SSB2024<Blim)=5%
-#vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2,1*4.75,1*12.750,1*10.36, 1*13.6)
+esc_R<-"GeomRecl_Blim_other"
+#'*############################################################################*
+#'*SR Beverton&Holt*
+#'*############################################################################*
 #'*SR_Blim_Bloss*
 # esc_R<-"SR_Blim_Bloss" 
-# #rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%, p(SSB2024<Blim)=50%, p(SSB2024<Blim)=5%
-# vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2,1*4.09,1*5.9375,1*3.8, 1*0) 
+#'*----------------------------------------------------------------------------*
+#'*SR_Blim_spf*
+# esc_R<-"SR_Blim_spf" 
+#'*----------------------------------------------------------------------------*
 #'*SR_Blim_other*
-#  esc_R<-"SR_Blim_other"
-# load(paste0("output/brp/",esc,"/brp.Rdata")) 
-# Blim_new<-PBRs$Blim[4]
-# # #rango entre 0-2 y p(SSB2025<Blim)=5%, p(SSB2025<Blim)=50%, p(SSB2024<Blim)=50%, p(SSB2024<Blim)=5%
-#  vector0 <- c(0,1, 1*1.2, 1*1.6, 1*2,1*8.3125,1*11.125,1*9.8, 1*1.75) 
-################################################################################
+# esc_R<-"SR_Blim_other"
+#'*############################################################################*
 
 stf<-paste0("model/stf/",esc_R,"/")
 
@@ -147,76 +138,127 @@ fore_dat_int$Fleet <- 1:nfleet
 fore_dat_int$F     <- as.vector(as.matrix(Fsqmean[,-which(names(Fsqmean)==c("Seas","Yr"))]))
 fore_dat_int<-fore_dat_int[fore_dat_int$F != 0, ]
 fore_dat_int
-#####------------
 
 
 #'*============================================================================*
 ### Fmultipliers with Beverton-Holt ----
+#'*SR Beverton&Holt*
 #'*============================================================================*
-#'*Multipliers that adjust the value of F to achieve an *
-#'#'*SSB in 2025 equal to SSBlim p(SSB2025<Blim)=50%*
-start_value1 <- 11.125
-end_value1 <- 11.125
-p2025_50<-11.125
 
-vector1 <- seq(from = start_value1, to = end_value1, length.out = 5)
+#'----------------
+#'*SR_Blim_Bloss*
+#'----------------
+# load(paste0("output/brp/",esc,"/brp.Rdata")) 
+# Blim_new<-PBRs$Blim[2]
 
-#'*SSB in 2024 equal to SSBlim p(SSB2024<Blim)=50%*
-start_value1.1 <- 9.5
-end_value1.1 <-9.8
-p2024_50<-9.8
+BHBloss_p2024_5<-0
+BHBloss_p2024_50<-3.8
+BHBloss_p2025_5<-4.09
+BHBloss_p2025_50<-5.937
 
-vector1.1 <- seq(from = start_value1.1, to = end_value1.1, length.out = 5)
+vectorpBH_Bloss<-c(1*BHBloss_p2024_5,
+                   1*BHBloss_p2024_50,
+                   1*BHBloss_p2025_5,
+                   1*BHBloss_p2025_50) 
+#'----------------
+#'*SR_Blim_spf*
+#'----------------
+#vector0 <- c(1*4.75,1*12.750,1*10.36, 1*13.6)
+#load(paste0("output/brp/",esc,"/brp.Rdata")) 
+#Blim_new<-PBRs$Blim[3]
 
-#'*Multipliers that adjust the value of F to achieve p(SSB2025<Blim)=5%*
-#'#'*SSB in 2025 equal to SSBlim p(SSB2025<Blim)=5%*
-start_value2 <- 8.3125
-end_value2 <- 8.3125
-p2025_5<-8.3125
+BHspf_p2024_5<-4.75
+BHspf_p2024_50<-12.750
+BHspf_p2025_5<-10.36
+BHspf_p2025_50<-13.6
 
-vector2 <- seq(from = start_value2, to = end_value2, length.out = 5)
+vectorpBH_spf<-c(1*BHspf_p2024_5,
+                   1*BHspf_p2024_50,
+                   1*BHspf_p2025_5,
+                   1*BHspf_p2025_50) 
 
-#'#'*SSB in 2024 equal to SSBlim p(SSB2024<Blim)=5%*
-start_value2.1 <- 1.75
-end_value2.1 <- 1.7500
-p2024_5<-1.7500
+#'----------------
+#'*SR_Blim_other*
+#'----------------
+#  vector0 <- c(1*8.3125,1*11.125,1*9.8, 1*1.75) 
+#load(paste0("output/brp/",esc,"/brp.Rdata")) 
+#Blim_new<-PBRs$Blim[4]
 
-vector2.1 <- seq(from = start_value2.1, to = end_value2.1, length.out = 5)
+BHother_p2024_5<-1.75
+BHother_p2024_50<-9.8
+BHother_p2025_5<-8.3125
+BHother_p2025_50<-11.125
 
-#'*============================================================================*
-### Fmultipliers with geomean / virgin rec ----
-#'*============================================================================*
-#'*Multipliers that adjust the value of F to achieve an *
-#'*SSB in 2025 equal to SSBlim p(SSB2025<Blim)=50%*
-start_p2025_50 <- 9.24375
-end_p2025_50 <- 9.24375
-p2025_50<-9.24375
-  
-vector4 <- seq(from = start_value4, to = end_value4, length.out = 5)
-
-#'*SSB in 2024 equal to SSBlim p(SSB2024<Blim)=50%*
-start_p2024_50 <- 9.6
-end_p2024_50 <- 9.68
-p2024_50<-9.68
-
-vector4.1 <- seq(from = start_value4.1, to = end_value4.1, length.out = 5)
-
-#'*Multipliers that adjust the value of F to achieve*
-#'* p(SSB2025<Blim)=5%*
-start_p2025_5 <- 6.7500
-end_p2025_5 <- 6.7500
-p2025_5<-6.7500
-
-vector5 <- seq(from = start_value5, to = end_value5, length.out = 5)
-
-#'* p(SSB2024<Blim)=5%*
-start_p2024_5 <- 1.750
-end_p2024_5 <- 1.750
-p2024_5<-1.750
-
-vector5.1 <- seq(from = start_value5.1, to = end_value5.1, length.out = 5)
+vectorpBH_other<-c(1*BHother_p2024_5,
+                 1*BHother_p2024_50,
+                 1*BHother_p2025_5,
+                 1*BHother_p2025_50) 
 
 
+#'----------------
+#'*GeomRecl_Blim_Bloss*
+#'----------------
+#load(paste0("output/brp/",esc,"/brp.Rdata")) 
+# Blim_new<-PBRs$Blim[2]
+#vector0 <- c(1*2.4025,1*3.74375,1*0,1*3.8) 
+GRBloss_p2024_5<-0
+GRBloss_p2024_50<-3.8
+GRBloss_p2025_5<-2.4025
+GRBloss_p2025_50<-3.74375
+
+vectorpGR_Bloss<-c(1*GRBloss_p2024_5,
+                   1*GRBloss_p2024_50,
+                   1*GRBloss_p2025_5,
+                   1*GRBloss_p2025_50) 
+
+#'----------------
+#'*GeomRecl_Blim_spf*
+#'----------------
+ # load(paste0("output/brp/",esc,"/brp.Rdata")) 
+ # Blim_new<-PBRs$Blim[3]
+# #solo encuentro el valor para p(SSB2024<Blim)=5%
+#vector0 <- c(1*9.36,1*12.30000,1*4.75,1*12.7500) 
+
+GRspf_p2024_5<-4.75
+GRspf_p2024_50<-12.7500
+GRspf_p2025_5<-9.36
+GRspf_p2025_50<-12.30000
+
+vectorpGR_spf<-c(1*GRspf_p2024_5,
+                 1*GRspf_p2024_50,
+                 1*GRspf_p2025_5,
+                 1*GRspf_p2025_50) 
+
+#'-----------------------
+#'*GeomRecl_Blim_other*
+#'-----------------------
+ load(paste0("output/brp/",esc,"/brp.Rdata")) 
+ Blim_new<-PBRs$Blim[4]
+
+GRother_p2024_5_start<-1.65
+GRother_p2024_5_end<-1.7
+GRother_p2024_5<-1.7000
+#GRother_p2024_5<-seq(from =GRother_p2024_5_start, to = GRother_p2024_5_end, length.out = 5)
+
+GRother_p2024_50_start<-9.7500
+GRother_p2024_50_end<-10
+GRother_p2024_50<-9.8125 
+#GRother_p2024_50<-seq(from =GRother_p2024_50_start, to = GRother_p2024_50_end, length.out = 5)
+
+GRother_p2025_5_start<-6
+GRother_p2025_5_end<-7
+GRother_p2025_5<-6.7500
+#GRother_p2025_5<-seq(from =GRother_p2025_5_start, to = GRother_p2025_5_end, length.out = 5)
+
+GRother_p2025_50_start<-9.2
+GRother_p2025_50_end<-9.25
+GRother_p2025_50<-9.2500
+#GRother_p2025_50<-seq(from =GRother_p2025_50_start, to = GRother_p2025_50_end, length.out = 5)
+
+vectorpGR_other<-c(1*GRother_p2024_5,
+                 1*GRother_p2024_50,
+                 1*GRother_p2025_5,
+                 1*GRother_p2025_50) 
 
 # descarto folder que no sirven
 borrar=TRUE
@@ -228,15 +270,16 @@ if(borrar==TRUE){
 }
 ###  Using apical F multipliers are exact for Fsq multipliers 
 vectorbase<-c(0,1, 1*1.2, 1*1.6, 1*2)
-vectorpSSB<-c(1*p2024_5,1*p2024_50,1*p2025_5,1*p2025_50) 
 
-FMult <- c(vectorbase, vectorpSSB) 
+FMult <- c(vectorbase,vectorpGR_other) 
+
+#FMult <- c(vectorpGR_other) 
 
 FMult_names <- paste0("FMult",FMult)
 l_FMult <- length(FMult)
 
 #'*============================================================================*
-##### ----- SET GEOMEAN Recruitment (use or not depends on uncertainty)
+##### ----- SET GEOMEAN Recruitment (use or not depends on uncertainty) ----
 #'*============================================================================*
 # Get assessment outputs for geomean recruitment
 year_inter <- endyear+1
@@ -251,7 +294,7 @@ gmrec <- exp(mean(log(hist.rec)))
 aux=fore_dat_int # F last year
 
 #'*============================================================================*
-### CREATE forecast.ss 
+### CREATE forecast.ss ----
 #'*============================================================================*
  for (i in 1:l_FMult){
   aux_fore=fore_dat_int

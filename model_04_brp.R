@@ -202,6 +202,7 @@ write.csv(PBRs, paste0(path_brp_output,"/Scenarios.csv"), row.names = FALSE)
 #'*##########################################################################*
 B0<-round(SSBunfished,0)
 ratioBloss_B0<-round(ratioBloss_B0,2)
+sigma<-round(sigma,2)
 save(ratioBloss_B0, B0,PBRs,min_value,min_sd,min_year,
      last_year,last_value,last_sd,
      sigma,Blim,Bpa, 

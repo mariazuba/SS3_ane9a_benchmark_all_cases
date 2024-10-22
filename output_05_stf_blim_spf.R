@@ -38,10 +38,12 @@ load(paste0(run_out,"/output.RData"))
 load(paste0(run_data,"/inputData.RData")) 
 load(paste0(path_brp,"/brp.Rdata")) 
 
-#esc_R<-"GeomRecl_Blim_Bloss" # use geomean / virgin rec
-esc_R<- "GeomRecl_Blim_other" #"SR_Blim_other"
-#esc_R<-"SR_Blim_Bloss" # use SR BH
-
+#esc_R<- "SR_Blim_Bloss" 
+#esc_R<-"SR_Blim_spf" 
+#esc_R<-"SR_Blim_other"
+#esc_R<-"GeomRecl_Blim_Bloss" 
+#esc_R<-"GeomRecl_Blim_spf" 
+esc_R<-"GeomRecl_Blim_other"
 
 path_stf<-paste0(run_stf,esc_R,esc)
 output_stf<-paste0(output_stf,"/",esc_R,"/",esc)
@@ -171,10 +173,12 @@ final_combined_data$variable <- sub(".*\\.(replist[0-9]+)", "\\1", final_combine
 all.scen <- FMult
 #legend_labels <- paste0("FMult_", all.scen)
 
-legend_labels <- c(paste0("Fsq","*",round(all.scen[1:5],1)),
-                   c(paste0("Fsq","*",round(all.scen[6:9],1),
-                            c("\np(SSB2024<Blim)=5%","\np(SSB2024<Blim)=50%",
-                              "\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%"))))
+legend_labels <- c("F=0","Fsq=F2024",
+                   paste0("F=Fsq"," x ",round(all.scen[3:5],1)),
+                   "p(SSB_2024<Blim)=5%",
+                   "p(SSB_2024<Blim)=50%",
+                   "p(SSB_2025<Blim)=5%",
+                   "p(SSB_2025<Blim)=50%")
 
 # Crear el gráfico con todas las variables y facet_wrap para separarlas
 fig1<-ggplot2::ggplot(subset(final_combined_data, Yr < 2026), aes(x = Yr, y = value, color = variable)) +
@@ -204,26 +208,31 @@ fig1
 ggsave(file.path(paste0(output_stf,"/fig_forecast.png")), fig1,  width=7, height=4)
 
 #Table ----
+dfSTFSummary
 dfSTFSummary$FMult<-dfSTFSummary$Val
-dfSTFSummary<-dfSTFSummary %>% mutate(case=c(paste0("Fsq * ",round(dfSTFSummary$FMult[1:5],1)),
-                                            c(paste0("Fsq * ",round(dfSTFSummary$FMult[6:9],1),
-                                                     c("\np(SSB2024<Blim)=5%","\np(SSB2024<Blim)=50%",
-                                                       "\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+dfSTFSummary<-dfSTFSummary %>% mutate(case=c("F=0","Fsq=F2024",
+                                             paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[3:5],1)),
+                                             "p(SSB_2024<Blim)=5%",
+                                             "p(SSB_2024<Blim)=50%",
+                                             "p(SSB_2025<Blim)=5%",
+                                             "p(SSB_2025<Blim)=50%"))
 
-table <- dfSTFSummary[, c("case", "Catch_2024","SSB_2024", "SSB_2025", "pBlim_2024", "pBlim_2025")]
+table <- dfSTFSummary[, c("case","F_2024", "Catch_2024","SSB_2024", "SSB_2025", "pBlim_2024", "pBlim_2025")]
 
 # Redondear las columnas numéricas (excepto 'esc')
 table[, -1] <- round(table[, -1], 3)
-names(table)<-c("esc", "Catch2024","SSB2024", "SSB2025", "p(SSB2024<Blim)", "p(SSB2025<Blim)")
+names(table)<-c("esc", "F_2024","Catch2024","SSB2024", "SSB2025", "p(SSB2024<Blim)", "p(SSB2025<Blim)")
 write.csv(table, paste0(output_stf,"/tb_STF.csv"), row.names = FALSE)
 ##################################################################################33
 # Table 2
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
-dfSTFSummary2<-dfSTFSummary %>% mutate(FMult=c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[1:5],1)),
-                                              c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(dfSTFSummary$FMult[6:9],1),
-                                                       c("\np(SSB2024<Blim)=5%","\np(SSB2024<Blim)=50%",
-                                                         "\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%")))))
+dfSTFSummary2<-dfSTFSummary %>% mutate(FMult=c("F=0","Fsq=F2024",
+                                               paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[3:5],1)),
+                                               "p(SSB_2024<Blim)=5%",
+                                               "p(SSB_2024<Blim)=50%",
+                                               "p(SSB_2025<Blim)=5%",
+                                               "p(SSB_2025<Blim)=50%"))
 #dfSTFSummary<-dfSTFSummary[-7,]
 # Crear la tabla sin intentar redondear la columna 'esc'
 table2 <- dfSTFSummary2[, c("FMult", "F_2024", "Rec_2024")]
