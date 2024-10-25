@@ -1,0 +1,6 @@
+"Technical_basis_Blim","sigmaB","Blim","Fraction_B0"
+"0.2*B0","",3373,0.2
+"Bloss","",6552,0.39
+"Bpa*exp(-1.654*sigmaB)","0.3",4000,0.24
+"Bpa*exp(-1.654*sigmaB)","0.2",4715,0.28
+"Bpa*exp(-1.654*sigmaB)","0.1",5542,0.33
