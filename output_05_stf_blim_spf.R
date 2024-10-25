@@ -40,10 +40,10 @@ load(paste0(path_brp,"/brp.Rdata"))
 
 #esc_R<- "SR_Blim_Bloss" 
 #esc_R<-"SR_Blim_spf" 
-#esc_R<-"SR_Blim_other"
+esc_R<-"SR_Blim_other"
 #esc_R<-"GeomRecl_Blim_Bloss" 
 #esc_R<-"GeomRecl_Blim_spf" 
-esc_R<-"GeomRecl_Blim_other"
+#esc_R<-"GeomRecl_Blim_other"
 
 path_stf<-paste0(run_stf,esc_R,esc)
 output_stf<-paste0(output_stf,"/",esc_R,"/",esc)
@@ -173,8 +173,7 @@ final_combined_data$variable <- sub(".*\\.(replist[0-9]+)", "\\1", final_combine
 all.scen <- FMult
 #legend_labels <- paste0("FMult_", all.scen)
 
-legend_labels <- c("F=0","Fsq=F2024",
-                   paste0("F=Fsq"," x ",round(all.scen[3:5],1)),
+legend_labels <- c(paste0("F=Fsq"," x ",round(all.scen[1:5],1)),
                    "p(SSB_2024<Blim)=5%",
                    "p(SSB_2024<Blim)=50%",
                    "p(SSB_2025<Blim)=5%",
@@ -205,13 +204,12 @@ fig1<-ggplot2::ggplot(subset(final_combined_data, Yr < 2026), aes(x = Yr, y = va
                      labels = legend_labels) +
   facet_wrap(~variable_group, scales = "free_y")  # Facetear por grupo de variables (SSB, Fvalue, Recruits, Catch)
 fig1
-ggsave(file.path(paste0(output_stf,"/fig_forecast.png")), fig1,  width=7, height=4)
+ggsave(file.path(paste0(output_stf,"/fig_forecast.png")), fig1,  width=7, height=3.5)
 
 #Table ----
 dfSTFSummary
 dfSTFSummary$FMult<-dfSTFSummary$Val
-dfSTFSummary<-dfSTFSummary %>% mutate(case=c("F=0","Fsq=F2024",
-                                             paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[3:5],1)),
+dfSTFSummary<-dfSTFSummary %>% mutate(case=c(paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[1:5],1)),
                                              "p(SSB_2024<Blim)=5%",
                                              "p(SSB_2024<Blim)=50%",
                                              "p(SSB_2025<Blim)=5%",
@@ -227,8 +225,7 @@ write.csv(table, paste0(output_stf,"/tb_STF.csv"), row.names = FALSE)
 # Table 2
 dfSTFSummary$Rec_2024<-dfSTFSummary$Rec_2024
 dfSTFSummary$Rec_2025<-dfSTFSummary$Rec_2025
-dfSTFSummary2<-dfSTFSummary %>% mutate(FMult=c("F=0","Fsq=F2024",
-                                               paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[3:5],1)),
+dfSTFSummary2<-dfSTFSummary %>% mutate(FMult=c(paste0("F=Fsq"," x ",round(dfSTFSummary$FMult[1:5],1)),
                                                "p(SSB_2024<Blim)=5%",
                                                "p(SSB_2024<Blim)=50%",
                                                "p(SSB_2025<Blim)=5%",
@@ -240,3 +237,147 @@ table2 <- dfSTFSummary2[, c("FMult", "F_2024", "Rec_2024")]
 # Redondear las columnas numéricas (excepto 'esc')
 table2[, -1] <- round(table2[, -1], 3)
 write.csv(table2, paste0(output_stf,"/tb_STF_FMult.csv"), row.names = FALSE)
+
+
+# 
+# esc<-"S1.0_InitCond_sigmaR"
+# load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
+# # Filtrar las filas donde Era es igual a "TIME"
+# time_data <- subset(forecastModels$replist1$catage, Era == c("TIME","FORE"))
+# 
+# # Extraer las columnas 0, 1, 2, y 3 del data frame
+# catage_time <- time_data[, c("Yr", "Seas", "0", "1", "2", "3")]
+# # Agrupar los datos por año (Yr) y sumar las columnas 0, 1, 2, y 3 para cada año
+# catage_time_yearly <- aggregate(cbind(`0`, `1`, `2`, `3`) ~ Yr, data = catage_time, sum)
+# 
+# # Calcular la suma de las columnas 0 a 3 para cada fila (por año)
+# catage_time_yearly$sum_0_to_3 <- rowSums(catage_time_yearly[, c("0", "1", "2", "3")])
+# 
+# # Calcular la proporción de cada edad respecto a la suma de las columnas 0-3
+# catage_time_yearly$proportion_0 <- catage_time_yearly$`0` / catage_time_yearly$sum_0_to_3
+# catage_time_yearly$proportion_1 <- catage_time_yearly$`1` / catage_time_yearly$sum_0_to_3
+# catage_time_yearly$proportion_2 <- catage_time_yearly$`2` / catage_time_yearly$sum_0_to_3
+# catage_time_yearly$proportion_3 <- catage_time_yearly$`3` / catage_time_yearly$sum_0_to_3
+# 
+# 
+# result2 <- melt(catage_time_yearly[, c("Yr", "proportion_0", "proportion_1", "proportion_2", "proportion_3")], 
+#                 id.vars = c("Yr"), 
+#                 variable.name = "Age", 
+#                 value.name = "Catch")
+# 
+# ggplot(result2, aes(x = Yr, y = Catch, color = factor(Age))) +
+#   geom_line() +
+#   geom_point() +
+#   labs(title = "",
+#        x = "Year",
+#        y = "Proportion of catch in number",
+#        color = "Season") +
+#   theme_minimal() +
+#   theme(legend.position = "right") +
+#   scale_color_discrete(name = "Ages") +
+#   theme(panel.grid.minor = element_blank())
+
+# 
+# 
+# esc <- "S1.0_InitCond_sigmaR_SelP_qpriorP"
+# load(paste0("model/stf/SR/",esc,"/STFSummary.Rdata"))
+# Years <- seq(1989, 2025, 1)
+# folder_fmult<-list.files(paste0("model/stf/SR/", esc))
+# FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
+# 
+# summary <- list()
+# 
+# for(i in 1:7) {
+#   Fmult<-FMult_names[i]
+#   # Leer el archivo
+#   a <- read.table(paste0("model/stf/SR/", esc, "/", FMult_names[i], "/ss_summary.sso"), 
+#                   header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
+#   
+#   # Crear el dataframe con las columnas que necesitas
+#   bt1 <- data.frame(Yr = Years, Btot = a[362:398, 2])
+#   
+#   # Agregar el dataframe a la lista summary
+#   summary[[Fmult]] <- bt1
+#   
+# }
+# 
+# combined_summary <- bind_rows(summary, .id = "FMult")
+# 
+# legend_labels <- c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[1:5],1)),
+#                    c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[6:7],1),
+#                             c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%"))))
+# 
+# 
+# ggplot2::ggplot(combined_summary, aes(x = Yr, y = as.numeric(Btot), color = FMult)) +
+#   geom_point()+
+#   geom_line() + 
+#   # Agregar línea negra desde 1989 hasta 2023 para el primer escenario de SSB
+#   geom_line(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+#             aes(x = Yr, y = as.numeric(Btot)), color = "black", ) + 
+#   geom_point(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+#              aes(x = Yr, y = as.numeric(Btot)), color = "black") +
+#   labs(title = "Total biomass", x = "Año", y = "")+ 
+#   theme_bw() +
+#   theme(plot.title = element_text(hjust = 0.5),legend.position = "right")+
+#   theme(plot.title = element_text(size =8),
+#         axis.title = element_text(size = 8),
+#         axis.text = element_text(size = 6),
+#         strip.text = element_text(size = 8),
+#         #axis.text.x = element_text(angle = 45, hjust = 1),
+#         legend.title = element_text(size = 10, face = "bold"), 
+#         legend.text = element_text(size = 8))+
+#   theme(legend.title = element_blank()) +
+#   # Usar una escala manual de colores y aplicar las etiquetas personalizadas de la leyenda
+#   scale_color_manual(values = rainbow(length(unique(combined_summary$FMult))), 
+#                      labels = legend_labels) 
+
+# 
+# load(paste0("model/stf/GeomRecl/",esc,"/STFSummary.Rdata"))
+# Years <- seq(1989, 2025, 1)
+# folder_fmult<-list.files(paste0("model/stf/GeomRecl/", esc))
+# FMult_names<-folder_fmult[grep("^FMult",folder_fmult)]
+# summary <- list()
+# 
+# for(i in 1:7) {
+#   Fmult<-FMult_names[i]
+#   # Leer el archivo
+#   a <- read.table(paste0("model/stf/GeomRecl/", esc, "/", FMult_names[i], "/ss_summary.sso"), 
+#                   header = FALSE, sep = "", na.strings = "NA", fill = TRUE)
+#   
+#   # Crear el dataframe con las columnas que necesitas
+#   bt1 <- data.frame(Yr = Years, Btot = a[362:398, 2])
+#   
+#   # Agregar el dataframe a la lista summary
+#   summary[[Fmult]] <- bt1
+#   
+# }
+# 
+# combined_summary <- bind_rows(summary, .id = "FMult")
+# 
+# legend_labels <- c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[1:5],1)),
+#                    c(paste0("Fsq",round(dfSTFSummary$F_2024[2],1),"*",round(all.scen[6:7],1),
+#                             c("\np(SSB2025<Blim)=5%","\np(SSB2025<Blim)=50%"))))
+# 
+# 
+# ggplot2::ggplot(combined_summary, aes(x = Yr, y = as.numeric(Btot), color = FMult)) +
+#   geom_point()+
+#   geom_line() + 
+#   # Agregar línea negra desde 1989 hasta 2023 para el primer escenario de SSB
+#   geom_line(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+#             aes(x = Yr, y = as.numeric(Btot)), color = "black", ) + 
+#   geom_point(data = subset(combined_summary, Yr <= 2023 & FMult == "FMult0"), 
+#              aes(x = Yr, y = as.numeric(Btot)), color = "black") +
+#   labs(title = "Total biomass", x = "Año", y = "")+ 
+#   theme_bw() +
+#   theme(plot.title = element_text(hjust = 0.5),legend.position = "right")+
+#   theme(plot.title = element_text(size =8),
+#         axis.title = element_text(size = 8),
+#         axis.text = element_text(size = 6),
+#         strip.text = element_text(size = 8),
+#         #axis.text.x = element_text(angle = 45, hjust = 1),
+#         legend.title = element_text(size = 10, face = "bold"), 
+#         legend.text = element_text(size = 8))+
+#   theme(legend.title = element_blank()) +
+#   # Usar una escala manual de colores y aplicar las etiquetas personalizadas de la leyenda
+#   scale_color_manual(values = rainbow(length(unique(combined_summary$FMult))), 
+#                      labels = legend_labels) 

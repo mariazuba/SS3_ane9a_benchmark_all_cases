@@ -48,6 +48,7 @@ mkdir(path_brp_output)
 
 load(paste0(run_data,"/inputData.RData")) 
 
+
 file.copy(file.path(run_model, "starter.ss"), file.path(path_brp_model, "starter.ss"))
 file.copy(paste(run_model, "control.SS", sep="/"), paste(path_brp_model, "control.SS", sep="/"))
 file.copy(paste(run_model, "data.SS", sep="/"), paste(path_brp_model, "data.SS", sep="/"))	
@@ -182,7 +183,18 @@ PBRs<-data.frame(Basis=c("Without SigmaSSB","Without SigmaSSB","Default SigmaSSB
 
 write.csv(PBRs, paste0(path_brp_output,"/Scenarios.csv"), row.names = FALSE)
 
-#'*##########################################################################*
+
+escPbrs<-data.frame(Technical_basis_Blim=c("0.2*B0",
+                                      "Bloss",
+                                      "Bpa*exp(-1.654*sigmaB)",
+                                      "Bpa*exp(-1.654*sigmaB)",
+                                      "Bpa*exp(-1.654*sigmaB)"),
+                    sigmaB=c("","",0.3,0.2,0.1),
+                    Blim=round(c(Blim_B0,Blim,Bpa_spf,Bpa_other,Bpa),0),
+                    Fraction_B0=round(c(ratio0.2B0,ratioBloss_B0,ratioBpa_B0_spf,ratioBpa_B0_other,ratioBpa_B0),2))
+escPbrs
+write.csv(escPbrs, paste0(path_brp_output,"/Scenarios2.csv"), row.names = FALSE)
+#'*#######################################################################*
 #' Hacer ciclo for
 # fore$Btarget <-ratioBloss_B0
 # 
@@ -237,7 +249,11 @@ hline_data <- data.frame(
 hline_data2 <- data.frame(
   yintercept = c(Blim_B0, Blim, Bpa_spf, Bpa_other, Bpa),
   type = rep("SSB", 5),
-  Line = c("Blim=0.2*B0", "Blim=Bloss", "Bloss=Bpa_spf", "Bloss=Bpa_other", "Bloss=Bpa")
+  Line = c("0.2*B0", 
+           "Bloss", 
+           "Bpa*exp(-1.654*sigma0.3)", 
+           "Bpa*exp(-1.654*sigma0.2)", 
+           "Bpa*exp(-1.654*sigma0.1)")
 )
 
 figbpr2 <- ggplot(data, aes(x = year, y = Value)) +
@@ -254,24 +270,26 @@ figbpr2 <- ggplot(data, aes(x = year, y = Value)) +
   geom_hline(data = hline_data2, aes(yintercept = yintercept, color = Line, linetype = Line), size = 1) +
   
   # Combined scale_color_manual and scale_linetype_manual for all lines
-  scale_color_manual(name = "Biological Reference points", 
-                     values = c("Blim=0.2*B0" = "red", 
-                                "Blim=Bloss" = "blue",
-                                "Bloss=Bpa_spf" = "green", 
-                                "Bloss=Bpa_other" = "orange", 
-                                "Bloss=Bpa" = "purple")) +
-  scale_linetype_manual(name = "Biological Reference points", 
-                        values = c("Blim=0.2*B0" = "dashed", 
-                                   "Blim=Bloss" = "dashed", 
-                                   "Bloss=Bpa_spf" = "solid", 
-                                   "Bloss=Bpa_other" = "solid", 
-                                   "Bloss=Bpa" = "solid")) +
+  scale_color_manual(name = "", 
+                     values = c("0.2*B0" = "red", 
+                                "Bloss" = "blue",
+                                "Bpa*exp(-1.654*sigma0.3)" = "green", 
+                                "Bpa*exp(-1.654*sigma0.2)" = "orange", 
+                                "Bpa*exp(-1.654*sigma0.1)" = "purple")) +
+  scale_linetype_manual(name = "", 
+                        values = c("0.2*B0" = "dashed", 
+                                   "Bloss" = "dashed", 
+                                   "Bpa*exp(-1.654*sigma0.3)" = "solid", 
+                                   "Bpa*exp(-1.654*sigma0.2)" = "solid", 
+                                   "Bpa*exp(-1.654*sigma0.1)" = "solid")) +
   
   # Adjusting the legend and theme
   theme(legend.position = "right", 
-        legend.title = element_text(hjust = 0.5)) +
+        legend.title = element_text(hjust = 0.5),
+        legend.text = element_text(size = 8)) +
   theme(plot.margin = unit(c(0, 0.1, 0, 0), "cm"))
-ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")), figbpr2,  width=6, height=4)
+figbpr2
+ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")), figbpr2,  width=7, height=3)
 
 # Plot report
 hline_data <- data.frame(
@@ -303,8 +321,23 @@ figbpr <- ggplot(data, aes(x = year, y = Value)) +
   theme(legend.position = "top", 
         legend.title = element_text(hjust = 0.5)) +
   theme(plot.margin = unit(c(0, 0.1, 0, 0), "cm"))
+figbpr
 ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr2.png")), figbpr,  width=6, height=4)
 
 
 
+sigmaB <- read.csv(paste0(path_rep,"/timeseries.csv"))
+meansigmaB<-mean(sigmaB$CV_SSB)
+
+cvssb<-ggplot(sigmaB,aes(x=year,y=CV_SSB))+geom_point()+
+  labs(x = "years", y = "CV SSB", title = "") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "top")+
+  geom_hline(aes(yintercept = meansigmaB, color = "main(cv)=0.18", linetype = "main(cv)=0.18"), size = 1)+
+  scale_color_manual(name = "", 
+                     values = c("main(cv)=0.18" = "red")) +
+  scale_linetype_manual(name = "", 
+                        values = c("main(cv)=0.18" = "solid")) 
+
+ggsave(file.path(paste0("output/brp/",esc,"/fig_cvssb.png")), cvssb,  width=6, height=4)
 
