@@ -1,5 +1,5 @@
 ---
-title: "Assessment for WKBANSP 2024 using age-structured data in SS3: Anchovy in ICES Subdivision 9a South (ane.27.9a Southern component)"
+title: "Scenario *S1.0_InitCond_sigmaR*: Assessment for WKBANSP 2024 using age-structured data in SS3: Anchovy in ICES Subdivision 9a South (ane.27.9a Southern component)"
 author: |
   María José Zúñiga\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
   Margarita María Rincón\thanks{Centro Oceanográfico de Cádiz (COCAD-IEO), CSIC},
@@ -35,9 +35,8 @@ library(tidyverse)
 
 
 ```{r setup, knitr, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos="H",fig.align = 'center',out.width = "95%" )
-
-
 # To print the inline numbers using normal notation and not scientific notation.
 options(scipen=999)
 
@@ -132,7 +131,7 @@ The model is defined quarterly between 1989 and 2023, for one area and it is age
 
 # Data
 
-Input data include total catch (in biomass) and age composition of the catch (in proportion) for the commercial fleet (*SEINE*); abundance (in biomass) and age composition  from three annual surveys: *PELAGO*, *ECOCADIZ* and *ECOCADIZ-RECLUTAS*; and spawning-stock biomass (SSB) estimates from a triennial DEPM *BOCADEVA* survey. To account for catches seasonality, the *SEINE* fleet have been divided into four fleets, one per quarter.
+The input data includes total catch (in biomass) and age composition of the catch (in proportion) for the commercial *SEINE* fleet, as well as abundance (in biomass) and age composition from the *PELAGO* and *ECOCADIZ* surveys. Age composition data from *PELAGO* was included only for the period 2014–2023, when age-length keys were available, as specified by WKPELA 2018. The biomass index from the *ECOCADIZ-RECLUTAS* survey, based on the biomass of age-0 individuals, provides a direct measure of recruitment. Spawning stock biomass (SSB) estimates are derived from the triennial *BOCADEVA* survey using DEPM. To account for seasonal variability in catches, the *SEINE* fleet has been subdivided into four quarterly fleets.
 
 The Figure `r run_reference("fig_input_data")` provides a visual representation of the input data used in the model, categorized into three main types: catches, abundance indices, and age compositions. These data are displayed over time (years) and are represented by circles, with the size of each circle reflecting the magnitude of the data.
 
@@ -191,22 +190,19 @@ increment_figure_counter()
 ```
 
 
-
-
-  
-
 Figure `r run_reference("fig_agecomp_by_quartersSurveys")` shows the yearly age proportions from surveys *PELAGO*, *ECOCADIZ*, and *ECOCADIZ-RECLUTAS* that were used as input for the model. It can be observed that in the *PELAGO* survey, conducted in the second quarter (Q2), age 1 represents the highest proportion over time, with a presence of ages 2 and 3, and no records of age 0 individuals. The *ECOCADIZ* survey, primarily conducted in the third quarter (Q3), shows a predominance of age 1, with an increase in the proportion of age 0 from 2010 onwards; in 2004 and 2006, when the survey was conducted in the second quarter (Q2), no age 0 individuals were recorded by convention. The *ECOCADIZ-RECLUTAS* survey, conducted since 2014 in October (fourth quarter, Q4), shows a higher proportion of age 0, followed by age 1, with lower representation of ages 2 and 3.
 
+In the *SS3* model, age-based data from the *PELAGO* survey were included only for the period 2014-2023, when age-length keys from the surveys were available, as per WKPELA 2018. The *ECOCADIZ-RECLUTAS* index relies exclusively on the biomass of age-0 individuals, allowing it to serve as a direct measure of recruitment.
 
 ```{r fig.cap="ane.27.9a Southern stock. Age proportion in acoustic surveys estimates  (\\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS})."}
-include_graphics(file.path(path_mod,"fig_agecomp_by_quartersSurveys.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
+include_graphics(file.path("boot/data/fig_agecomp_by_quartersSurveys.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
 
 
 ## Weigth-at-age
 
-Figure `r run_reference("fig_weight_by_quarters")` presents the age-specific weight-at-age values at the start of each season, estimated from external data sources. The figure illustrates that mean weight differences between age groups remain consistent over time, with some variability observed across quarters. Individuals aged 3 show greater variability in mean weight compared to younger age groups. For further details, refer to the working document by **Zuñiga et al. (2024)**.
+Figure `r run_reference("fig_weight_by_quarters")` presents the age-specific weight-at-age values at the start of each season, estimated from external data sources. The figure illustrates that mean weight differences between age groups remain consistent over time, with some variability observed across quarters. Individuals aged 3 show greater variability in mean weight compared to younger age groups. For further details, refer to the working document by *Zuñiga et al.(2024) WD: Analysis of mean weight by age from data available since 1989 to 2024 using linear mixed-effects models: Anchovy in ICES Subdivision 9a South (ane.27.9a Southern component)*.
 
 ```{r fig.cap="ane.27.9a Southern stock. Weight at age by quarters."}
 include_graphics(file.path(path_mod,"fig_weight_by_quarters.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -220,7 +216,7 @@ increment_figure_counter()
 
 ### Natural mortality
 
-Age-specific natural mortality input values at the beginning of the year were derived from external data sources. For further details, refer to the working document by **Rincón et al. (2024)**.
+Age-specific natural mortality input values at the beginning of the year were derived from external data sources. For further details, refer to the working document by *Rincón et al. 2024 WD: Growth and natural Mortality parameters estimation for anchovy 9a South*.
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_natM.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -229,7 +225,7 @@ include_graphics(file.path(path_mod,"tb_natM.png"), auto_pdf = getOption("knitr.
 
 ### Maturity
 
-Due to some inconsistencies in the maturity ogives not noticed during WKPELA 2018, we assume that all individuals with age 1 or higher ($B_{1^+}$), are mature i.e. these abundance estimates result equivalent to spawning stock biomass ($SSB$) estimates. For further details, refer to the working document by **ICES 2024 and  WD Rincón et al. (2024)**.
+Due to some inconsistencies in the maturity ogives not noticed during WKPELA 2018, we assume that all individuals with age 1 or higher ($B_{1^+}$), are mature i.e. these abundance estimates result equivalent to spawning stock biomass ($SSB$) estimates. 
 
 ```{r}
 include_graphics(file.path(path_mod,"tb_maturity.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -239,7 +235,6 @@ include_graphics(file.path(path_mod,"tb_maturity.png"), auto_pdf = getOption("kn
 ### Growth
 
 It is not modelled explicitly. 
-
 
 ### Recruitment
 
@@ -375,21 +370,21 @@ img4 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_SeineQ4.png"))
 
 
 # Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
-g3 <- rasterGrob(img3, interpolate=TRUE)
-g4 <- rasterGrob(img4, interpolate=TRUE)
+g1 <- grid::rasterGrob(img1, interpolate=TRUE)
+g2 <- grid::rasterGrob(img2, interpolate=TRUE)
+g3 <- grid::rasterGrob(img3, interpolate=TRUE)
+g4 <- grid::rasterGrob(img4, interpolate=TRUE)
 
 # Organizar las imágenes en una cuadrícula
-grid.arrange(g1, g2, g3, g4, ncol=1)
+gridExtra::grid.arrange(g1, g2, g3, g4, ncol=1)
 increment_figure_counter()
 
 ```
 
-While mean age for the *PELAGO*, *ECOCADIZ* and *ECOCADIZ-RECLUTAS* surveys is presented in Figure `r run_reference("fig_meanage_fit_Pelago")`.
+While mean age for the *PELAGO* and  *ECOCADIZ*  surveys is presented in Figure `r run_reference("fig_meanage_fit_Pelago")`.
 
 
-```{r fig.width=5, fig.height=6, dpi=300, fig.cap= "Mean age for \\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS} with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data. The blue line corresponds to the estimated mean age."}
+```{r fig.width=5, fig.height=6, dpi=300, fig.cap= "Mean age for \\textit{PELAGO} and  \\textit{ECOCADIZ} with 95% confidence intervals based on current sample sizes. Francis data weighting method TA1.8: thinner intervals (with capped ends) show the result of further adjusting sample sizes based on the suggested multiplier (with 95% interval) for age data. The blue line corresponds to the estimated mean age."}
 
 # Cargar las imágenes
 img2 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Pelago.png"))
@@ -397,21 +392,21 @@ img3 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_Ecocadiz.png"))
 #img4 <- png::readPNG(file.path(path_mod,"fig_meanage_fit_EcocadizRecl.png"))
 
 # Convertir a grobs (graphic objects) para grid.arrange
-g2 <- rasterGrob(img2, interpolate=TRUE)
-g3 <- rasterGrob(img3, interpolate=TRUE)
+g2 <-  grid::rasterGrob(img2, interpolate=TRUE)
+g3 <-  grid::rasterGrob(img3, interpolate=TRUE)
 #g4 <- rasterGrob(img4, interpolate=TRUE)
 
 # Organizar las imágenes en una cuadrícula
-grid.arrange(g2, g3, ncol=1)
+gridExtra::grid.arrange(g2, g3, ncol=1)
 increment_figure_counter()
 ```
 
 
 
-The Figure `r run_reference("fig_age_fit_agg")` shows the estimated age compositions aggregated over time for the different age data sources: *SEINE*, *ECOCADIZ*, *PELAGO*, and *ECORECLUTAS*. Overall, a high proportion of young individuals (ages 0 and 1) is observed in both the commercial fleet catches and acoustic surveys, with a significant decline in the proportions of older age classes. The green lines represent the model fits, demonstrating an adequate fit, with the aggregated age compositions well reconstructed. 
+The Figure `r run_reference("fig_age_fit_agg")` shows the estimated age compositions aggregated over time for the different age data sources: *SEINE*, *ECOCADIZ* and  *PELAGO*. Overall, a high proportion of young individuals (ages 0 and 1) is observed in both the commercial fleet catches and acoustic surveys, with a significant decline in the proportions of older age classes. The green lines represent the model fits, demonstrating an adequate fit, with the aggregated age compositions well reconstructed. 
 
 
-```{r fig.cap="ane.27.9a Southern stock. Model fit to the aggregated age composition data from the \\textit{SEINE} fishery, and the acoustic surveys \\textit{PELAGO}, \\textit{ECOCADIZ}, and \\textit{ECOCADIZ-RECLUTAS}. The green line represents the model estimates, while the shaded grey area shows the observed data."}
+```{r fig.cap="ane.27.9a Southern stock. Model fit to the aggregated age composition data from the \\textit{SEINE} fishery, and the acoustic surveys \\textit{PELAGO} and \\textit{ECOCADIZ}. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_agg.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
@@ -460,7 +455,7 @@ include_graphics(file.path(path_mod,"fig_age_fit_Ecocadiz.png"), auto_pdf = getO
 increment_figure_counter()
 ```
 
-In *ECOCADIZ-RECLUTAS*, a generally good fit is observed without a clear pattern of overestimation or underestimation (Figure `r run_reference("fig_age_fit_ecorec")`). 
+<!-- In *ECOCADIZ-RECLUTAS*, a generally good fit is observed without a clear pattern of overestimation or underestimation (Figure `r run_reference("fig_age_fit_ecorec")`).  -->
 
 ```{r eval=F,fig.cap="ane.27.9a Southern stock. Model fit to the age composition data from the \\textit{ECOCADIZ-RECLUTAS} fall survey by year. The green line represents the model estimates, while the shaded grey area shows the observed data."}
 include_graphics(file.path(path_mod,"fig_age_fit_EcocadizRecl.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -481,13 +476,13 @@ img3 <- png::readPNG(file.path(path_mod,"fig_age_residuals_SeineQ3.png"))
 img4 <- png::readPNG(file.path(path_mod,"fig_age_residuals_SeineQ4.png"))
 
 # Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
-g3 <- rasterGrob(img3, interpolate=TRUE)
-g4 <- rasterGrob(img4, interpolate=TRUE)
+g1 <- grid::rasterGrob(img1, interpolate=TRUE)
+g2 <- grid::rasterGrob(img2, interpolate=TRUE)
+g3 <- grid::rasterGrob(img3, interpolate=TRUE)
+g4 <- grid::rasterGrob(img4, interpolate=TRUE)
 
 # Organizar las imágenes en una cuadrícula
-grid.arrange(g1,g2, g3, g4, ncol=1)
+gridExtra::grid.arrange(g1,g2, g3, g4, ncol=1)
 
 
 # include_graphics(file.path(path_mod,"fig_comp_agefit_multi-fleet_comparison.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -506,12 +501,12 @@ img2 <- png::readPNG(file.path(path_mod,"fig_age_residuals_Ecocadiz.png"))
 #img3 <- png::readPNG(file.path(path_mod,"fig_age_residuals_EcocadizRecl.png"))
 
 # Convertir a grobs (graphic objects) para grid.arrange
-g1 <- rasterGrob(img1, interpolate=TRUE)
-g2 <- rasterGrob(img2, interpolate=TRUE)
+g1 <- grid::rasterGrob(img1, interpolate=TRUE)
+g2 <- grid::rasterGrob(img2, interpolate=TRUE)
 #g3 <- rasterGrob(img3, interpolate=TRUE)
 
 # Organizar las imágenes en una cuadrícula
-grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1,g2, ncol=1)
 
 
 # include_graphics(file.path(path_mod,"fig_comp_agefit_multi-fleet_comparison.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
@@ -519,21 +514,15 @@ increment_figure_counter()
 ```
 
 
-The Figure `r run_reference("fig_runtest_residuals_age")` shows that the residuals from the fit of the age proportions are randomly distributed, with p-values greater than 0.05 in the case of the commercial fleet (*SEINE*: `r run_age[run_age$Index=="SEINE","runs.p"]`) and the acoustic surveys (*PELAGO*: `r run_age[run_age$Index=="PELAGO","runs.p"]`, *ECOCADIZ-RECLUTAS*: `r run_age[run_age$Index=="ECORECLUTAS","runs.p"]`). 
-The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_age[jaba_age$indices == "Combined", "RMSE.perc"]`%.
+The Figure `r run_reference("fig_runtest_residuals_age")` shows that the residuals from the fit of the age proportions are randomly distributed, with p-values greater than 0.05 in the case of the commercial fleet (*SEINE_Q1*: `r run_age[run_age$Index=="SEINE_Q1","runs.p"]`, *SEINE_Q2*: `r run_age[run_age$Index=="SEINE_Q2","runs.p"]`, *SEINE_Q3*: `r run_age[run_age$Index=="SEINE_Q3","runs.p"]`, *SEINE_Q4*: `r run_age[run_age$Index=="SEINE_Q4","runs.p"]`) and the acoustic surveys  *ECOCADIZ*: `r run_age[run_age$Index=="ECOCADIZ","runs.p"]`, and with p-values less than 0.05 in the case of  *PELAGO*  (`r run_age[run_age$Index=="PELAGO","runs.p"]`). The estimated root mean square error (RMSE) for the joint residual analysis is `r jaba_age[jaba_age$indices == "Combined", "RMSE.perc"]`%.
 
 <!-- Some violations of the three-standard-deviation limit are observed for the commercial fleet (*SEINE*) during the fourth quarter of 1991, 1996, and 2012, as well as in the *PELAGO* survey in the last year of the series (2023). In the case of the *ECOCADIZ* survey, the residuals are not randomly distributed as indicated by a p-value of `r run_age[run_age$Index=="ECOCADIZ","runs.p"]`, with several violations of the three-standard-deviation limit observed, primarily from 2018 to 2023.  -->
 
 
-```{r fig.cap="ane.27.9a Southern stock. a) Runs test results for fits to annual mean age estimates for the surveys (\\textit{PELAGO}, \\textit{ECOCADIZ}, \\textit{ECOCADIZ-RECLUTAS}) and the fishery (\\textit{SEINE}). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.  b) Joint residual plots for annual mean length estimates for surveys and fishery (bottom left panel).  Vertical lines with points show the residuals, and the solid black line show loess smoother through all residuals. Root-mean squared error (RMSE) is included in the upper right-hand corner of the panel."}
+```{r fig.cap="ane.27.9a Southern stock. a) Runs test results for fits to annual mean age estimates for the surveys (\\textit{PELAGO} and  \\textit{ECOCADIZ}), and the fishery (\\textit{SEINE}). Green shaded (green/red) area spans three residual standard deviations to either side from zero, and the red points outside of the shading violate the 'three-sigma limit' for that series.  b) Joint residual plots for annual mean length estimates for surveys and fishery (bottom left panel).  Vertical lines with points show the residuals, and the solid black line show loess smoother through all residuals. Root-mean squared error (RMSE) is included in the upper right-hand corner of the panel."}
 include_graphics(file.path(path_mod,"fig_runtest_residuals_age.png"), auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 increment_figure_counter()
 ```
-
-
-
-
-  
 
 ## Retrospective analysis
 
@@ -547,7 +536,7 @@ increment_figure_counter()
 ```
 
 
-
+\newpage
 
   
 # Results

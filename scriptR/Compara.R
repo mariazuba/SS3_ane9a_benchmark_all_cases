@@ -5,6 +5,14 @@
 library(icesTAF)
 library(flextable)
 library(r4ss)
+library(reshape2)
+library(tidyverse)
+library(lubridate)
+library(ggpubr)
+library(ss3diags)
+library(flextable)
+library(reshape2)
+
 boot<-"boot/initial/data/run/" 
 list1<-list.files(boot)
 list1
@@ -198,7 +206,7 @@ ft <- bold(ft, i = c(2, 8, 22,25,27), j = "Scenario", bold = TRUE)
 # Agregar líneas horizontales en algunas filas del cuerpo
 ft <- hline(ft, i = c(2,3, 7,9,14,18,21,25), border = fp_border(width = 1.5))
 # Agregar un pie de tabla para especificar los escenarios seleccionados en cada etapa
-ft <- add_footer_lines(ft, values = c("The scenarios highlighted in bold represent the options selected on each day of the benchmark."))
+#ft <- add_footer_lines(ft, values = c("The scenarios highlighted in bold represent the options selected on each day of the benchmark."))
 
 # Ajustar el tamaño y alineación de la tabla
 ft <- autofit(ft) %>%
@@ -228,22 +236,34 @@ diag<-list()
 params_est<-list()
 Calc_Q<-list()
 M<-list()
+Runs_test_cpue<-list()
+Runs_test_age<-list()
+
+SSB<-list()
+Ft<-list()
+Recr<-list()
+
 for(i in 1:length(esc)){
   Esc<-esc[i]
   load(paste0("output/run/",Esc,"/output.RData"))
   load(paste0("report/retro/",Esc,"/rho.RData"))
   replist[[Esc]]<-output
   
+  fore_retro_ssb<-rho_retro %>% filter(type == "SSB" & peel == "Combined")
+  fore_retro_f<-rho_retro %>% filter(type == "SSB" & peel == "Combined")
   
   diag[[Esc]]<-data.frame(ESC=Esc,
                           Convergency=output$maximum_gradient_component,
                           AIC=as.numeric(2*dim(output$estimated_non_dev_parameters)[1]+2*output$likelihoods_used[1,1]),
                           Total_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "TOTAL"],
+                          N_Params=as.numeric(2*dim(output$estimated_non_dev_parameters)[1]),
                           Survey_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Survey"],
                           Age_like=output$likelihoods_used$values[rownames(output$likelihoods_used) == "Age_comp"],
                           RMSE_index=jaba_cpue$RMSE.perc[jaba_cpue$indices == "Combined"],
                           RMSE_age=jaba_age$RMSE.perc[jaba_age$indices == "Combined"],
-                          Rho_ssb=rho_ssb,
+                          Retro_Rho_ssb=rho_ssb,
+                          Forecast_Rho_ssb=fore_retro_ssb$ForcastRho,
+                          Forecast_Rho_f=fore_retro_f$ForcastRho,
                           Rho_f=rho_f)
   
   params <- output$estimated_non_dev_parameters %>%
@@ -255,10 +275,84 @@ for(i in 1:length(esc)){
   Calc_Q[[Esc]] <-output$cpue 
   
   M[[Esc]]<-output$Natural_Mortality[4,13:16]
+  
+  Runs_test_cpue[[Esc]]<-run_cpue %>% select(Index,test)
+  Runs_test_age[[Esc]]<-run_age %>% select(Index,test)
+  
+  ssb_filtered <- subset(output$derived_quants, 
+                         grepl("^SSB_\\d{4}$", Label) & 
+                           as.numeric(sub("SSB_", "", Label)) >= 1989 & 
+                           as.numeric(sub("SSB_", "", Label)) <= 2023, 
+                         select = c(Label, Value, StdDev))
+  
+  F_filtered <- subset(output$derived_quants, 
+                         grepl("^F_\\d{4}$", Label) & 
+                           as.numeric(sub("F_", "", Label)) >= 1989 & 
+                           as.numeric(sub("F_", "", Label)) <= 2023, 
+                         select = c(Label, Value, StdDev))
+  
+  Recr_filtered <- subset(output$derived_quants, 
+                         grepl("^Recr_\\d{4}$", Label) & 
+                           as.numeric(sub("Recr_", "", Label)) >= 1989 & 
+                           as.numeric(sub("Recr_", "", Label)) <= 2023, 
+                         select = c(Label, Value, StdDev))
+  
+  SSB[[Esc]]<-  ssb_filtered$Value
+  Ft[[Esc]]<-  F_filtered$Value
+  Recr[[Esc]]<-  Recr_filtered$Value
+
 }
+
+
+
+SSB2<-plyr::ldply(SSB,data.frame) %>% mutate(year=rep(seq(1989,2023,1),30),Variable="SSB")
+names(SSB2)<-c("esc","value","year","Variable")
+Ft2<-plyr::ldply(Ft,data.frame)%>% mutate(year=rep(seq(1989,2023,1),30),Variable="Ft")
+names(Ft2)<-c("esc","value","year","Variable")
+Recr2<-plyr::ldply(Recr,data.frame)%>% mutate(year=rep(seq(1989,2023,1),30),Variable="Rt")
+names(Recr2)<-c("esc","value","year","Variable")
+
+
+DataVarComb<-rbind(SSB2,Ft2,Recr2)
+
+ggplot(DataVarComb) +
+  geom_line(aes(x = year, y = value, color = esc)) + # Línea principal
+  geom_line(data = DataVarComb %>% filter(esc == "S1.0_InitCond_sigmaR"), # Datos filtrados
+            aes(x = year, y = value), 
+            color = "black", 
+            linewidth = 1.5) + # Línea negra destacada con linewidth
+  facet_wrap(.~Variable, 
+             scales = "free", 
+             ncol = 3, 
+             strip.position = "top",
+             labeller = labeller(Variable = c("SSB2" = "SSB", 
+                                              "Recr2" = "Recruits",
+                                              "Ft2" = "F apical"))) +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",       # Mueve la leyenda hacia abajo
+    legend.direction = "horizontal", # Organiza la leyenda en una fila
+    legend.title = element_text(size = 8), # Ajusta el tamaño del título de la leyenda
+    legend.text = element_text(size = 8)    # Ajusta el tamaño del texto de la leyenda
+  )
+
+Runs_test_age2<-plyr::ldply(Runs_test_age,data.frame)
+Runs_test_cpue2<-plyr::ldply(Runs_test_cpue,data.frame)
+
+pivoted_runs_age <- pivot_wider(Runs_test_age2, names_from = .id, values_from = test)%>% as.data.frame()
+pivoted_runs_cpue <- pivot_wider(Runs_test_cpue2, names_from = .id, values_from = test) %>% as.data.frame()
+
 
 diagsSS<-plyr::ldply(diag,data.frame)
 diagsSS<-diagsSS %>% select(-ESC)
+pivoted_diagSS <- melt(diagsSS, id.vars = ".id") %>%  
+                  pivot_wider( names_from = .id, values_from = value) %>% as.data.frame()
+names(pivoted_diagSS)[1]<-"Index"
+
+DiagSS3_full<-rbind(pivoted_diagSS,pivoted_runs_cpue,pivoted_runs_age)
+
+write.csv(DiagSS3_full, "report/run/comparison/DiagSS3_full.csv", row.names = FALSE)
+
 colnames(diagsSS)[1] <- "Scenario"
 
 parmSS<-plyr::ldply(params_est,data.frame)

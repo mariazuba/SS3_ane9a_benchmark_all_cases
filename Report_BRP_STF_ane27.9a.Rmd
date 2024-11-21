@@ -73,11 +73,13 @@ include_graphics(file.path("report/run/",esc,"/fig_stock-recluta_0.png"))
 
 ```
 
-The estimation of $B_{lim}$ was carried out assuming $B_{lim} = B_{loss}$. For the 9a South anchovy, $B_{loss}$ was calculated based on the estimated SSB in 2010, with a value of 6552.06 t, representing 0.39% of the unfished biomass ($B_0 = 16865$ t). This value falls below the range suggested by WKREF1 and WKREF2 (ICES, 2022), which recommend setting $B_{lim}$ between 10% and 25% of $B_0$, depending on the species' life-history characteristics.
+The estimation of $B_{lim}$ was carried out assuming $B_{lim} = B_{loss}$. For the 9a South anchovy, $B_{loss}$ was calculated based on the estimated SSB in 2010, with a value of 6552.06 t, representing 39% of the unfished biomass ($B_0 = 16865$ t). This value falls below the range suggested by WKREF1 and WKREF2 (ICES, 2022), which recommend setting $B_{lim}$ between 10% and 25% of $B_0$, depending on the species' life-history characteristics. 
 
 Three alternative methods were evaluated to calculate $B_{lim}$: a) $B_{lim} = 0.2 \times B_0$, b) $B_{lim} = B_{loss}$, and c) $B_{lim} = B_{pa} \times e^{-1.645 \times \sigma_B}$, where $B_{pa} = B_{loss}$ and $\sigma_B$ is the standard deviation of $ln(SSB)$ in the terminal year of the assessment, accounting for uncertainty in the SSB. If $\sigma_B$ is unknown, ICES guidelines recommend using a default value of $\sigma = 0.20$, or $\sigma = 0.30$ for small pelagic species.
 
-The results of these alternatives are presented in Table  \ref{tb:stf0} and Figure  \ref{fig:biological_reference}. Using $\sigma = 0.2$ provides an intermediate solution between the assessment's estimated value and the recommended value for small pelagic species, ensuring that $B_{lim}$ is calculated in accordance with the stock's biological characteristics and ICES guidelines. Therefore, the recommended value is $B_{lim} = B_{pa} \times e^{-1.645 \times \sigma_B} = 4715$ tonnes, with $B_{pa} = B_{loss}$ and $\sigma_B = 0.2$, as applied in other fisheries.
+The results of these alternatives are presented in Table  \ref{tb:stf0} and Figure  \ref{fig:biological_reference}. Using $\sigma = 0.2$ provides an intermediate solution between the assessment's estimated value and the recommended value for small pelagic species, ensuring that $B_{lim}$ is calculated in accordance with the stock's biological characteristics and ICES guidelines. Therefore, the recommended value is $B_{lim} = B_{pa} \times e^{-1.645 \times \sigma_B} = 4715$ tonnes, with $B_{pa} = B_{loss}$ and $\sigma_B = 0.2$, as applied in other fisheries. 
+
+The adopted approach aligns with guidelines for Type 6 stocks, characterized by a narrow SSB dynamic range and no evidence of impaired recruitment. Notably, using $B_{loss}$ as $B_{pa}$ rather than $B_{lim}$ avoids an excessively high $B_{lim}$, which would represent approximately 0.4 $B_0$—indicating a relatively narrow range of biomass values covered in the assessment. This method offers a more suitable baseline for the stock's management.
 
 
 ```{r}
@@ -101,6 +103,7 @@ include_graphics(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")))
 ```
 
 
+
 \newpage
 
 # Short-term predictions
@@ -112,16 +115,19 @@ mortality levels, under the recruitment projection scenario based the stock-recr
 
 Multipliers of the status quo fishing mortality (Fsq*Mult) of 0, 1, 1.2, 1.6, and 2,0 were evaluated. Additionally, an iterative process was used to identify the multiplier that would achieve a 2024 and 2025 catch with probabilities of 5% and 50% that SSB in 2024 and 2025 would fall below $Blim$ ($p(SSB < Blim)$ = 0.05 and 0.5, respectively).  These multipliers were adjusted according to the projected recruitment scenarios, providing management options based on different levels of fishing mortality.  Tables \ref{tb:stf2} y \ref{tb:stf4} presents the management options derived from the short-term forecasts, evaluated at different fishing mortality levels, corresponding to the catch scenarios described previously.  
 
+**The management options derived from these short-term projections entail shifting the timing of the advice to year-end, with assessments in November and management recommendations for the following calendar year (January to December).**
+
 
 ```{r fig.cap="\\label{fig:stf1} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{Beverton-Holt (BH)} stock-recruitment relationship."}
 include_graphics(file.path(paste0("output/stf/SR_Blim_other/",esc,"/fig_forecast.png")))
 ```
 
-\newpage
+
 ```{r fig.cap="\\label{fig:stf2} ane.27.9a Southern stock. Short-term predictions of catch and SSB evaluated at different fishing mortality levels, under the recruitment projection scenario based on the \\textbf{geometric mean} of the last three years recruitment."}
 include_graphics(file.path(paste0("output/stf/GeomRecl_Blim_other/",esc,"/fig_forecast.png")))
 ```
 
+\newpage
 ```{r }
 tableBH <- read.csv(paste0("output/stf/SR_Blim_other/",esc,"/tb_STF_FMult.csv"))
 colnames(tableBH) <- c("", "Fapical\n2024", "Recruitment\n2024")

@@ -285,11 +285,13 @@ figbpr2 <- ggplot(data, aes(x = year, y = Value)) +
   
   # Adjusting the legend and theme
   theme(legend.position = "right", 
+        axis.text = element_text(size = 6),
+        strip.text = element_text(size = 6),
         legend.title = element_text(hjust = 0.5),
-        legend.text = element_text(size = 8)) +
+        legend.text = element_text(size = 6)) +
   theme(plot.margin = unit(c(0, 0.1, 0, 0), "cm"))
 figbpr2
-ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")), figbpr2,  width=7, height=3)
+ggsave(file.path(paste0("output/brp/",esc,"/fig_bpr1.png")), figbpr2,  width=7, height=2.5)
 
 # Plot report
 hline_data <- data.frame(

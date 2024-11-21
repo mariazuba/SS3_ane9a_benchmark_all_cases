@@ -341,21 +341,23 @@ file.copy(from=paste0(run_out,"/plots/comp_agefit_data_weighting_TA1-8_SEINE.png
   #           overwrite=T)
 
 ## Run test indices ----
-  png(file.path(paste0(path_rep,"/fig_runtest_residuals_indices.png")),width=7,height=7,res=300,units='in')
-  sspar(mfrow = c(2, 2), plot.cex = 0.8)
+  png(file.path(paste0(path_rep,"/fig_runtest_residuals_indices.png")),width=7,height=8,res=300,units='in')
+  sspar(mfrow = c(3, 2), plot.cex = 0.8)
   SSplotRunstest(output,subplots = "cpue", add = TRUE, legendcex = 0.8,verbose = F)
+  SSplotJABBAres(output,subplots = "cpue", add = TRUE, legendcex = 0.8,verbose = F)
   dev.off()
 
   
   SSplotJABBAres(output,subplots = "cpue", add = TRUE, legendcex = 0.8,verbose = F)
   
 ## Run test length ----
-  png(file.path(paste0(path_rep,"/fig_runtest_residuals_age.png")),width=7,height=7,res=300,units='in')
+  png(file.path(paste0(path_rep,"/fig_runtest_residuals_age.png")),width=7,height=8,res=300,units='in')
   sspar(mfrow = c(4, 2), plot.cex = 0.8)
   SSplotRunstest(output,subplots = "age", add = TRUE, legendcex = 0.8,verbose = F)
+  SSplotJABBAres(output,subplots = "age", add = TRUE, legendcex = 0.8,verbose = F)
   dev.off()
 
-  SSplotJABBAres(output,subplots = "age", add = TRUE, legendcex = 0.8,verbose = F)
+
   
   
 ## Selectivity ----
